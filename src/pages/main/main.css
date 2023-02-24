@@ -1,0 +1,7 @@
+#main-btn-wrap {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
