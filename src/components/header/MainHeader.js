@@ -7,6 +7,7 @@ import { bottomModal } from "../../state/Modal";
 import { User } from "../../state/User";
 import SignIn from "../../pages/sign/SignIn";
 import SignUp from "../../pages/sign/SignUp";
+import BtnSignUp from "../button/BtnSignUp";
 
 export default function MainHeader() {
   const user = useRecoilValue(User);
@@ -14,9 +15,7 @@ export default function MainHeader() {
   const onSignInClick = useCallback(() => {
     setBottomModalState({ show: true, title: "로그인", content: <SignIn /> });
   }, []);
-  const onSignUpClick = useCallback(() => {
-    setBottomModalState({ show: true, title: "회원가입", content: <SignUp /> });
-  }, []);
+
   return (
     <header>
       <div>
@@ -29,7 +28,7 @@ export default function MainHeader() {
           <div className="span-v-bar">
             <span onClick={onSignInClick}>로그인</span>
             <span></span>
-            <span onClick={onSignUpClick}>회원가입</span>
+            <BtnSignUp />
           </div>
         )}
       </div>

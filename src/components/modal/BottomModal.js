@@ -3,8 +3,19 @@ import { bottomModal } from "../../state/Modal";
 import "./modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 export default function BottomModal() {
   const [modalState, setModalState] = useRecoilState(bottomModal);
+  const close = () => {
+    setModalState({ show: false, title: "", content: <></> });
+  };
+  useEffect(() => {
+    window.history.pushState({ page: "modal" }, document.title);
+    window.addEventListener("popstate", close);
+    return () => {
+      window.removeEventListener("popstate", close);
+    };
+  }, []);
   return (
     <>
       {modalState.show && (
@@ -16,7 +27,7 @@ export default function BottomModal() {
                 icon={faClose}
                 className="pointer"
                 onClick={() => {
-                  setModalState({ show: false, title: "", content: <></> });
+                  close();
                 }}
               />
             </div>

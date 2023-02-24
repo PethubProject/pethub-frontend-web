@@ -1,5 +1,5 @@
 :root {
-  --headerHeight: 56px;
+  --headerHeight: 48px;
   --bottomNavHeight: 78px;
   --mainColor: #3eebad;
   --mainAciverColor: #1eb981;
@@ -20,7 +20,7 @@ header {
   display: flex;
   align-items: center;
   height: var(--headerHeight);
-  padding: 16px 26px;
+  padding: 8px 26px;
   justify-content: space-between;
 }
 
@@ -55,6 +55,9 @@ header {
 
 [class*="flex-align-center"] {
   align-items: center;
+}
+[class*="error"] {
+  color: red;
 }
 
 .content {
@@ -104,8 +107,10 @@ header {
 .btn-only-border {
   border-radius: 16px;
   border: 1px solid var(--mainColor);
-  padding: 10px 16px;
+  padding: 10px 0;
+  text-align: center;
   cursor: pointer;
+  max-width: 80px;
 }
 
 .btn-only-border span {
@@ -119,7 +124,9 @@ header {
 .bg-main {
   background-color: var(--mainColor);
 }
-
+.bg-gray {
+  background-color: #d7d7d7;
+}
 .bg-gray-opacity {
   background-color: rgba(215, 215, 215, 0.6);
 }

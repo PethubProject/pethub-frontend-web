@@ -12,13 +12,16 @@ export default function Main() {
           </div>
           <div className="flex-row-between">
             <div className="btn-only-border">
-              <span>상담 채팅</span>
+              <span>상담</span>
+              <span> 채팅</span>
             </div>
             <div className="btn-only-border">
-              <span>상담 게시판</span>
+              <span>상담 </span>
+              <span>게시판</span>
             </div>
             <div className="btn-only-border">
-              <span>수의사 정보</span>
+              <span>수의사</span>
+              <span> 정보</span>
             </div>
           </div>
         </div>

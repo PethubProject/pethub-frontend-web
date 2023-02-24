@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
-import "./sign.css";
+import { Link } from "react-router-dom";
 import { ID_REG_EX, PASSWORD_REG_EX } from "../../utils/regEx";
+import "./sign.css";
 export default function SignIn() {
   const id = useRef();
   const password = useRef();
@@ -21,6 +22,7 @@ export default function SignIn() {
     alert("성공");
     return false;
   }, [form]);
+
   return (
     <div>
       <form>
@@ -58,7 +60,7 @@ export default function SignIn() {
       <div id="nav-signin" className="span-v-bar flex-row-center">
         <span>아이디 · 비밀번호 찾기</span>
         <span></span>
-        <span>회원가입</span>
+        <a href="/signup">회원가입</a>
       </div>
       <div
         id="btn-signin"

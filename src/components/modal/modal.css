@@ -9,13 +9,12 @@
 }
 
 #bottom-modal {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
   width: 100%;
   max-width: var(--maxWidth);
-  height: auto;
   background-color: white;
   border-radius: 20px 20px 0 0;
 }
@@ -30,4 +29,5 @@
   width: calc(100% - 64px);
   padding: 0 32px;
   margin: 0 0 20px 0;
+  overflow: auto;
 }

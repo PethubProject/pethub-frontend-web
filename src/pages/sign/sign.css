@@ -10,6 +10,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
 }
 
 .form-item input {
@@ -17,7 +18,10 @@ form {
 }
 
 .form-item small {
-  font-size: 10px;
+  position: absolute;
+  bottom: -16px;
+  right: 0;
+  font-size: 8px;
 }
 
 .form-item .required {
@@ -45,4 +49,19 @@ form {
 
 #nav-signin {
   margin-bottom: 18px;
+}
+
+#sign-up-header {
+  font-size: 28px;
+  width: calc(100% - 64px);
+  padding: 24px 32px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+#sign-up-body {
+  width: calc(100% - 64px);
+  padding: 0 32px;
+  margin: 0 0 48px 0;
 }
