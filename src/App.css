@@ -1,0 +1,54 @@
+html,
+body,
+.App,
+#root,
+#main {
+  width: 100%;
+  height: 100%;
+}
+
+.full-screen {
+  width: 100%;
+  height: 100%;
+}
+video {
+}
+.camera-btn {
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  bottom: 5vh;
+  border-radius: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: white;
+}
+
+.camera-guide-line {
+  width: 156px;
+  height: 156px;
+  position: fixed;
+  border-radius: 50%;
+  border: 2px solid red;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.camera-rotate {
+  color: white;
+  bottom: 5vh;
+  border-radius: 50%;
+  right: 10%;
+  transform: translate(-50%);
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+}
+img {
+  max-width: 100%;
+}
