@@ -1,7 +1,7 @@
 importScripts("https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.7.1/firebase-messaging.js");
 const firebaseConfig = {
-  apiKey: "AIzaSyB6x7lhTmMu7Hu1T8ohS6YNmooU7_Ldsys",
+  apiKey: "",
   authDomain: "fir-test-9fe38.firebaseapp.com",
   projectId: "fir-test-9fe38",
   storageBucket: "fir-test-9fe38.appspot.com",
