@@ -13,6 +13,8 @@ export default function CameraDetail() {
     image.src = location.state.imageSrc;
     image.onload = function () {
       // drawImageScaled(image, ctx);
+      // console.log(image.width, image.height);
+      // console.log(canvas.current.height);
       ctx.drawImage(image, 0, 0, image.width, image.height);
     };
   }, []);

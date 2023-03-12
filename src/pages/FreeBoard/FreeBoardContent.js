@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import BoardHeader from "../../components/Haeder/BoardHeader";
-import BottomTabNavigation from "../../components/Navigation/BottomTabNavigation";
+import BoardHeader from "../../components/Header/HeaderBoard";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { dummyFreeBoardContent, dummyFreeBoardReply } from "../../api/dummy";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import EllipsisVertical from "../../components/Button/EllipsisVertical";

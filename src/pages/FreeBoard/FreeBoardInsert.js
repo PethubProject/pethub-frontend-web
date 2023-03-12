@@ -1,6 +1,6 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import BoardHeader from "../../components/Haeder/BoardHeader";
-import BottomTabNavigation from "../../components/Navigation/BottomTabNavigation";
+import BoardHeader from "../../components/Header/HeaderBoard";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();

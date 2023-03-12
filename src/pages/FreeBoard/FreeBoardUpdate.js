@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import BottomTabNavigation from "../../components/Navigation/BottomTabNavigation";
-import BoardHeader from "../../components/Haeder/BoardHeader";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import BoardHeader from "../../components/Header/HeaderBoard";
 import { dummyFreeBoardContent } from "../../api/dummy";
 
 export default function FreeBoardUpdate() {

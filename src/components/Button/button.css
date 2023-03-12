@@ -1,0 +1,28 @@
+.btn {
+  cursor: pointer;
+}
+.btn-basic {
+  text-align: center;
+  width: 100%;
+  border-radius: 16px;
+  padding: 16px 0;
+}
+
+.btn-required {
+  background-color: #d9d9d9;
+}
+
+.btn-request {
+  background-color: #3eebad;
+}
+
+.btn-confirm {
+  text-align: center;
+  width: 100%;
+  max-width: 56px;
+  border-radius: 16px;
+  padding: 10px 0;
+  background-color: #0952f0;
+  color: white;
+  font-size: 14px;
+}

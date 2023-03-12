@@ -1,0 +1,12 @@
+header {
+  width: calc(100% - 64px);
+  padding: 32px;
+  display: flex;
+}
+
+header #right {
+  margin-left: auto;
+}
+header #left {
+  margin-right: auto;
+}
