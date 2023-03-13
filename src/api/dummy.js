@@ -87,3 +87,31 @@ export const dummyFreeBoardReply = [
   { contentId: 10, regUser: "유저6", regDt: "2022-02-10", desc: "댓글1333" },
   { contentId: 2, regUser: "관리자", regDt: "2022-02-10", desc: "댓글1333" },
 ];
+
+export const randomFreeBoardList = () => {
+  return Array(1000)
+    .fill(0)
+    .map((d, i) => {
+      return {
+        title: `자유게시판 ${i} 글 제목`,
+        desc: `자유게시판 ${i} 게시글 내용`,
+        contentId: i,
+        regDt: new Date().toISOString(),
+        regUser: `유저 ${parseInt(Math.random() * 100)}`,
+      };
+    });
+};
+export const randomFreeBoardReplyList = (contentId = 10) => {
+  const max = parseInt(Math.random() * contentId);
+  const user = Array(max).fill(`유저 ${parseInt(Math.random() * contentId)}`);
+  return Array(max)
+    .fill(0)
+    .map((d, i) => {
+      return {
+        contentId: Math.floor(Math.random() * 1000),
+        regDt: new Date().toISOString(),
+        regUser: `유저 ${parseInt(Math.random() * contentId)}`,
+        desc: `댓글 내용 ${parseInt(Math.random() * contentId)}`,
+      };
+    });
+};

@@ -9,8 +9,8 @@ export default function Camera() {
   const [facingMode, setFacingMode] = useState(getDeviceType().facingMode);
   const [mirrored, setMirrored] = useState(getDeviceType().mirror);
   const videoConstraints = {
-    width: { ideal: window.innerWidth },
-    height: { ideal: window.innerHeight },
+    width: { ideal: window.innerHeight * 3 },
+    height: { ideal: window.innerWidth * 3 },
   };
   const navigate = useNavigate();
   const capture = useCallback(() => {
@@ -23,10 +23,10 @@ export default function Camera() {
       <Webcam
         audio={false}
         ref={webcamRef}
-        width={"100%"}
-        height={"100%"}
-        // screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        screenshotFormat="image/jpeg"
+        videoConstraints={{ ...videoConstraints, facingMode: facingMode }}
         minScreenshotHeight={window.innerHeight * 2}
         minScreenshotWidth={window.innerWidth * 2}
         mirrored={mirrored}

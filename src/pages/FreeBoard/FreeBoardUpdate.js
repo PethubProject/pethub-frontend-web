@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import BottomTabNavigation from "../../components/Navigation/BottomTabNavigation";
-import BoardHeader from "../../components/Haeder/BoardHeader";
-import { dummyFreeBoardContent } from "../../api/dummy";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import BoardHeader from "../../components/Header/HeaderBoard";
+import { dummyFreeBoardContent, randomFreeBoardList } from "../../api/dummy";
+import BtnRegister from "../../components/Button/BtnRegister";
 
 export default function FreeBoardUpdate() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,7 +13,7 @@ export default function FreeBoardUpdate() {
     desc: "",
   });
   useEffect(() => {
-    const item = dummyFreeBoardContent.filter(
+    const item = randomFreeBoardList().filter(
       (d) => d.contentId === Number(searchParams.get("contentId"))
     );
     if (item.length > 0) {
@@ -24,19 +25,18 @@ export default function FreeBoardUpdate() {
     setContent((p) => ({ ...p, [name]: value }));
   };
   return (
-    <div>
+    <div id="main">
       <BoardHeader
         title="자유게시판 글 수정"
         right={
           <div className="btn-wrapper">
             {/* <button className="btn">임시저장</button> */}
-            <button className="btn" onClick={() => nav("/freeboard")}>
-              등록
-            </button>
+
+            <BtnRegister onClick={() => nav("/freeboard")} />
           </div>
         }
       />
-      <form>
+      <form className="content">
         <div className="form-item">
           <input
             className="form-item-input"

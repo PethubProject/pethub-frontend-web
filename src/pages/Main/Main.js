@@ -1,62 +1,39 @@
-import React, { useCallback } from "react";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
 import { useNavigate } from "react-router-dom";
-import firebaseApp from "../../utils/fcm";
-
+import HeaderMain from "../../components/Header/HeaderMain";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import "./main.css";
 export default function Main() {
-  const messaging = getMessaging(firebaseApp);
-  getToken(messaging, {
-    vapidKey:
-      "BD8mJ8xCqap4NyEeS6Ft_NAhyEaMQ4fM9gr6fcGHDOtGV5Q68MUhzdfybGzEF8N61qrpel_CSfO7Cm7nF6kUeDw",
-  }).then((ct) => console.log(ct));
-  onMessage(messaging, (payload) => {
-    console.log(payload);
-  });
-  const nav = useNavigate();
-  const onClick = useCallback((path) => {
-    nav(path);
-  }, []);
+  const navigate = useNavigate();
   return (
     <div id="main">
-      <div>
-        <button
-          onClick={() => {
-            onClick("/freeboard");
-          }}
-        >
-          자유게시판
-        </button>
-        <button
-          onClick={() => {
-            onClick("/camera");
-          }}
-        >
-          카메라
-        </button>
+      <HeaderMain />
+      <div className="content flex-center">
+        <div id="main-btn-wrap">
+          <div>
+            <div className="btn-fill bg-main">AI 진단</div>
+          </div>
+          <div className="flex-row-between">
+            <div className="btn-only-border">
+              <span>상담</span>
+              <span> 채팅</span>
+            </div>
+            <div className="btn-only-border">
+              <span>상담 </span>
+              <span>게시판</span>
+            </div>
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/freeboard");
+              }}
+            >
+              <span>자유</span>
+              <span>게시판</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <button
-          onClick={() => {
-            onClick("/signin");
-          }}
-        >
-          로그인
-        </button>
-        <button
-          onClick={() => {
-            onClick("/signup");
-          }}
-        >
-          회원가입
-        </button>
-        <button
-          onClick={() => {
-            onClick("/signout");
-          }}
-        >
-          로그아웃
-        </button>
-      </div>
+      <BottomTabNavigation />
     </div>
   );
 }
