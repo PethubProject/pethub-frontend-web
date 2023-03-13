@@ -7,17 +7,20 @@ import {
   faHouse,
   faUserDoctor,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function BottomTabNavigation() {
   const location = useLocation();
-
+  const navigate = useNavigate();
   return (
     <div id="bottom-nav" className="flex-row-between">
       <div
         className={`flex-column flex-align-center pointer ${
           location.pathname === "/" && "nav-active"
         }`}
+        onClick={() => {
+          navigate("/");
+        }}
       >
         <FontAwesomeIcon icon={faHouse} size={"2x"} />
         <span>홈</span>

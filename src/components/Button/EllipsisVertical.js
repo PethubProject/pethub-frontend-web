@@ -7,28 +7,29 @@ export default function EllipsisVertical({ children }) {
   return (
     <>
       <div
-        style={{ padding: "16px", position: "relative" }}
+        style={{ padding: "16px", position: "relative", cursor: "pointer" }}
         onClick={() => {
           setShow((p) => !p);
         }}
       >
         <FontAwesomeIcon icon={faEllipsisVertical} />
+        {show && (
+          <div
+            style={{
+              position: "absolute",
+              width: "96px",
+              display: "flex",
+              backgroundColor: "white",
+              flexDirection: "column",
+              gap: "8px",
+              right: "8px",
+              padding: "8px",
+            }}
+          >
+            {children}
+          </div>
+        )}
       </div>
-      {show && (
-        <div
-          style={{
-            position: "absolute",
-            width: "96px",
-            border: "1px solid black",
-            right: "16px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          {children}
-        </div>
-      )}
     </>
   );
 }

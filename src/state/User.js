@@ -1,6 +1,9 @@
 import { atom } from "recoil";
+export const UserInit = {
+  memberId: "",
+};
 
-export const User = atom({
-  default: {},
+export const UserState = atom({
+  default: UserInit,
   key: "User",
 });

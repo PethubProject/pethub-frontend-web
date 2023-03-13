@@ -14,16 +14,6 @@ body,
   height: 100%;
 }
 
-/* tag */
-header {
-  width: calc(100% - 52px);
-  display: flex;
-  align-items: center;
-  height: var(--headerHeight);
-  padding: 8px 26px;
-  justify-content: space-between;
-}
-
 /* id */
 #main {
   width: 100%;
@@ -103,6 +93,7 @@ header {
   font-size: 22px;
   padding: 18px;
   text-align: center;
+  cursor: pointer;
 }
 .btn-only-border {
   border-radius: 16px;
@@ -142,4 +133,9 @@ header {
 
 .tex-right {
   text-align: right;
+}
+
+/* scroll bar */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
 }

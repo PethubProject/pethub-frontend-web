@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { dummyFreeBoardReply, randomFreeBoardReplyList } from "../../api/dummy";
+import BtnRegister from "../../components/Button/BtnRegister";
+import EllipsisVertical from "../../components/Button/EllipsisVertical";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
-import { dummyFreeBoardContent, dummyFreeBoardReply } from "../../api/dummy";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import EllipsisVertical from "../../components/Button/EllipsisVertical";
+import { FreeboardState } from "../../state/board/FreeboardState";
 
 export default function FreeBoardContent() {
   const [modal, setModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [randomFreeBoardList, setRendomFreeBoardList] =
+    useRecoilState(FreeboardState);
   const [content, setContent] = useState({
     title: "",
     contentId: null,
@@ -16,7 +20,7 @@ export default function FreeBoardContent() {
   });
   const [reply, setReply] = useState([]);
   useEffect(() => {
-    const item = dummyFreeBoardContent.filter(
+    const item = randomFreeBoardList.filter(
       (d) => d.contentId === Number(searchParams.get("contentId"))
     );
     if (item.length > 0) {
@@ -28,57 +32,69 @@ export default function FreeBoardContent() {
       )
     );
   }, []);
-  const nav = useNavigate();
+  const navigate = useNavigate();
   return (
-    <div>
+    <div id="main">
       <BoardHeader
         title={<div>{content.title}</div>}
         right={
-          // <div className="btn-wrapper">
-          //   <button
-          //     className="btn"
-          //     onClick={() =>
-          //       nav(`/freeboard/update?contentId=${content.contentId}`)
-          //     }
-          //   >
-          //     수정
-          //   </button>
-          //   <button className="btn" onClick={() => setModal(true)}>
-          //     삭제
-          //   </button>
-          // </div>
           <EllipsisVertical>
             <button
               className="btn btn-update"
               onClick={() =>
-                nav(`/freeboard/update?contentId=${content.contentId}`)
+                navigate(`/freeboard/update?contentId=${content.contentId}`)
               }
             >
               수정
             </button>
-            <button className="btn btn-delete" onClick={() => setModal(true)}>
+            <button
+              className="btn btn-delete"
+              onClick={() => {
+                navigate("/freeboard");
+              }}
+            >
               삭제
             </button>
           </EllipsisVertical>
         }
       />
-      <div style={{ display: "flex", justifyContent: "space-around" }}></div>
-      <div style={{ minHeight: "50vh" }}> {content.desc}</div>
-      <div>
-        <input type="text" placeholder="댓글입력" />
-      </div>
-      <div className="reply-wrap">
-        {reply.map((d) => {
-          return (
-            <div key={Math.random()}>
-              <span>{d.desc}</span>
-              {d.regUser === "관리자" && <span>삭제</span>}
+      <div className="content scroll-hide">
+        <div id="board-info">
+          <div className="info-title">{content.title}</div>
+          <div className="info-reg-user">{content.regUser}</div>
+          <div className="info-reg-dt">{content.regDt}</div>
+        </div>
+        <div id="board-desc">{content.desc}</div>
+        <div id="board-reply">
+          <div id="board-reply-title">댓글 목록</div>
+          {randomFreeBoardReplyList(10).map((d) => {
+            return (
+              <div key={Math.random()} className="reply-info">
+                <div className="reply-desc">{d.desc}</div>
+                {d.regUser === "유저 4" && (
+                  <div className="reply-delete">
+                    <span>삭제</span>
+                  </div>
+                )}
+                <div className="reply-reg-user">{d.regUser}</div>
+
+                <div className="reply-reg-dt">{d.regDt}</div>
+              </div>
+            );
+          })}
+          <div className="reply-input">
+            <div className="input-wrap">
+              <input type="text" placeholder="댓글입력" />
             </div>
-          );
-        })}
+            <div className="btn-wrap ">
+              <BtnRegister> 등록</BtnRegister>
+            </div>
+          </div>
+        </div>
       </div>
+
       <BottomTabNavigation />
-      {modal && (
+      {/* {modal && (
         <div className="modal">
           <div className="modal-content">
             <div className="modal-title"></div>
@@ -104,7 +120,7 @@ export default function FreeBoardContent() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
