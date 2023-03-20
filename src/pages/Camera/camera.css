@@ -1,0 +1,90 @@
+#camera {
+  position: relative;
+  overflow: hidden;
+}
+
+video {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.camera-control {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+.camera-btn {
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.camera-guide-line {
+  border-radius: 50%;
+  width: 88px;
+  height: 88px;
+  border: 1px solid red;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.camera-hide {
+  display: none;
+}
+.camera-show {
+  display: block;
+}
+
+#camera-shot {
+  width: 50%;
+}
+
+#camera-shot > img {
+  max-width: 100%;
+  margin: 8px 0;
+}
+
+#ai-graph,
+#ai-result {
+  width: calc(100% - 32px);
+  display: flex;
+  padding: 0 16px;
+  gap: 16px;
+}
+#ai-graph {
+  margin-bottom: 36px;
+  text-align: center;
+}
+#ai-result {
+  height: 240px;
+}
+#ai-result > div {
+  width: 50%;
+}
+#ai-result .title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#ai-result p {
+  height: 100%;
+  font-size: 12px;
+  margin: 8px 0;
+  padding: 8px;
+  width: calc(100% - 16px);
+  overflow: auto;
+  border: 1px solid #d9d9d9;
+}

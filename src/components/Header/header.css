@@ -1,0 +1,24 @@
+header {
+  width: calc(100% - 52px);
+  display: flex;
+  align-items: center;
+  height: var(--headerHeight);
+  align-self: flex-start;
+  padding: 16px 26px;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+header .img-wrap {
+  height: 100%;
+  cursor: pointer;
+}
+header img {
+  max-height: 100%;
+  max-width: 100%;
+}
+header #right {
+  margin-left: auto;
+}
+header #left {
+  margin-right: auto;
+}
