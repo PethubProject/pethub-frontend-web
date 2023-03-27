@@ -12,6 +12,11 @@ import FreeBoardList from "./pages/FreeBoard/FreeBoardList";
 import TeleHealth from "./pages/TeleHealth/TeleHealth";
 import More from "./pages/More/More";
 import CameraDetail from "./pages/Camera/CameraDetail";
+import CounselList from "./pages/CounselBoard/CounselList";
+import CounselContent from "./pages/CounselBoard/CounselContent";
+import CounselInsert from "./pages/CounselBoard/CounselInsert";
+import CounselUpdate from "./pages/CounselBoard/CounselUpdate";
+
 function App() {
   return (
     <div className="App">
@@ -34,6 +39,12 @@ function App() {
           <Route path="/freeboard/insert" element={<FreeBoardInsert />} />
           <Route path="/freeboard/update" element={<FreeBoardUpdate />} />
           <Route path="/freeboard/content" element={<FreeBoardContent />} />
+
+          {/* counselboard */}
+          <Route path="/counselboard" element={<CounselList />} />
+          <Route path="/counselboard/content" element={<CounselContent />} />
+          <Route path="/counselboard/insert" element={<CounselInsert />} />
+          <Route path="/counselboard/update" element={<CounselUpdate />} />
 
           {/* camera */}
           <Route path="/ai" element={<Camera />} />

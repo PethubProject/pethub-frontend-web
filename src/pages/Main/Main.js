@@ -28,7 +28,12 @@ export default function Main() {
               <span>상담</span>
               <span> 채팅</span>
             </div>
-            <div className="btn-only-border">
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/counselboard");
+              }}
+            >
               <span>상담 </span>
               <span>게시판</span>
             </div>
