@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import lists from "../../dummy/Lists.js";
-import BtnWriteGoBack from "../../components/Button/BtnWriteGoBack.js";
+import AnswerLists from "../../dummy/AnswerLists";
+import BtnWriteGoBack from "../../components/Button/BtnWriteGoBack";
 
-function CounselUpdate() {
+function CounselAnswerUpdate() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const nav = useNavigate();
   const [searchparams, setsearchparams] = useSearchParams();
-  const list = lists.find(
-    (list) => list.id === parseInt(searchparams.get("contentID"))
-  ); //ConselList에서 14번째 줄과 변수명 동일하게 하기
+  const AnswerList = AnswerLists.find(
+    (AnswerList) => AnswerList.id === parseInt(searchparams.get("contentID"))
+  ); 
 
-  if (!list) {
-    return <h2>해당 게시물은 존재하지 않거나 삭제된 게시물입니다.</h2>;
-  }
+  //
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -32,7 +31,7 @@ function CounselUpdate() {
       <div>
         <BtnWriteGoBack></BtnWriteGoBack>
       </div>
-      <h2>게시글 수정</h2>
+      <h2>답변 수정 페이지</h2>
       <form onSubmit={handleSubmit}>
         <label>
           제목:
@@ -56,7 +55,7 @@ function CounselUpdate() {
         <button
           type="submit"
           onClick={() => {
-            nav(`/counselboard/content?contentID=${list.id}/`);
+            nav(`/counselboard/content?contentID=${AnswerList.id}/`);
           }}
         >
           수정
@@ -66,4 +65,4 @@ function CounselUpdate() {
   );
 }
 
-export default CounselUpdate;
+export default CounselAnswerUpdate;

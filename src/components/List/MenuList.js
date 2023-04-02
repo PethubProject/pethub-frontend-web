@@ -14,6 +14,14 @@ export default function MenuList() {
       >
         자유게시판
       </div>
+      <div
+        className="list-item v-exp"
+        onClick={() => {
+          navigate("/counselboard");
+        }}
+      >
+        상담게시판
+      </div>
     </div>
   );
 }
