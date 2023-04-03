@@ -24,7 +24,7 @@ function CounselContent() {
   }
 
   return (
-    <div>
+    <div id="main">
       <div>
         <BtnGoBack></BtnGoBack>
       </div>
