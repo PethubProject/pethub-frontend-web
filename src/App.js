@@ -16,6 +16,9 @@ import CounselList from "./pages/CounselBoard/CounselList";
 import CounselContent from "./pages/CounselBoard/CounselContent";
 import CounselInsert from "./pages/CounselBoard/CounselInsert";
 import CounselUpdate from "./pages/CounselBoard/CounselUpdate";
+import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
+import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
+
 
 function App() {
   return (
@@ -45,6 +48,8 @@ function App() {
           <Route path="/counselboard/content" element={<CounselContent />} />
           <Route path="/counselboard/insert" element={<CounselInsert />} />
           <Route path="/counselboard/update" element={<CounselUpdate />} />
+          <Route path="/counselboard/answer/insert" element={<CounselAnswerInsert/>} />
+          <Route path="/counselboard/answer/update" element={<CounselAnswerUpdate/>} />
 
           {/* camera */}
           <Route path="/ai" element={<Camera />} />
