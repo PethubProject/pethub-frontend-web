@@ -4,7 +4,7 @@ header {
   align-items: center;
   height: var(--headerHeight);
   align-self: flex-start;
-  padding: 16px 26px;
+  padding: 8px 26px;
   justify-content: space-between;
   flex-shrink: 0;
 }
