@@ -29,29 +29,32 @@ function CounselContent() {
         <BtnGoBack></BtnGoBack>
       </div>
       <div className="box">
-      <h2>{list.title}</h2>
-      <div>{list.content}</div>
-      <div>작성자: {list.user}</div>
-      <div>작성일: {list.createdtime}</div>
-      
-      <div
-        key={list.id}
-        className="update_btn"
-        onClick={() => nav(`/counselboard/update?contentID=${list.id}`)}
-      >
-        <span>글 수정하기</span>
+        <h2>{list.title}</h2>
+        <div>{list.content}</div>
+        <div>작성자: {list.user}</div>
+        <div>작성일: {list.createdtime}</div>
+        <div className="btn_wrap">
+          <span>버튼확인용</span>
+          <div
+            key={list.id}
+            className="update_btn"
+            onClick={() => nav(`/counselboard/update?contentID=${list.id}`)}
+          >
+            <span>글 수정하기</span>
+          </div>
+        </div>
       </div>
+      <div>
+        <div
+          key={list.id}
+          className="update_btn"
+          onClick={() =>
+            nav(`/counselboard/answer/insert?contentID=${list.id}`)
+          }
+        >
+          <span>답변 달기</span>
+        </div>
       </div>
-      <div
-        key={list.id}
-        className="update_btn"
-        onClick={() => nav(`/counselboard/answer/insert?contentID=${list.id}`)}
-      >
-        <span>답변 달기</span>
-      </div>
-
-
-
       {/* 답변 */}
       <div className="box">
         <h2>{answerlist.title}</h2>
