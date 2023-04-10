@@ -37,6 +37,7 @@ function CounselUpdate() {
         <label>
           제목:
           <input
+          className="title_text"
             type="text"
             value={title}
             placeholder="제목을 수정하시오"
@@ -47,6 +48,7 @@ function CounselUpdate() {
         <label>
           내용:
           <textarea
+          className="textarea_content"
             value={content}
             placeholder="내용을 수정하시오"
             onChange={handleContentChange}
