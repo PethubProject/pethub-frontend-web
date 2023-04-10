@@ -135,12 +135,6 @@ form .form-item-textarea {
   flex-shrink: 0;
   text-align: right;
 }
-#main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f8f8f8;
-}
 
 h2 {
   font-size: 28px;
@@ -148,8 +142,10 @@ h2 {
   margin-bottom: 10px;
 }
 
-div {
-  margin-bottom: 10px;
+.btn_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .update_btn {
@@ -166,13 +162,12 @@ div {
   background-color: #0069d9;
 }
 
-.box{
+.box {
   display: inline-block;
   padding: 8px 16px;
   border: 1px solid black;
-  border-radius :5px;
+  border-radius: 5px;
 }
-
 
 label {
   margin-top: 20px;
@@ -196,7 +191,6 @@ button[type="submit"] {
   border: none;
   font-size: 20px;
   border-radius: 20px;
-     
 }
 
 button[type="submit"]:hover {

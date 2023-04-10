@@ -24,11 +24,12 @@ export default function Chat() {
   ]);
   const me = "user3";
   const onSendHandler = (text) => {
-    if (text.replace(/[\s]+/gi, "").length == 0) {
+    if (text.replace(/[\s]+/gi, "").length === 0) {
       alert("메세지를 입력해 주세요.");
+      return;
     }
-    setChatList((p) => [
-      ...p,
+    setChatList((prev) => [
+      ...prev,
       { memberId: "user3", content: text, created_at: "20223-04-04" },
     ]);
     setText("");
@@ -36,15 +37,19 @@ export default function Chat() {
   const scrollBottom = () => {
     contentRef.current.scrollTop = contentRef.current.scrollHeight;
   };
+
   useEffect(() => {
     scrollBottom();
   }, [chatList, inputTop]);
 
   useEffect(() => {
+    // 마운트 할때
     const resize = (e) => {
       setInputTop(Math.random());
     };
     window.addEventListener("resize", resize);
+
+    // 마운트 해제 될때
     return () => {
       window.removeEventListener("resize", resize);
     };
@@ -56,10 +61,10 @@ export default function Chat() {
         title={
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <div className="chat-item-user">
-              {me.substring(0, 1)}
-              {me.substring(4, 5)}
+              {"user1".substring(0, 1)}
+              {"user1".substring(4, 5)}
             </div>
-            User3
+            user1
           </div>
         }
       />
@@ -104,12 +109,6 @@ export default function Chat() {
                 onSendHandler(text);
               }
             }}
-            // onFocus={(e) => {
-            //   setInputTop(true);
-            // }}
-            // onBlur={(e) => {
-            //   setInputTop(false);
-            // }}
             placeholder="메세지를 입력해주세요."
           />
           <div id="chat-file-area">
