@@ -8,19 +8,19 @@ export default function Chat() {
   const [inputTop, setInputTop] = useState(0);
   const [text, setText] = useState("");
   const [chatList, setChatList] = useState([
-    // {
-    //   memberId: "user1",
-    //   content:
-    //     "메세지 이유1&&메세지 이유1&&메세지 이유1\n메세지 이유1\n메세지 이유1\n메세지 이유1",
-    //   created_at: "2023-04-04",
-    // },
-    // { memberId: "user3", content: "메세지 이유2", created_at: "2023-04-04" },
-    // { memberId: "user1", content: "메세지 이유3", created_at: "2023-04-04" },
-    // { memberId: "user3", content: "메세지 이유4", created_at: "2023-04-04" },
-    // { memberId: "user1", content: "메세지 이유5", created_at: "2023-04-04" },
-    // { memberId: "user1", content: "메세지 이유6", created_at: "2023-04-04" },
-    // { memberId: "user3", content: "메세지 이유7", created_at: "2023-04-04" },
-    // { memberId: "user1", content: "메세지 이유8", created_at: "2023-04-04" },
+    {
+      memberId: "user1",
+      content:
+        "메세지 이유1&&메세지 이유1&&메세지 이유1\n메세지 이유1\n메세지 이유1\n메세지 이유1",
+      created_at: "2023-04-04",
+    },
+    { memberId: "user3", content: "메세지 이유2", created_at: "2023-04-04" },
+    { memberId: "user1", content: "메세지 이유3", created_at: "2023-04-04" },
+    { memberId: "user3", content: "메세지 이유4", created_at: "2023-04-04" },
+    { memberId: "user1", content: "메세지 이유5", created_at: "2023-04-04" },
+    { memberId: "user1", content: "메세지 이유6", created_at: "2023-04-04" },
+    { memberId: "user3", content: "메세지 이유7", created_at: "2023-04-04" },
+    { memberId: "user1", content: "메세지 이유8", created_at: "2023-04-04" },
   ]);
   const me = "user3";
   const onSendHandler = (text) => {
