@@ -24,7 +24,12 @@ export default function Main() {
             </div>
           </div>
           <div className="flex-row-between">
-            <div className="btn-only-border">
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/chat");
+              }}
+            >
               <span>상담</span>
               <span> 채팅</span>
             </div>

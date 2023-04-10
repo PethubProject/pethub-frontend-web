@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Main from "./pages/Main/Main";
 import SignIn from "./pages/Sign/SignIn";
 import SignUp from "./pages/Sign/SignUp";
@@ -18,7 +20,7 @@ import CounselInsert from "./pages/CounselBoard/CounselInsert";
 import CounselUpdate from "./pages/CounselBoard/CounselUpdate";
 import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
-
+import Chat from "./pages/Chat/Chat";
 
 function App() {
   return (
@@ -48,12 +50,21 @@ function App() {
           <Route path="/counselboard/content" element={<CounselContent />} />
           <Route path="/counselboard/insert" element={<CounselInsert />} />
           <Route path="/counselboard/update" element={<CounselUpdate />} />
-          <Route path="/counselboard/answer/insert" element={<CounselAnswerInsert/>} />
-          <Route path="/counselboard/answer/update" element={<CounselAnswerUpdate/>} />
+          <Route
+            path="/counselboard/answer/insert"
+            element={<CounselAnswerInsert />}
+          />
+          <Route
+            path="/counselboard/answer/update"
+            element={<CounselAnswerUpdate />}
+          />
 
           {/* camera */}
           <Route path="/ai" element={<Camera />} />
           <Route path="/ai/result" element={<CameraDetail />} />
+
+          {/* char */}
+          <Route path="/chat" element={<Chat />} />
         </Routes>
         <Modal />
       </BrowserRouter>
