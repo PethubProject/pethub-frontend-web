@@ -21,6 +21,7 @@ import CounselUpdate from "./pages/CounselBoard/CounselUpdate";
 import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
 import Chat from "./pages/Chat/Chat";
+import BeforeInstallPopup from "./components/Install/BeforeInstallPopup";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
         </Routes>
         <Modal />
+        <BeforeInstallPopup />
       </BrowserRouter>
     </div>
   );
