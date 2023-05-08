@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BtnWriteGoBack from "../../components/Button/BtnWriteGoBack.js";
 import AnswerLists from "../../dummy/AnswerLists.js";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 
 //리스트에 올라가야함
 //제목, 내용, 유저이름, 시간을 받아야함.
@@ -41,16 +42,15 @@ function CounselAnswerInsert() {
   };
 
   return (
-    <div>
+    <div id="main">
       <div>
         <BtnWriteGoBack></BtnWriteGoBack>
       </div>
       <div id="insert_title">
         <h2>답변 작성페이지</h2>
       </div>
-      <form onSubmit={handleSubmit}>
-
-      <label>
+      <form onSubmit={handleSubmit} className="content">
+        <label>
           작성자:
           <input
             classname="user"
@@ -66,8 +66,6 @@ function CounselAnswerInsert() {
             <input type="text" value={title} onChange={handleTitleChange} />
           </div>
         </label>
-
-        
 
         <label>
           <div className="insert_content">
@@ -88,6 +86,7 @@ function CounselAnswerInsert() {
           </button>
         </div>
       </form>
+      <BottomTabNavigation />
     </div>
   );
 }
