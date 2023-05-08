@@ -45,19 +45,12 @@ function CounselInsert() {
       <div>
         <BtnWriteGoBack></BtnWriteGoBack>
       </div>
-
+      <div id="insert_title">
+        <h2>답변 작성페이지</h2>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label>
-          제목:
-          <input type="text" value={title} onChange={handleTitleChange} />
-        </label>
-        <br />
-        <label>
-          내용:
-          <textarea value={content} onChange={handleContentChange} />
-        </label>
-        <br />
-        <label>
+
+      <label>
           작성자:
           <input
             classname="user"
@@ -66,16 +59,34 @@ function CounselInsert() {
             onChange={handleUserChange}
           />
         </label>
-        <br />
-        <button
-          type="submit"
-          className="insert_btn"
-          onClick={() => {
-            nav(`/counselboard/`);
-          }}
-        >
-          등록
-        </button>
+        
+        <label>
+          <div className="insert_title">
+            제목:
+            <input type="text" value={title} onChange={handleTitleChange} />
+          </div>
+        </label>
+
+        
+
+        <label>
+          <div className="insert_content">
+            내용:
+            <textarea value={content} onChange={handleContentChange} />
+          </div>
+        </label>
+
+        <div className="board_update_btn">
+          <button
+            type="submit"
+            className="insert_btn"
+            onClick={() => {
+              nav(`/counselboard/`);
+            }}
+          >
+            등록
+          </button>
+        </div>
       </form>
     </div>
   );

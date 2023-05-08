@@ -13,7 +13,7 @@ function CounselList() {
   return (
     <div id="main">
       <BoardHeader title="상담게시판" />
-      <div className="content flex-column">
+      <div id="counsel-board" className="content flex-column">
         <div className="content scroll-hide board-list">
           <div className="list-col">
             {lists.map((list) => (

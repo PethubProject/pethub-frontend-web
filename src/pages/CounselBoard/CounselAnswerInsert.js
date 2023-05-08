@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BtnWriteGoBack from "../../components/Button/BtnWriteGoBack.js";
 import AnswerLists from "../../dummy/AnswerLists.js";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 
 //리스트에 올라가야함
 //제목, 내용, 유저이름, 시간을 받아야함.
 
-function CounselInsert() {
+function CounselAnswerInsert() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState("");
@@ -41,36 +42,53 @@ function CounselInsert() {
   };
 
   return (
-    <div>
-      <div><BtnWriteGoBack></BtnWriteGoBack></div>
-    <form onSubmit={handleSubmit}>
-      <label>
-        제목:
-        <input type="text" value={title} onChange={handleTitleChange} />
-      </label>
-      <br />
-      <label>
-        내용:
-        <textarea value={content} onChange={handleContentChange} />
-      </label>
-      <br />
-      <label>
-        작성자:
-        <input classname="user" type="text" value={user} onChange={handleUserChange} />
-      </label>
-      <br />
-      <button
-        type="submit"
-        className="insert_btn"
-        onClick={() => {
-          nav(`/counselboard/`);
-        }}
-      >
-        등록
-      </button>
-    </form>
+    <div id="main">
+      <div>
+        <BtnWriteGoBack></BtnWriteGoBack>
+      </div>
+      <div id="insert_title">
+        <h2>답변 작성페이지</h2>
+      </div>
+      <form onSubmit={handleSubmit} className="content">
+        <label>
+          작성자:
+          <input
+            classname="user"
+            type="text"
+            value={user}
+            onChange={handleUserChange}
+          />
+        </label>
+
+        <label>
+          <div className="insert_title">
+            제목:
+            <input type="text" value={title} onChange={handleTitleChange} />
+          </div>
+        </label>
+
+        <label>
+          <div className="insert_content">
+            내용:
+            <textarea value={content} onChange={handleContentChange} />
+          </div>
+        </label>
+
+        <div className="board_update_btn">
+          <button
+            type="submit"
+            className="insert_btn"
+            onClick={() => {
+              nav(`/counselboard/`);
+            }}
+          >
+            등록
+          </button>
+        </div>
+      </form>
+      <BottomTabNavigation />
     </div>
   );
 }
 
-export default CounselInsert;
+export default CounselAnswerInsert;

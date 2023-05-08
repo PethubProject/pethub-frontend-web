@@ -13,7 +13,6 @@ export default function InputConfirmPassword({
   useEffect(() => {
     setConfirmPassword((p) => {
       if (password !== p.value && p.value.replace(/[\s]+/gi, "").length > 0) {
-        console.log(password);
         p = { ...p, msg: "비밀번호와 일치 하지 않습니다.", state: false };
         setFocusClass("warning");
       } else if (
@@ -40,10 +39,10 @@ export default function InputConfirmPassword({
           p = { ...p, msg: "", state: false };
           setFocusClass("");
         } else if (
-          !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/g.test(value)
+          !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{4,}$/g.test(value)
         ) {
           // (?=.*[@$!%*#?&])
-          p = { ...p, msg: "비밀번호 8~20이내", state: false };
+          p = { ...p, msg: "비밀번호 4~20이내", state: false };
           setFocusClass("warning");
         } else if (password !== value) {
           p = { ...p, msg: "비밀번호와 일치 하지 않습니다.", state: false };
