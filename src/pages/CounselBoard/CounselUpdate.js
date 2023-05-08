@@ -32,37 +32,45 @@ function CounselUpdate() {
       <div>
         <BtnWriteGoBack></BtnWriteGoBack>
       </div>
-      <h2>게시글 수정</h2>
+      <div id="board_update_title">
+        <h2>게시글 수정</h2>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
-          제목:
-          <input
-          className="title_text"
-            type="text"
-            value={title}
-            placeholder="제목을 수정하시오"
-            onChange={handleTitleChange}
-          />
+          <div className="label_update_title">
+            제목:
+            <input
+              className="title_text"
+              type="text"
+              value={title}
+              placeholder="제목을 수정하시오"
+              onChange={handleTitleChange}
+            />
+          </div>
         </label>
-        <br />
+
         <label>
-          내용:
-          <textarea
-          className="textarea_content"
-            value={content}
-            placeholder="내용을 수정하시오"
-            onChange={handleContentChange}
-          />
+          <div className="label_update_content">
+            본문:
+            <textarea
+              className="textarea_content"
+              value={content}
+              placeholder="본문을 수정하시오"
+              onChange={handleContentChange}
+            />
+          </div>
         </label>
-        <br />
-        <button
-          type="submit"
-          onClick={() => {
-            nav(`/counselboard/content?contentID=${list.id}/`);
-          }}
-        >
-          수정
-        </button>
+
+        <div className="board_update_btn">
+          <button
+            type="submit"
+            onClick={() => {
+              nav(`/counselboard/content?contentID=${list.id}/`);
+            }}
+          >
+            수정
+          </button>
+        </div>
       </form>
     </div>
   );
