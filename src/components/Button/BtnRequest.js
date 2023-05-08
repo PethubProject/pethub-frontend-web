@@ -15,7 +15,10 @@ export default function BtnRequest({
     }
   }, [confirm]);
   return (
-    <div className={`btn btn-basic btn-${className}`} onClick={onClick}>
+    <div
+      className={`btn btn-basic btn-${className}`}
+      onClick={confirm ? onClick : () => {}}
+    >
       {children}
     </div>
   );

@@ -7,14 +7,16 @@ import InputPassword from "../../components/Input/InputPassword";
 import LayoutCloseForm from "../../components/Layout/LayoutCloseForm";
 import { modalState } from "../../components/Modal/Modal";
 import "./sign.css";
-import { apiSignIn } from "../../api/SignApi";
 import { UserInit, UserState } from "../../state/User";
 // img
 import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
+import InputEmail from "../../components/Input/InputEmail";
+import { postApi } from "../../api/BaseApi";
+import { apiSignIn } from "../../api/SignApi";
 
 export default function SignIn() {
-  const [id, setId] = useState({});
+  const [email, setEmail] = useState({});
   const [pw, setPw] = useState({});
   const navigate = useNavigate();
   const setModal = useSetRecoilState(modalState);
@@ -22,17 +24,16 @@ export default function SignIn() {
   // const [userToken, setUserToken] = useRecoilState(UserTokenState);
 
   const [type, setType] = useState("dog");
-  const onSubmitHandler = useCallback(() => {
-    apiSignIn({ memberId: id.value, memberPw: pw.value }).then((r) => {
-      if (r.status === "success") {
+  const onSubmitHandler = useCallback(async () => {
+    apiSignIn({ email: email.value, password: pw.value }).then((r) => {
+      if (r.ok) {
         setUserState(r.data);
         navigate("/");
       } else {
-        setUserState(UserInit);
-        setModal({ status: true, type: "alert", msg: "로그인 실패" });
+        alert(r.msg);
       }
     });
-  }, [id, pw]);
+  }, [email, pw]);
 
   return (
     <LayoutCloseForm title={"로그인"}>
@@ -56,10 +57,10 @@ export default function SignIn() {
           <span>수의사</span>
         </div>
       </div>
-      <InputId state={setId} />
+      <InputEmail state={setEmail} />
       <InputPassword state={setPw} onEnter={onSubmitHandler} />
       <div className="btn-wrap">
-        <BtnRequest confirm={id.state && pw.state} onClick={onSubmitHandler}>
+        <BtnRequest confirm={email.state && pw.state} onClick={onSubmitHandler}>
           로그인
         </BtnRequest>
       </div>

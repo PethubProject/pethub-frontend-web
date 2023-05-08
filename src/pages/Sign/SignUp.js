@@ -11,12 +11,16 @@ import { modalState } from "../../components/Modal/Modal";
 // img
 import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
+import InputPhone from "../../components/Input/InputPhone";
+import InputNickName from "../../components/Input/InputNickName";
+import { apiSignUp } from "../../api/SignApi";
 
 export default function SignUp() {
-  const [id, setId] = useState({});
   const [pw, setPw] = useState({});
   const [email, setEmail] = useState({});
   const [confirmPw, setConfirmPw] = useState({});
+  const [phoneNumber, setPhoneNumber] = useState({});
+  const [nickName, setNickName] = useState({});
   const [modal, setModal] = useRecoilState(modalState);
   const navigate = useNavigate();
   const [type, setType] = useState("dog");
@@ -42,14 +46,40 @@ export default function SignUp() {
           <span>수의사</span>
         </div>
       </div>
-      <InputId state={setId} />
       <InputEmail state={setEmail} />
+      <InputNickName state={setNickName} />
       <InputPassword state={setPw} />
       <InputConfirmPassword state={setConfirmPw} password={pw.value} />
+      <InputPhone state={setPhoneNumber} />
       <div className="btn-wrap">
         <BtnRequest
-          confirm={id.state && pw.state && confirmPw.state && email.state}
-          onClick={() => {}}
+          confirm={
+            pw.state &&
+            confirmPw.state &&
+            email.state &&
+            phoneNumber.state &&
+            nickName.state
+          }
+          onClick={() => {
+            console.log({
+              email: email.value,
+              nickname: nickName.value,
+              password: pw.value,
+              phoneNumber: phoneNumber.value,
+            });
+            apiSignUp({
+              email: email.value,
+              nickname: nickName.value,
+              password: pw.value,
+              phoneNumber: phoneNumber.value,
+            }).then((r) => {
+              if (r.ok) {
+                navigate("/signin");
+              } else {
+                alert(r.msg);
+              }
+            });
+          }}
         >
           회원가입
         </BtnRequest>
