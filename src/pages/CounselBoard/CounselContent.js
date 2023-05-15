@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import BtnGoBack from "../../components/Button/BtnGoBack.js";
 import lists from "../../dummy/Lists.js";
 import AnswerLists from "../../dummy/AnswerLists.js";
+import BoardHeader from "../../components/Header/HeaderBoard.js";
 
 function CounselContent() {
   const nav = useNavigate();
@@ -25,16 +25,15 @@ function CounselContent() {
 
   return (
     <div id="main">
-      <div>
-        <BtnGoBack></BtnGoBack>
+      <div id="counsel_header">
+        <BoardHeader />
       </div>
-      <div className="box">
-        <h2>{list.title}</h2>
-        <div>{list.content}</div>
-        <div>작성자: {list.user}</div>
-        <div>작성일: {list.createdtime}</div>
-        <div className="btn_wrap">
-          <span>버튼확인용</span>
+      <div id="counsel_content">
+        <div className="box">
+          <h2>{list.title}</h2>
+          <div>{list.content}</div>
+          <div>작성자: {list.user}</div>
+          <div>작성일: {list.createdtime}</div>
           <div
             key={list.id}
             className="update_btn"
@@ -43,32 +42,32 @@ function CounselContent() {
             <span>글 수정하기</span>
           </div>
         </div>
-      </div>
-      <div>
-        <div
-          key={list.id}
-          className="update_btn"
-          onClick={() =>
-            nav(`/counselboard/answer/insert?contentID=${list.id}`)
-          }
-        >
-          <span>답변 달기</span>
+        <div>
+          <div
+            key={list.id}
+            className="update_btn"
+            onClick={() =>
+              nav(`/counselboard/answer/insert?contentID=${list.id}`)
+            }
+          >
+            <span>답변 달기</span>
+          </div>
         </div>
-      </div>
-      {/* 답변 */}
-      <div className="box">
-        <h2>{answerlist.title}</h2>
-        <div>{answerlist.content}</div>
-        <div>작성자: {answerlist.user}</div>
-        <div>작성일: {answerlist.createdtime}</div>
-        <div
-          key={list.id}
-          className="update_btn"
-          onClick={() =>
-            nav(`/counselboard/answer/update?contentID=${answerlist.id}`)
-          }
-        >
-          답변수정하기
+        {/* 답변 */}
+        <div className="box">
+          <h2>{answerlist.title}</h2>
+          <div>{answerlist.content}</div>
+          <div>작성자: {answerlist.user}</div>
+          <div>작성일: {answerlist.createdtime}</div>
+          <div
+            key={list.id}
+            className="update_btn"
+            onClick={() =>
+              nav(`/counselboard/answer/update?contentID=${answerlist.id}`)
+            }
+          >
+            답변수정하기
+          </div>
         </div>
       </div>
     </div>

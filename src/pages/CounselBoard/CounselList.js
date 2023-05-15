@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
-import BtnGoBack from "../../components/Button/BtnGoBack.js";
-import BtnInsert from "../../components/Button/BtnInsert.js";
 import BoardHeader from "../../components/Header/HeaderBoard.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 import lists from "../../dummy/Lists.js";

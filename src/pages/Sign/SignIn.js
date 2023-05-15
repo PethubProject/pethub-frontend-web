@@ -44,7 +44,7 @@ export default function SignIn() {
             setType("dog");
           }}
         >
-          <img src={dog} alt="dog" />
+          <img src={dog} aalt="dog" />
           <span>반려동물</span>
         </div>
         <div

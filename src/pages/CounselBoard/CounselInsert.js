@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BtnWriteGoBack from "../../components/Button/BtnWriteGoBack.js";
 import lists from "../../dummy/Lists.js";
+import BoardHeader from "../../components/Header/HeaderBoard.js";
 
 //리스트에 올라가야함
 //제목, 내용, 유저이름, 시간을 받아야함.
@@ -41,33 +41,30 @@ function CounselInsert() {
   };
 
   return (
-    <div>
+    <div id="main">
       <div>
-        <BtnWriteGoBack></BtnWriteGoBack>
+        <BoardHeader />
       </div>
       <div id="insert_title">
         <h2>답변 작성페이지</h2>
       </div>
       <form onSubmit={handleSubmit}>
-
-      <label>
+        <label>
           작성자:
           <input
-            classname="user"
+            className="user"
             type="text"
             value={user}
             onChange={handleUserChange}
           />
         </label>
-        
+
         <label>
           <div className="insert_title">
             제목:
             <input type="text" value={title} onChange={handleTitleChange} />
           </div>
         </label>
-
-        
 
         <label>
           <div className="insert_content">
