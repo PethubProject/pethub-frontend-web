@@ -2,18 +2,19 @@ import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import useApiHooks from "../../api/BaseApi";
 import logo from "../../resources/image/logo.png";
-import { UserInit, UserState } from "../../state/User";
+import { UserState } from "../../state/User";
 import BtnSignUp from "../Button/BtnSignUp";
-import { postApi } from "../../api/BaseApi";
-import { apiSignOut } from "../../api/SignApi";
 export default function MainHeader() {
-  const [user, setUserState] = useRecoilState(UserState);
+  const user = useRecoilValue(UserState);
+  const userReset = useResetRecoilState(UserState);
   const navigate = useNavigate();
   const onSignInClick = useCallback(() => {
     navigate("/signin");
   }, []);
+  const { apiSignOut } = useApiHooks();
   return (
     <header>
       <div
@@ -32,12 +33,10 @@ export default function MainHeader() {
             <span
               onClick={() => {
                 apiSignOut().then((r) => {
-                  console.log(r);
                   if (r.ok) {
-                    setUserState(UserInit);
+                    userReset();
                     navigate("/");
                   } else {
-                    alert(r.msg);
                   }
                 });
               }}

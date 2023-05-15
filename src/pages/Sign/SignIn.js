@@ -12,8 +12,7 @@ import { UserInit, UserState } from "../../state/User";
 import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
 import InputEmail from "../../components/Input/InputEmail";
-import { postApi } from "../../api/BaseApi";
-import { apiSignIn } from "../../api/SignApi";
+import useApiHooks from "../../api/BaseApi";
 
 export default function SignIn() {
   const [email, setEmail] = useState({});
@@ -22,12 +21,13 @@ export default function SignIn() {
   const setModal = useSetRecoilState(modalState);
   const setUserState = useSetRecoilState(UserState);
   // const [userToken, setUserToken] = useRecoilState(UserTokenState);
-
+  const { apiSignIn } = useApiHooks();
   const [type, setType] = useState("dog");
   const onSubmitHandler = useCallback(async () => {
     apiSignIn({ email: email.value, password: pw.value }).then((r) => {
+      console.log(r);
       if (r.ok) {
-        setUserState(r.data);
+        setUserState(r.data.data);
         navigate("/");
       } else {
         alert(r.msg);

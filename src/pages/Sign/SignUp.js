@@ -13,7 +13,7 @@ import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
 import InputPhone from "../../components/Input/InputPhone";
 import InputNickName from "../../components/Input/InputNickName";
-import { apiSignUp } from "../../api/SignApi";
+import useApiHooks from "../../api/BaseApi";
 
 export default function SignUp() {
   const [pw, setPw] = useState({});
@@ -23,6 +23,7 @@ export default function SignUp() {
   const [nickName, setNickName] = useState({});
   const [modal, setModal] = useRecoilState(modalState);
   const navigate = useNavigate();
+  const { apiSignUp } = useApiHooks();
   const [type, setType] = useState("dog");
   return (
     <LayoutCloseForm title={"회원가입"}>
