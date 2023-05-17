@@ -2,12 +2,7 @@ import axios from "axios";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { UserState } from "../state/User";
 import { useNavigate } from "react-router-dom";
-export const postApi = async ({
-  url,
-  data,
-  fail = () => {},
-  success = () => {},
-}) => {
+export const postApi = async ({ url, data }) => {
   let result;
   try {
     result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
@@ -25,12 +20,7 @@ export const postApi = async ({
 const useApiHooks = () => {
   const userReset = useResetRecoilState(UserState);
   const navigate = useNavigate();
-  const postApi = async ({
-    url,
-    data,
-    fail = () => {},
-    success = () => {},
-  }) => {
+  const postApi = async ({ url, data }) => {
     let result;
     try {
       result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
@@ -49,13 +39,9 @@ const useApiHooks = () => {
     return result;
   };
 
-  const fileUpload = async ({
-    url,
-    data,
-    fail = () => {},
-    success = () => {},
-  }) => {
+  const fileUpload = async ({ url, data }) => {
     let result;
+
     try {
       result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
         withCredentials: true,
@@ -72,7 +58,6 @@ const useApiHooks = () => {
       console.log("err", err);
       throw err;
     }
-    console.log(result.headers["set-cookie"]);
     return result;
   };
   return {
