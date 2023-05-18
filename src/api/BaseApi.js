@@ -13,7 +13,6 @@ export const postApi = async ({ url, data }) => {
     console.log("err", err);
     throw err;
   }
-  console.log(result.headers["set-cookie"]);
   return result;
 };
 
@@ -32,10 +31,52 @@ const useApiHooks = () => {
         navigate("/");
       }
     } catch (err) {
-      console.log("err", err);
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
       throw err;
     }
-    console.log(result.headers["set-cookie"]);
+    return result;
+  };
+  const putApi = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.put(process.env.REACT_APP_API_URL + url, data, {
+        withCredentials: true,
+        validateStatus: false,
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
+    return result;
+  };
+  const getApi = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.get(process.env.REACT_APP_API_URL + url, data, {
+        withCredentials: true,
+        validateStatus: false,
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
     return result;
   };
 
@@ -60,8 +101,11 @@ const useApiHooks = () => {
     }
     return result;
   };
+
   return {
+    getApi,
     postApi,
+    putApi,
     fileUpload,
     apiSignOut: async () => {
       const state = { ok: false, msg: "", data: {} };
@@ -126,7 +170,6 @@ const useApiHooks = () => {
         url: "/api/auth/join",
         data: user,
       });
-      console.log(result);
       if (result.status === 200) {
         state.ok = true;
         state.msg = "회원가입 성공";

@@ -1,10 +1,8 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./button.css";
-export default function BtnClose({ onClick = () => {} }) {
+export default function BtnClose({ onClick = () => {}, text = "닫기" }) {
   return (
-    <div className="btn" onClick={onClick}>
-      <FontAwesomeIcon icon={faClose} />
-    </div>
+    <button className="btn btn-close" onClick={onClick}>
+      {text}
+    </button>
   );
 }

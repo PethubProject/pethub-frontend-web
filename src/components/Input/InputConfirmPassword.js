@@ -3,6 +3,8 @@ import "./input.css";
 export default function InputConfirmPassword({
   state = () => {},
   password = "",
+  labelText = "비밀번호 확인",
+  placeholder = "비밀번호 확인",
 }) {
   const [focusClass, setFocusClass] = useState("");
   const [confirmPassword, setConfirmPassword] = useState({
@@ -33,14 +35,11 @@ export default function InputConfirmPassword({
   const onChangeHandler = useCallback(
     (e) => {
       const { value } = e.target;
-
       setConfirmPassword((p) => {
         if (value.replace(/[\s]+/gi, "").length === 0) {
           p = { ...p, msg: "", state: false };
           setFocusClass("");
-        } else if (
-          !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{4,}$/g.test(value)
-        ) {
+        } else if (!/^(?=.*[A-Za-z])[A-Za-z\d@$!%*#?&]{4,}$/g.test(value)) {
           // (?=.*[@$!%*#?&])
           p = { ...p, msg: "비밀번호 4~20이내", state: false };
           setFocusClass("warning");
@@ -59,7 +58,7 @@ export default function InputConfirmPassword({
   return (
     <div className="input-item">
       <label>
-        <span>비밀번호 확인</span>
+        <span>{labelText}</span>
         <small>{confirmPassword.msg}</small>
       </label>
       <div className={focusClass}>
@@ -67,7 +66,9 @@ export default function InputConfirmPassword({
           type="password"
           value={confirmPassword.value}
           onChange={onChangeHandler}
-          placeholder="비밀번호 확인"
+          onInput={onChangeHandler}
+          onPaste={onChangeHandler}
+          placeholder={placeholder}
         />
       </div>
     </div>

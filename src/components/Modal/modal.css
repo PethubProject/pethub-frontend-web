@@ -14,7 +14,6 @@
   min-width: 10vw;
   min-height: 10vh;
   max-width: 320px;
-  max-height: 50vw;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -37,4 +36,30 @@
   justify-content: flex-end;
   gap: 8px;
   margin: 8px;
+}
+
+#modal-wrap #modal .modal-header {
+  min-height: 20px;
+  margin: 8px;
+}
+#modal-wrap #modal .modal-body {
+  min-height: 20px;
+  margin: 16px;
+}
+#modal-wrap #modal .modal-btn {
+  min-height: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 8px;
+}
+
+.popup-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-modal-header span {
+  padding: 0 16px;
 }
