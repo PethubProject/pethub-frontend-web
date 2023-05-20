@@ -1,0 +1,25 @@
+#more-user-img {
+  height: 160px;
+  width: 100%;
+  position: relative;
+}
+
+#more-user-img input[type="file"] {
+  position: absolute;
+  bottom: 0;
+  display: none;
+}
+
+#more-user-img label {
+  color: white;
+  width: auto;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #0952f0;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}

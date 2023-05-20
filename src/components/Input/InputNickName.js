@@ -1,21 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import "./input.css";
 export default function InputNickName({
+  labelText = "",
   state = () => {},
   onEnter = () => {},
 }) {
   const [focusClass, setFocusClass] = useState("");
-  const [nickName, setNickName] = useState({
+  const [nickname, setNickname] = useState({
     value: "",
     state: false,
     msg: "",
   });
   useEffect(() => {
-    state(nickName);
-  }, [nickName]);
+    state(nickname);
+  }, [nickname]);
   const onChangeHandler = useCallback((e) => {
     const { value } = e.target;
-    setNickName((p) => {
+    setNickname((p) => {
       if (value.replace(/[\s]+/gi, "").length === 0) {
         p = { ...p, msg: "공백 없이 입력해주세요.", state: false };
         setFocusClass("");
@@ -29,13 +30,13 @@ export default function InputNickName({
   return (
     <div className="input-item">
       <label>
-        <span>닉네임</span>
-        <small>{nickName.msg}</small>
+        <span>{labelText}</span>
+        <small>{nickname.msg}</small>
       </label>
       <div className={focusClass}>
         <input
           type="text"
-          value={nickName.value}
+          value={nickname.value}
           onChange={onChangeHandler}
           placeholder="닉네임"
           onKeyUp={(e) => {

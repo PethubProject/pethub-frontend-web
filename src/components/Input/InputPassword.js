@@ -3,6 +3,8 @@ import "./input.css";
 export default function InputPassword({
   state = () => {},
   onEnter = () => {},
+  labelText = "비밀번호",
+  placeholder = "비밀번호",
 }) {
   const [focusClass, setFocusClass] = useState("");
   const [password, setPassword] = useState({
@@ -36,7 +38,7 @@ export default function InputPassword({
   return (
     <div className="input-item">
       <label>
-        <span>비밀번호</span>
+        <span>{labelText}</span>
         <small>{password.msg}</small>
       </label>
       <div className={focusClass}>
@@ -44,7 +46,9 @@ export default function InputPassword({
           type="password"
           value={password.value}
           onChange={onChangeHandler}
-          placeholder="비밀번호"
+          onInput={onChangeHandler}
+          onPaste={onChangeHandler}
+          placeholder={placeholder}
           onKeyUp={(e) => {
             if (e.key === "Enter") {
               onEnter(e);

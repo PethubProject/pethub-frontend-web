@@ -1,5 +1,6 @@
 import { atom, useRecoilState } from "recoil";
 import AlertModal from "./AlertModal";
+import PopupModal from "./PopUpModal";
 
 export default function Modal() {
   const [modal, setModal] = useRecoilState(modalState);
@@ -14,6 +15,17 @@ export default function Modal() {
         }}
       />
     ),
+    popup: (
+      <PopupModal
+        head={modal.head}
+        body={modal.body}
+        onClose={(e, s) => {
+          if (modal.onClose) {
+            modal.onClose(e, s);
+          }
+        }}
+      />
+    ),
     "": null,
   };
 
@@ -22,5 +34,5 @@ export default function Modal() {
 
 export const modalState = atom({
   key: "modalState",
-  default: { status: false, type: "", msg: "" },
+  default: { status: false, type: "", msg: "", body: "", head: "" },
 });
