@@ -27,6 +27,11 @@ import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { UserState } from "./state/User";
 import UserInfo from "./pages/UserInfo/UserInfo";
+import PetDetail from "./pages/PetInfo/PetDetail";
+import PetInsert from "./pages/PetInfo/PetInsert";
+import PetUpdate from "./pages/PetInfo/PetUpdate";
+import PetList from "./pages/PetInfo/PetList";
+
 function App() {
   function A() {
     const setUser = useSetRecoilState(UserState);
@@ -85,6 +90,12 @@ function App() {
             path="/counselboard/answer/update"
             element={<CounselAnswerUpdate />}
           />
+
+          {/* PetInfo */}
+          <Route path="/petinfo" element={<PetList/>}/>
+          <Route path="/petinfo/insert" element={<PetInsert/>}/>
+          <Route path="/petinfo/detail" element={<PetDetail/>}/>
+          <Route path="/petinfo/update" element={<PetUpdate/>}/>
 
           {/* camera */}
           <Route path="/ai" element={<Camera />} />

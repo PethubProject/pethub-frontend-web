@@ -52,6 +52,36 @@ export default function Main() {
               <span>진료</span>
             </div>
           </div>
+          <div className="flex-row-between">
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                //navigate("/chat");
+                window.confirm("아직 개발되지 않은 기능입니다.")
+              }}
+            >
+              <span>내</span>
+              <span>정보</span>
+            </div>
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/petinfo");
+              }}
+            >
+              <span>반려견 </span>
+              <span>정보</span>
+            </div>
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/freeboard");
+              }}
+            >
+              <span>자유</span>
+              <span>게시판</span>
+            </div>
+          </div>
         </div>
       </div>
       <BottomTabNavigation />

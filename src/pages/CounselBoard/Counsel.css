@@ -203,7 +203,7 @@ textarea {
   margin-bottom: 1rem;
 }
 
-.label_update_content,
+.label_update_content > input[type="text"],
 .insert_content > input[type="text"],
 textarea {
   margin-top: 10px;
