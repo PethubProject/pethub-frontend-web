@@ -4,16 +4,6 @@
   position: relative;
 }
 
-#more-user-img img {
-  max-height: 160px;
-  max-width: 160px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-  border-radius: 100%;
-}
-
 #more-user-img input[type="file"] {
   position: absolute;
   bottom: 0;

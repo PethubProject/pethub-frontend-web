@@ -2,12 +2,7 @@ import axios from "axios";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { UserState } from "../state/User";
 import { useNavigate } from "react-router-dom";
-export const postApi = async ({
-  url,
-  data,
-  fail = () => {},
-  success = () => {},
-}) => {
+export const postApi = async ({ url, data }) => {
   let result;
   try {
     result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
@@ -18,19 +13,13 @@ export const postApi = async ({
     console.log("err", err);
     throw err;
   }
-  console.log(result.headers["set-cookie"]);
   return result;
 };
 
 const useApiHooks = () => {
   const userReset = useResetRecoilState(UserState);
   const navigate = useNavigate();
-  const postApi = async ({
-    url,
-    data,
-    fail = () => {},
-    success = () => {},
-  }) => {
+  const postApi = async ({ url, data }) => {
     let result;
     try {
       result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
@@ -42,20 +31,58 @@ const useApiHooks = () => {
         navigate("/");
       }
     } catch (err) {
-      console.log("err", err);
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
       throw err;
     }
-    console.log(result.headers["set-cookie"]);
+    return result;
+  };
+  const putApi = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.put(process.env.REACT_APP_API_URL + url, data, {
+        withCredentials: true,
+        validateStatus: false,
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
+    return result;
+  };
+  const getApi = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.get(process.env.REACT_APP_API_URL + url, data, {
+        withCredentials: true,
+        validateStatus: false,
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
     return result;
   };
 
-  const fileUpload = async ({
-    url,
-    data,
-    fail = () => {},
-    success = () => {},
-  }) => {
+  const fileUpload = async ({ url, data }) => {
     let result;
+
     try {
       result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
         withCredentials: true,
@@ -72,11 +99,13 @@ const useApiHooks = () => {
       console.log("err", err);
       throw err;
     }
-    console.log(result.headers["set-cookie"]);
     return result;
   };
+
   return {
+    getApi,
     postApi,
+    putApi,
     fileUpload,
     apiSignOut: async () => {
       const state = { ok: false, msg: "", data: {} };
@@ -141,7 +170,6 @@ const useApiHooks = () => {
         url: "/api/auth/join",
         data: user,
       });
-      console.log(result);
       if (result.status === 200) {
         state.ok = true;
         state.msg = "회원가입 성공";

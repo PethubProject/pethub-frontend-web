@@ -7,6 +7,7 @@ import { UserState } from "../../state/User";
 import useApiHooks from "../../api/BaseApi";
 import { useState } from "react";
 import axios from "axios";
+import ImgWrapper from "../../components/Wrapper/ImgWrapper";
 export default function More() {
   const [user, setUser] = useRecoilState(UserState);
   const { fileUpload } = useApiHooks();
@@ -14,10 +15,13 @@ export default function More() {
     <div id="main">
       <MainHeader />
       <div className="content">
-        <div id="more-user-img">
-          <img
+        {/* <div id="more-user-img">
+          <ImgWrapper
             src={process.env.REACT_APP_API_URL + user.userImage}
-            alt="유저이미지"
+            alt={"유저이미지"}
+            width="120px"
+            height="120px"
+            borderRadius="12px"
           />
           <input
             type="file"
@@ -26,25 +30,15 @@ export default function More() {
               var file = e.target.files[0];
               var formData = new FormData();
               formData.append("photo", file);
-              axios
-                .post(
-                  process.env.REACT_APP_API_URL + "/api/user/image",
-                  formData,
-                  {
-                    withCredentials: true,
-                    validateStatus: false,
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                    },
-                  }
-                )
-                .then((r) => {
+              fileUpload({ url: "/api/user/image", data: formData }).then(
+                (r) => {
                   setUser((p) => ({ ...p, userImage: r.data.img }));
-                });
+                }
+              );
             }}
           ></input>
           <label htmlFor="input-img">수정</label>
-        </div>
+        </div> */}
         <MenuList />
       </div>
       <BottomTabNavigation />

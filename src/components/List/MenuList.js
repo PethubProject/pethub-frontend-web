@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import "./list.css";
+import SignOut from "../../pages/Sign/SignOut";
+import UserWrapper from "../Wrapper/UserWrapper";
 
 export default function MenuList() {
   const navigate = useNavigate();
+
   return (
     <div className="list-col">
-      <div className="list-item v-exp">내정보</div>
+      <div
+        className="list-item v-exp"
+        onClick={() => {
+          navigate("/userinfo");
+        }}
+      >
+        내정보
+      </div>
       <div
         className="list-item v-exp"
         onClick={() => {
@@ -22,6 +32,7 @@ export default function MenuList() {
       >
         상담게시판
       </div>
+      <UserWrapper isUser={<SignOut />} />
     </div>
   );
 }

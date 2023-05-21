@@ -64,6 +64,16 @@
   background-color: red;
 }
 
+.btn-close {
+  color: white;
+  width: auto;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: red;
+}
+
 .btn-update {
   color: white;
   width: auto;
