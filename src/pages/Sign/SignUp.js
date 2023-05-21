@@ -62,12 +62,6 @@ export default function SignUp() {
             nickName.state
           }
           onClick={() => {
-            console.log({
-              email: email.value,
-              nickname: nickName.value,
-              password: pw.value,
-              phoneNumber: phoneNumber.value,
-            });
             apiSignUp({
               email: email.value,
               nickname: nickName.value,
