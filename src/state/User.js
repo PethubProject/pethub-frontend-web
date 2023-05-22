@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-import useApiHooks from "../api/BaseApi";
 import axios from "axios";
 export const UserInit = {
   nickname: "",

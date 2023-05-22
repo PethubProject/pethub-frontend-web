@@ -91,7 +91,7 @@ function PetUpdate() {
       <label>
         반려동물 질병:
         <select className="disease">
-        <option value="" selected disabled hidden>선택하시오</option>
+        <option value selected disabled hidden>선택하시오</option>
         <option value="알수없음">알수없음</option>
         <option value="없음">없음</option>
         <option value="피부질병">피부질병</option>
