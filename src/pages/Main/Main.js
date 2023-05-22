@@ -56,8 +56,7 @@ export default function Main() {
             <div
               className="btn-only-border"
               onClick={() => {
-                //navigate("/chat");
-                window.confirm("아직 개발되지 않은 기능입니다.")
+                navigate("/userinfo");
               }}
             >
               <span>내</span>

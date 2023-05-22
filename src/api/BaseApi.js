@@ -71,6 +71,9 @@ const useApiHooks = () => {
         navigate("/");
       }
     } catch (err) {
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      }
       if (err.response.status === 401) {
         userReset();
         navigate("/");

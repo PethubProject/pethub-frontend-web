@@ -15,7 +15,11 @@ const localStorageEffect =
         validateStatus: false,
       })
       .then((resp) => {
-        setSelf((p) => ({ ...p, ...resp.data.data, loading: true }));
+        setSelf((p) => ({ ...p, ...resp.data.data }));
+      })
+      .catch((err) => alert("유저 정보 불러오기 : " + err.message))
+      .finally(() => {
+        setSelf((p) => ({ ...p, loading: true }));
       });
 
     onSet((newValue, _, isReset) => {
