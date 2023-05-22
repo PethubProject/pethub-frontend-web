@@ -7,12 +7,19 @@ import PetDummy from "../../dummy/PetDummy.js";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import useApiHooks from "../../api/BaseApi.js";
 
+
 function PetList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
+  const [petList,setPetList] = useState([]);
   useEffect(() => {
-    getApi({ url: "/api/pet" }).then((r) => console.log(r));
+    getApi({ url: "/api/pet"}).then(r=>{
+      if(Array.isArray(r.data)){
+        setPetList(r.data);
+      }
+    });
   }, []);
+  
   //리스트에서 왼쪽에 반려동물 얼굴, 그리고 오른쪽에 이름 있으면 좋겠음.
   return (
     <LayoutUserExist>
@@ -21,7 +28,7 @@ function PetList() {
         <div id="counsel-board" className="content flex-column">
           <div className="content scroll-hide board-list">
             <div className="list-col">
-              {PetDummy.map((petDummys) => (
+              {petList.map((petDummys) => (
                 <div
                   key={petDummys.id}
                   className="list-item"

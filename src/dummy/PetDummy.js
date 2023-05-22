@@ -28,7 +28,7 @@ const DogBreeds = {
 };
 
 const CatBreeds = {
-  고양이: [
+  "고양이": [
     "아비시니안",
     "먼치킨",
     "러시안 블루",

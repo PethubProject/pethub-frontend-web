@@ -4,7 +4,6 @@ import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 import BoardHeader from "../../components/Header/HeaderBoard.js";
 import PetDummy from "../../dummy/PetDummy.js";
-
 function PetInsert() {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
@@ -12,9 +11,8 @@ function PetInsert() {
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
   const [disease, setDisease] = useState("");
-
   const nav = useNavigate();
-
+  
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
