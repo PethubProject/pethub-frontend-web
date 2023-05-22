@@ -6,14 +6,12 @@ import BoardHeader from "../../components/Header/HeaderBoard.js";
 import PetDummy from "../../dummy/PetDummy.js";
 
 function PetInsert() {
-  const[image,setImage]= useState("");
+  const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
   const [disease, setDisease] = useState("");
-  const[dogChecked, setDogChecked] = useState("");
-  const[catChecked, setCatChecked] = useState("");
 
   const nav = useNavigate();
 
@@ -43,34 +41,32 @@ function PetInsert() {
   const uploadImage = (imageFile) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-  
+
       reader.onload = () => {
-  
         const imageUrl = reader.result;
-        const imageName = generateImageName(); 
-  
-  
+        const imageName = generateImageName();
+
         localStorage.setItem(imageName, imageUrl);
-  
-  
+
         resolve(imageUrl);
       };
-  
+
       reader.onerror = (error) => {
         reject(error);
       };
-  
-  
+
       reader.readAsDataURL(imageFile);
     });
   };
-  
-  
+
   const generateImageName = () => {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
     for (let i = 0; i < 10; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   };
@@ -89,19 +85,20 @@ function PetInsert() {
       createdtime,
     };
     PetDummy.push(newContent);
-    if(image){
+    if (image) {
       const formData = new FormData();
       formData.append("image", image);
-      
-      uploadImage(formData).then((imageUrl) =>{
-        nav(`/petinfo/detail?detailID=${PetDummy.id}`);
-      }).catch((error)=> {
-        console.error("이미지 업로드 실패",error);
-      });
+
+      uploadImage(formData)
+        .then((imageUrl) => {
+          nav(`/petinfo/detail?detailID=${PetDummy.id}`);
+        })
+        .catch((error) => {
+          console.error("이미지 업로드 실패", error);
+        });
     } else {
       nav(`/petinfo/detail?detailID=${PetDummy.id}`);
     }
-    
   };
 
   return (
@@ -117,12 +114,12 @@ function PetInsert() {
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </label>
-        {image &&(
+        {image && (
           <img
-          className="pet_select_image"
-          src={URL.createObjectURL(image)}
-          alt="반려동물 사진"
-          style={{ maxWidth: '300px', marginTop: '10px'}}
+            className="pet_select_image"
+            src={URL.createObjectURL(image)}
+            alt="반려동물 사진"
+            style={{ maxWidth: "300px", marginTop: "10px" }}
           />
         )}
         <label>
@@ -139,39 +136,48 @@ function PetInsert() {
           />
           살
         </label>
-        {/*
+
         <label>
-          <input
-          type="checkbox" checked={dogChecked} onChange={null}
-          />반려동물 과
+          반려동물 종류:
+          <select className="animal_group">
+            <option value="" selected disabled hidden>
+              선택하시오
+            </option>
+            <option value="강아지">강아지</option>
+            <option value="고양이">고양이</option>
+          </select>
         </label>
-        */}
+
         <label>
           반려동물 품종:
-          <select className="breed">
+          <select>
+            <option value="" selected disabled hidden>
+              선택하시오
+            </option>
             <optgroup label="소형견">
-              <option value="" selected disabled hidden>
-                선택하시오
-              </option>
-              <option value="말티즈">말티즈</option>
-              <option value="포메라니안">포메라니안</option>
-              <option value="치와와">치와와</option>
-              <option value="비글">비글</option>
+              {PetDummy.DogBreeds.small.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
             </optgroup>
             <optgroup label="중형견">
-              <option value="비숑프리제">비숑프리제</option>
-              <option value="사모예드">사모예드</option>
-              <option value="웰시코기">웰시코기</option>
-              <option value="시베리안 허스키">시베리안 허스키</option>
+              {PetDummy.DogBreeds.medium.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
             </optgroup>
             <optgroup label="대형견">
-              <option value="블러드하운드">블러드하운드</option>
-              <option value="리트리버">리트리버</option>
-              <option value="하운드">하운드</option>
-              <option value="셰퍼드">셰퍼드</option>
+              {PetDummy.DogBreeds.large.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
             </optgroup>
           </select>
         </label>
+
         <label>
           반려동물 무게:
           <input className="weight" type="number" min="0" placeholder="0.5kg" />
