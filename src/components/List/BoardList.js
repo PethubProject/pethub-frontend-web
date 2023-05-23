@@ -18,12 +18,14 @@ function DrawList({ items }) {
             className="list-item"
             key={Math.random()}
             onClick={() => {
-              nav(`/freeboard/content?contentId=${d.contentId}`);
+              nav(`/freeboard/content?contentId=${d.postId}`);
             }}
           >
-            <div className="list-title">{d.title}</div>
-            <div className="list-reg-user">{d.regUser}</div>
-            <div className="list-reg-dt">{d.regDt}</div>
+            <div className="list-title">{d.postTitle}</div>
+            <div className="list-reg-user">{d.user.nickname}</div>
+            <div className="list-reg-dt">
+              {new Date(d.createdAt).format("yyyy-MM-dd HH:mm:ss")}
+            </div>
           </div>
         );
       })}

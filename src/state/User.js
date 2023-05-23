@@ -3,6 +3,7 @@ import axios from "axios";
 export const UserInit = {
   nickname: "",
   userImage: "",
+  email: "",
   loading: true,
 };
 

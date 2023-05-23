@@ -31,6 +31,11 @@ const useApiHooks = () => {
         navigate("/");
       }
     } catch (err) {
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }
       if (err.response.status === 401) {
         userReset();
         navigate("/");
@@ -51,6 +56,11 @@ const useApiHooks = () => {
         navigate("/");
       }
     } catch (err) {
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }
       if (err.response.status === 401) {
         userReset();
         navigate("/");
@@ -72,6 +82,8 @@ const useApiHooks = () => {
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
+        throw err;
+      } else if (err.code === "ERR_CONNECTION_REFUSED") {
         throw err;
       }
       if (err.response.status === 401) {

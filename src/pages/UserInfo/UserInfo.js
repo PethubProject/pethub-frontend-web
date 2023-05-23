@@ -24,7 +24,6 @@ export default function UserInfo() {
 function UserInfoContent() {
   const { getApi } = useApiHooks();
   const user = useRecoilValue(UserState);
-
   useEffect(() => {
     getApi({ url: `/api/user/nickname?nickname=${user.nickname}` }).then((r) =>
       console.log(r)

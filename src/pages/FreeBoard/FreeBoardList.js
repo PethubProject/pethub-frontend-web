@@ -9,16 +9,26 @@ import BtnFloat from "../../components/Button/BtnFloat";
 import BoardList from "../../components/List/BoardList";
 import { FreeboardState } from "../../state/board/FreeboardState";
 import "./FreeBoard.css";
+import useApiHooks from "../../api/BaseApi";
 export default function FreeBoardList() {
   const nav = useNavigate();
+  const { getApi } = useApiHooks();
   const [currentPage, setCurrentPage] = useState(0);
   const randomFreeBoardList = useRecoilValue(FreeboardState);
   const [boardList, setBoardList] = useState([]);
+
   useEffect(() => {
-    setBoardList((p) => [
-      ...p,
-      ...randomFreeBoardList.slice(currentPage * 50, (currentPage + 1) * 50),
-    ]);
+    // setBoardList((p) => [
+    //   ...p,
+    //   ...randomFreeBoardList.slice(currentPage * 50, (currentPage + 1) * 50),
+    // ]);
+    getApi({ url: "/api/post/paging", data: { page: currentPage } }).then(
+      (resp) => {
+        if (resp.data.data !== null) {
+          setBoardList((p) => [...p, ...resp.data.data.content]);
+        }
+      }
+    );
   }, [currentPage]);
   const reload = (e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
@@ -42,6 +52,7 @@ export default function FreeBoardList() {
       </div>
 
       <BottomTabNavigation />
+
       <BtnFloat
         onClick={() => {
           nav("/freeboard/insert");
