@@ -44,6 +44,34 @@ const useApiHooks = () => {
     }
     return result;
   };
+  const postApiWithFile = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
+        withCredentials: true,
+        validateStatus: false,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
+    return result;
+  };
   const putApi = async ({ url, data }) => {
     let result;
     try {
@@ -72,7 +100,34 @@ const useApiHooks = () => {
   const getApi = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.get(process.env.REACT_APP_API_URL + url, data, {
+      result = await axios.get(process.env.REACT_APP_API_URL + url, {
+        params: data,
+        withCredentials: true,
+        validateStatus: false,
+      });
+      if (result.status === 401) {
+        userReset();
+        navigate("/");
+      }
+    } catch (err) {
+      if (err.code === "ERR_NETWORK") {
+        throw err;
+      } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }
+      if (err.response.status === 401) {
+        userReset();
+        navigate("/");
+      }
+      throw err;
+    }
+    return result;
+  };
+  const deleteApi = async ({ url, data }) => {
+    let result;
+    try {
+      result = await axios.delete(process.env.REACT_APP_API_URL + url, {
+        params: data,
         withCredentials: true,
         validateStatus: false,
       });
@@ -120,7 +175,9 @@ const useApiHooks = () => {
   return {
     getApi,
     postApi,
+    postApiWithFile,
     putApi,
+    deleteApi,
     fileUpload,
     apiSignOut: async () => {
       const state = { ok: false, msg: "", data: {} };

@@ -3,22 +3,52 @@ import BtnRegister from "../../components/Button/BtnRegister";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import { useCallback, useState } from "react";
-import { isEmpty } from "../../utils/Utils";
 import useApiHooks from "../../api/BaseApi";
+import { isEmpty, unscript } from "../../utils/Utils";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { postApi } = useApiHooks();
+  const { postApi, postApiWithFile } = useApiHooks();
 
-  const [formData, setFormData] = useState({
+  const [postData, setPostData] = useState({
     postTitle: "",
     postContents: "",
   });
 
   const onFormChagne = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((p) => ({ ...p, [name]: value }));
+    setPostData((p) => ({ ...p, [name]: value }));
   }, []);
+
+  const onRegist = useCallback(() => {
+    var ok = true;
+    Object.keys(postData).map((k) => {
+      const v = postData[k];
+      if (isEmpty(v)) {
+        document.querySelector(`[name="${k}"]`).focus();
+        ok = false;
+        return false;
+      }
+    });
+    if (!ok) {
+      return false;
+    }
+    postApi({ url: "/api/post/save", data: postData }).then((resp) => {
+      if (resp.status === 200) {
+        navigate(`/freeboard/content?contentId=${resp.data.data.postId}`, {
+          replace: true,
+        });
+      }
+    });
+    // var formData = new FormData();
+    // formData.append("file", null);
+    // Object.keys(postData).map((k) => {
+    //   formData.append(k, postData[k]);
+    // });
+    // postApiWithFile({ url: "/api/post/save", data: formData }).then((resp) => {
+    //   console.log(resp);
+    // });
+  }, [postData]);
   return (
     <LayoutUserExist>
       <div id="main">
@@ -27,19 +57,7 @@ export default function FreeBoardInsert() {
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
-              <BtnRegister
-                onClick={() => {
-                  Object.keys(formData).map((k) => {
-                    const v = formData[k];
-
-                    console.log(v);
-                    console.log(isEmpty(v));
-                  });
-                  postApi({ url: "/api/post/save", data: formData }).then(
-                    (resp) => console.log(resp)
-                  );
-                }}
-              />
+              <BtnRegister onClick={onRegist} />
             </div>
           }
         />
@@ -52,8 +70,9 @@ export default function FreeBoardInsert() {
               type="text"
               placeholder="제목입력"
               onChange={onFormChagne}
-              value={formData.postTitle}
+              value={postData.postTitle}
               name="postTitle"
+              maxLength="255"
             />
           </div>
           <div className="form-item">
@@ -63,8 +82,9 @@ export default function FreeBoardInsert() {
               placeholder="내용입력"
               rows={15}
               onChange={onFormChagne}
-              value={formData.postContents}
+              value={postData.postContents}
               name="postContents"
+              maxLength="500"
             ></textarea>
           </div>
         </form>

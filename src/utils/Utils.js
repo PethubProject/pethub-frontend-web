@@ -1,79 +1,56 @@
-export const isEmpty = (str) => {
-  if (str.replace(/[\s]+/gi, "").length === 0) {
+export const isEmpty = (obj) => {
+  if (
+    obj === null ||
+    obj === "" ||
+    obj === undefined ||
+    typeof obj === "undefined"
+  ) {
     return true;
-  } else {
-    return false;
   }
-};
-
-// DATE()형식 변환
-Date.prototype.format = function (f) {
-  if (!this.valueOf()) return " ";
-
-  var weekName = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
-  ];
-  var d = this;
-
-  return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
-    switch ($1) {
-      case "yyyy":
-        return d.getFullYear();
-      case "yy":
-        return (d.getFullYear() % 1000).zf(2);
-      case "MM":
-        return (d.getMonth() + 1).zf(2);
-      case "dd":
-        return d.getDate().zf(2);
-      case "E":
-        return weekName[d.getDay()];
-      case "HH":
-        return d.getHours().zf(2);
-      case "hh":
-        return (($1 = d.getHours() % 12) ? $1 : 12).zf(2);
-      case "mm":
-        return d.getMinutes().zf(2);
-      case "ss":
-        return d.getSeconds().zf(2);
-      case "a/p":
-        return d.getHours() < 12 ? "오전" : "오후";
-      default:
-        return $1;
+  if (typeof obj === "string") {
+    if (obj.replace(/[\s]+/gi, "").length === 0) {
+      return true;
     }
-  });
-};
-
-String.prototype.string = function (len) {
-  var s = "",
-    i = 0;
-  while (i++ < len) {
-    s += this;
   }
-  return s;
-};
-String.prototype.zf = function (len) {
-  return "0".string(len - this.length) + this;
-};
-Number.prototype.zf = function (len) {
-  return this.toString().zf(len);
-};
-
-Object.prototype.isEmpty = function () {
-  if (Object.keys(this).length !== 0) {
-    return false;
+  if (typeof obj === "object") {
+    if (!Array.isArray(obj) && Object.keys(obj).length === 0) {
+      return true;
+    }
+    if (Array.isArray(obj) && obj.length === 0) {
+      return true;
+    }
   }
-  return true;
+  return false;
 };
 
-Object.prototype.contains = function (key) {
-  if (Object.keys(this).includes(key)) {
+export const contains = (obj, key) => {
+  if (Object.keys(obj).includes(key)) {
     return true;
   }
   return false;
+};
+
+export const unscript = (data) => {
+  if (isEmpty(data)) {
+    return "";
+  }
+
+  var ret = data;
+
+  ret = ret.replace(/<(S|s)(C|c)(R|r)(I|i)(P|p)(T|t)/, "&lt;script");
+  ret = ret.replace(/<\/(S|s)(C|c)(R|r)(I|i)(P|p)(T|t)/, "&lt;/script");
+
+  ret = ret.replace(/<(O|o)(B|b)(J|j)(E|e)(C|c)(T|t)/, "&lt;object");
+  ret = ret.replace(/<\/(O|o)(B|b)(J|j)(E|e)(C|c)(T|t)/, "&lt;/object");
+
+  ret = ret.replace(/<(A|a)(P|p)(P|p)(L|l)(E|e)(T|t)/, "&lt;applet");
+  ret = ret.replace(/<\/(A|a)(P|p)(P|p)(L|l)(E|e)(T|t)/, "&lt;/applet");
+
+  ret = ret.replace(/<(E|e)(M|m)(B|b)(E|e)(D|d)/, "&lt;embed");
+  ret = ret.replace(/<\/(E|e)(M|m)(B|b)(E|e)(D|d)/, "&lt;embed");
+
+  ret = ret.replace(/<(F|f)(O|o)(R|r)(M|m)/, "&lt;form");
+  ret = ret.replace(/<\/(F|f)(O|o)(R|r)(M|m)/, "&lt;form");
+
+  return ret;
 };

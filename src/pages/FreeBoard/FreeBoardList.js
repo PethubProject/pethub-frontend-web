@@ -13,9 +13,10 @@ import useApiHooks from "../../api/BaseApi";
 export default function FreeBoardList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const randomFreeBoardList = useRecoilValue(FreeboardState);
   const [boardList, setBoardList] = useState([]);
+  const [totalCnt, setTotalCnt] = useState(0);
 
   useEffect(() => {
     // setBoardList((p) => [
@@ -24,8 +25,12 @@ export default function FreeBoardList() {
     // ]);
     getApi({ url: "/api/post/paging", data: { page: currentPage } }).then(
       (resp) => {
-        if (resp.data.data !== null) {
-          setBoardList((p) => [...p, ...resp.data.data.content]);
+        const { data } = resp.data;
+        const { content, pageable } = data;
+        console.log(data);
+        setTotalCnt(data.totalElements);
+        if (data !== null && pageable.pageNumber !== currentPage) {
+          setBoardList((p) => [...p, ...content]);
         }
       }
     );
@@ -42,12 +47,8 @@ export default function FreeBoardList() {
     <div id="main">
       <BoardHeader title="자유게시판" />
       <div className="content flex-column">
-        <div className="flex-center board-info" style={{ gap: "16px" }}>
-          <div>전체 게시물 : {randomFreeBoardList.length}</div>
-          <div>현재 게시물 : {(currentPage + 1) * 50}</div>
-        </div>
         <div className="content scroll-hide board-list" onScroll={reload}>
-          <BoardList list={boardList} />
+          <BoardList list={boardList} totalCnt={totalCnt} />
         </div>
       </div>
 

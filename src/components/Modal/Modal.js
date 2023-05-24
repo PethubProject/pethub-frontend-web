@@ -34,5 +34,13 @@ export default function Modal() {
 
 export const modalState = atom({
   key: "modalState",
-  default: { status: false, type: "", msg: "", body: "", head: "" },
+  default: {
+    status: false,
+    type: "",
+    msg: "",
+    body: "",
+    head: "",
+    onClick: () => {},
+    onClose: () => {},
+  },
 });
