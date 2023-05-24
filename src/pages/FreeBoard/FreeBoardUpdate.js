@@ -7,6 +7,7 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import { isEmpty } from "../../utils/Utils";
 import { useRecoilValue } from "recoil";
 import { UserState } from "../../state/User";
+import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
 export default function FreeBoardUpdate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ export default function FreeBoardUpdate() {
           }
         />
 
-        <form id="freeboard">
+        <form id="freeboard" className="content">
           <div className="form-item">
             <label>제목</label>
             <input
@@ -93,7 +94,7 @@ export default function FreeBoardUpdate() {
             <textarea
               className="form-item-textarea"
               placeholder="내용입력"
-              rows={15}
+              rows={50}
               onChange={onFormChagne}
               value={postData.postContents}
               name="postContents"
@@ -101,7 +102,7 @@ export default function FreeBoardUpdate() {
             ></textarea>
           </div>
         </form>
-        {/* <BottomTabNavigation /> */}
+        <BottomFileUpload />
       </div>
     </LayoutUserExist>
   );

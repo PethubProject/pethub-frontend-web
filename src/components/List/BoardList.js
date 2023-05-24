@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import { forwardRef } from "react";
 import "./list.css";
-export default function BoardList({ list, totalCnt }) {
+export default forwardRef(function BoardList({ list, totalCnt }, ref) {
   return (
-    <div className="list-col">
+    <div className="list-col" ref={ref}>
       <DrawList items={list} totalCnt={totalCnt}></DrawList>
     </div>
   );
-}
+});
 
 function DrawList({ items, totalCnt }) {
   const nav = useNavigate();

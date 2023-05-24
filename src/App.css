@@ -59,6 +59,7 @@ body,
   /* height:calc(100% - var(--headerHeight) - var(--bottomNavHeight)) */
   flex-grow: 1;
   overflow: auto;
+  position: relative;
 }
 
 .span-v-bar {
