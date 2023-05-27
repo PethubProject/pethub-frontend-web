@@ -52,7 +52,7 @@ function CounselAnswerInsert() {
         <label>
           작성자:
           <input
-            classname="user"
+            className="user"
             type="text"
             value={user}
             onChange={handleUserChange}

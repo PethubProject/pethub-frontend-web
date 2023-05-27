@@ -168,7 +168,6 @@ form .form-item-textarea {
   background-color: #0069d9;
 }
 
-
 .box {
   display: inline-block;
   margin-top: 10px;
@@ -176,6 +175,7 @@ form .form-item-textarea {
   padding: 8px 16px;
   border: 1px solid black;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 label .label_update_title,
@@ -190,7 +190,7 @@ label .label_update_content,
   font-weight: bold;
 }
 
-.label_update_title,
+.label_update_title > input[type="text"],
 .insert_title > input[type="text"],
 textarea {
   margin-top: 10px;
@@ -202,7 +202,7 @@ textarea {
   margin-bottom: 1rem;
 }
 
-.label_update_content,
+.label_update_content > input[type="text"],
 .insert_content > input[type="text"],
 textarea {
   margin-top: 10px;
