@@ -31,17 +31,19 @@
 .btn-float {
   border-radius: 50%;
   background-color: tomato;
-  width: 16vw;
-  height: 16vw;
-  position: fixed;
-  bottom: 84px;
-  right: 3vw;
-  transform: translate(-50%);
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
   text-align: center;
   line-height: 56px;
   cursor: pointer;
-  max-width: 56px;
-  max-height: 56px;
+  max-width: 48px;
+  max-height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-register {
@@ -55,6 +57,16 @@
 }
 
 .btn-delete {
+  color: white;
+  width: auto;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: red;
+}
+
+.btn-close {
   color: white;
   width: auto;
   padding: 8px 16px;

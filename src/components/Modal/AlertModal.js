@@ -12,7 +12,6 @@ export default function AlertModal({ msg, onClick = () => {} }) {
       <div id="modal-btn">
         <BtnConfirm
           onClick={(e) => {
-            setModal({ status: false, type: "" });
             onClick(e, setModal);
           }}
         />

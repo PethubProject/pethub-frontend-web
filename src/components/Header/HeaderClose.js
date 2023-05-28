@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import BtnClose from "../Button/BtnClose";
+import BtnCloseIcon from "../Button/BtnCloseIcon";
 import "./header.css";
 export default function HeaderClose(props) {
   const navigate = useNavigate();
@@ -7,7 +7,7 @@ export default function HeaderClose(props) {
     <header>
       <div id="title">{props.title}</div>
       <div id="right">
-        <BtnClose
+        <BtnCloseIcon
           onClick={() => {
             navigate("/");
           }}

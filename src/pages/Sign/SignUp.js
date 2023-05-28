@@ -20,7 +20,7 @@ export default function SignUp() {
   const [email, setEmail] = useState({});
   const [confirmPw, setConfirmPw] = useState({});
   const [phoneNumber, setPhoneNumber] = useState({});
-  const [nickName, setNickName] = useState({});
+  const [nickname, setNickname] = useState({});
   const [modal, setModal] = useRecoilState(modalState);
   const navigate = useNavigate();
   const { apiSignUp } = useApiHooks();
@@ -48,7 +48,7 @@ export default function SignUp() {
         </div>
       </div>
       <InputEmail state={setEmail} />
-      <InputNickName state={setNickName} />
+      <InputNickName state={setNickname} />
       <InputPassword state={setPw} />
       <InputConfirmPassword state={setConfirmPw} password={pw.value} />
       <InputPhone state={setPhoneNumber} />
@@ -59,18 +59,12 @@ export default function SignUp() {
             confirmPw.state &&
             email.state &&
             phoneNumber.state &&
-            nickName.state
+            nickname.state
           }
           onClick={() => {
-            console.log({
-              email: email.value,
-              nickname: nickName.value,
-              password: pw.value,
-              phoneNumber: phoneNumber.value,
-            });
             apiSignUp({
               email: email.value,
-              nickname: nickName.value,
+              nickname: nickname.value,
               password: pw.value,
               phoneNumber: phoneNumber.value,
             }).then((r) => {

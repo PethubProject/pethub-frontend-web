@@ -22,17 +22,48 @@ import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
 import Chat from "./pages/Chat/Chat";
 import BeforeInstallPopup from "./components/Install/BeforeInstallPopup";
+import axios from "axios";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { UserState } from "./state/User";
+import UserInfo from "./pages/UserInfo/UserInfo";
+import PetDetail from "./pages/PetInfo/PetDetail";
+import PetInsert from "./pages/PetInfo/PetInsert";
+import PetUpdate from "./pages/PetInfo/PetUpdate";
+import PetList from "./pages/PetInfo/PetList";
 
 function App() {
+  function A() {
+    const setUser = useSetRecoilState(UserState);
+    useEffect(() => {
+      // axios
+      //   .get(process.env.REACT_APP_API_URL + "/api/user", {
+      //     withCredentials: true,
+      //     validateStatus: false,
+      //   })
+      //   .then((resp) => {
+      //     setUser((p) => {
+      //       p = { ...p, ...resp.data.data };
+      //       console.log(p);
+      //       return p;
+      //     });
+      //     console.log(resp.data);
+      //   });
+    }, []);
+  }
   return (
     <div className="App">
       <BrowserRouter>
+        <A />
         <Routes>
           <Route path="/" element={<Main />} />
 
           {/* sign */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+
+          {/* UserInfo */}
+          <Route path="/userinfo" element={<UserInfo />} />
 
           {/* TeleHealth */}
           <Route path="/telehealth" element={<TeleHealth />} />
@@ -59,6 +90,12 @@ function App() {
             path="/counselboard/answer/update"
             element={<CounselAnswerUpdate />}
           />
+
+          {/* PetInfo */}
+          <Route path="/petinfo" element={<PetList/>}/>
+          <Route path="/petinfo/insert" element={<PetInsert/>}/>
+          <Route path="/petinfo/detail" element={<PetDetail/>}/>
+          <Route path="/petinfo/update" element={<PetUpdate/>}/>
 
           {/* camera */}
           <Route path="/ai" element={<Camera />} />

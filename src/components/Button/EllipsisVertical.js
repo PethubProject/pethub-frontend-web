@@ -7,7 +7,12 @@ export default function EllipsisVertical({ children }) {
   return (
     <>
       <div
-        style={{ padding: "16px", position: "relative", cursor: "pointer" }}
+        style={{
+          padding: "16px",
+          position: "relative",
+          cursor: "pointer",
+          zIndex: 500,
+        }}
         onClick={() => {
           setShow((p) => !p);
         }}
@@ -24,6 +29,8 @@ export default function EllipsisVertical({ children }) {
               gap: "8px",
               right: "8px",
               padding: "8px",
+              top: "45px",
+              border: "1px solid #d9d9d9",
             }}
           >
             {children}

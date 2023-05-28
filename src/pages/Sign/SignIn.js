@@ -2,17 +2,16 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import BtnRequest from "../../components/Button/BtnRequest";
-import InputId from "../../components/Input/InputId";
 import InputPassword from "../../components/Input/InputPassword";
 import LayoutCloseForm from "../../components/Layout/LayoutCloseForm";
 import { modalState } from "../../components/Modal/Modal";
+import { UserState } from "../../state/User";
 import "./sign.css";
-import { UserInit, UserState } from "../../state/User";
 // img
+import useApiHooks from "../../api/BaseApi";
+import InputEmail from "../../components/Input/InputEmail";
 import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
-import InputEmail from "../../components/Input/InputEmail";
-import useApiHooks from "../../api/BaseApi";
 
 export default function SignIn() {
   const [email, setEmail] = useState({});
@@ -25,9 +24,8 @@ export default function SignIn() {
   const [type, setType] = useState("dog");
   const onSubmitHandler = useCallback(async () => {
     apiSignIn({ email: email.value, password: pw.value }).then((r) => {
-      console.log(r);
       if (r.ok) {
-        setUserState(r.data.data);
+        setUserState((p) => ({ ...p, ...r.data.data }));
         navigate("/");
       } else {
         alert(r.msg);

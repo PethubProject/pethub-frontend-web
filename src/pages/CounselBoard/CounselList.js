@@ -4,7 +4,7 @@ import BtnFloat from "../../components/Button/BtnFloat.js";
 import BoardHeader from "../../components/Header/HeaderBoard.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 import lists from "../../dummy/Lists.js";
-import "./Counsel.css"
+import "./Counsel.css";
 function CounselList() {
   const nav = useNavigate();
 
@@ -34,16 +34,17 @@ function CounselList() {
             ))}
           </div>
         </div>
+
+        <BtnFloat
+          onClick={() => {
+            nav("/counselboard/insert");
+          }}
+        />
       </div>
       {/* <div>
         <BtnInsert></BtnInsert>
       </div> */}
       <BottomTabNavigation />
-      <BtnFloat
-        onClick={() => {
-          nav("/counselboard/insert");
-        }}
-      />
     </div>
   );
 }
