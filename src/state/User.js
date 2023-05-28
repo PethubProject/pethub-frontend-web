@@ -1,9 +1,9 @@
 import { atom } from "recoil";
 import axios from "axios";
 export const UserInit = {
-  nickname: "",
+  nickname: "test",
   userImage: "",
-  email: "",
+  email: "kst1207@naver.com",
   loading: true,
 };
 
@@ -31,7 +31,7 @@ const localStorageEffect =
   };
 
 export const UserState = atom({
-  default: { ...UserInit, loading: false },
+  default: { ...UserInit, loading: true },
   key: "User",
-  effects: [localStorageEffect("User")],
+  // effects: [localStorageEffect("User")],
 });
