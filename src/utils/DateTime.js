@@ -16,7 +16,7 @@ export const dateToDiffStr = (now, prev) => {
   } else if (diff < day * 15) {
     diffStr = Math.trunc(diff / day) + "일 전";
   } else {
-    diffStr = prev.format("yyyy-MM-dd HH:mm:dd");
+    diffStr = prev.format("yyyy년 MM월 dd일");
   }
 
   return diffStr;

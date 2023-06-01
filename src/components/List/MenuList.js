@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import "./list.css";
 import SignOut from "../../pages/Sign/SignOut";
 import UserWrapper from "../Wrapper/UserWrapper";
 

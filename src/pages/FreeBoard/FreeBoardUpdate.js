@@ -55,9 +55,11 @@ export default function FreeBoardUpdate() {
         }
       }
     });
+    console.log("asdasda");
     if (!ok) {
       return false;
     }
+    console.log(123123);
     putApi({ url: `/api/post/${postData.postId}`, data: postData }).then(
       (resp) => {
         console.log(resp);

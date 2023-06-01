@@ -6,7 +6,7 @@ import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import BtnFloat from "../../components/Button/BtnFloat";
-import BoardList from "../../components/List/BoardList";
+import BoardList from "./BoardList";
 import { FreeboardState } from "../../state/board/FreeboardState";
 import "./FreeBoard.css";
 import useApiHooks from "../../api/BaseApi";
