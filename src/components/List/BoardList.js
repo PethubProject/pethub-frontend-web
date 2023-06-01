@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { forwardRef } from "react";
 import "./list.css";
+import { dateToDiffStr } from "../../utils/DateTime";
 export default forwardRef(function BoardList({ list, totalCnt }, ref) {
   return (
     <div className="list-col" ref={ref}>
@@ -11,7 +12,6 @@ export default forwardRef(function BoardList({ list, totalCnt }, ref) {
 
 function DrawList({ items, totalCnt }) {
   const nav = useNavigate();
-  console.log(totalCnt);
   return (
     <>
       {items.map((d, i) => {
@@ -25,11 +25,11 @@ function DrawList({ items, totalCnt }) {
           >
             <div className="list-title">
               <span style={{ display: "none" }}>{totalCnt - i}</span>
-              {d.postTitle}
+              {d.title}
             </div>
             <div className="list-reg-user">{d.user.nickname}</div>
             <div className="list-reg-dt">
-              {new Date(d.createdAt).format("yyyy-MM-dd HH:mm:ss")}
+              {dateToDiffStr(new Date(), new Date(d.createdAt))}
             </div>
           </div>
         );

@@ -22,3 +22,7 @@ header #right {
 header #left {
   margin-right: auto;
 }
+
+header.board {
+  border-bottom: 1px solid #d9d9d9;
+}

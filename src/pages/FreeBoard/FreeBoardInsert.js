@@ -12,8 +12,8 @@ export default function FreeBoardInsert() {
   const { postApi, postApiWithFile } = useApiHooks();
 
   const [postData, setPostData] = useState({
-    postTitle: "",
-    postContents: "",
+    title: "",
+    content: "",
   });
 
   const onFormChagne = useCallback((e) => {
@@ -34,9 +34,9 @@ export default function FreeBoardInsert() {
     if (!ok) {
       return false;
     }
-    postApi({ url: "/api/post/save", data: postData }).then((resp) => {
+    postApi({ url: "/api/post", data: postData }).then((resp) => {
       if (resp.status === 200) {
-        navigate(`/freeboard/content?contentId=${resp.data.data.postId}`, {
+        navigate(`/freeboard/content?contentId=${resp.data.data}`, {
           replace: true,
         });
       }
@@ -71,8 +71,8 @@ export default function FreeBoardInsert() {
               type="text"
               placeholder="제목입력"
               onChange={onFormChagne}
-              value={postData.postTitle}
-              name="postTitle"
+              value={postData.title}
+              name="title"
               maxLength="255"
             />
           </div>
@@ -83,8 +83,8 @@ export default function FreeBoardInsert() {
               placeholder="내용입력"
               rows={20}
               onChange={onFormChagne}
-              value={postData.postContents}
-              name="postContents"
+              value={postData.content}
+              name="content"
               maxLength="500"
             ></textarea>
           </div>
