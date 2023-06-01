@@ -18,7 +18,7 @@ export default function SignOut() {
         });
       }}
     >
-      로그아웃
+      <div>로그아웃</div>
     </div>
   );
 }

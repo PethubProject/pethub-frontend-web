@@ -11,10 +11,6 @@
   border-bottom: 1px solid #eeeeee;
 }
 
-.list-col .list-item:first-child {
-  border-top: 10px solid #eeeeee;
-}
-
 .list-title {
   width: 100%;
   margin: 4px 0;
@@ -86,6 +82,12 @@
   border-radius: 50%;
 }
 
-.list-item.v-exp {
+.list-item.v-exp > div {
   padding: 16px;
+}
+.v-exp:first-child::before {
+  content: "";
+  width: 100%;
+  background-color: #eeeeee;
+  height: 10px;
 }

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import lists from "../../dummy/Lists.js";
 import AnswerLists from "../../dummy/AnswerLists.js";
 import BoardHeader from "../../components/Header/HeaderBoard.js";
-
+import "../FreeBoard/FreeBoard.css";
 function CounselContent() {
   const nav = useNavigate();
   const [searchparams, setsearchparams] = useSearchParams();
@@ -28,12 +28,18 @@ function CounselContent() {
       <div id="counsel_header">
         <BoardHeader />
       </div>
-      <div id="counsel_content">
-        <div className="box">
-          <h2>{list.title}</h2>
-          <div>{list.content}</div>
-          <div>작성자: {list.user}</div>
-          <div>작성일: {list.createdtime}</div>
+      <div id="board-info">
+        <div className="info-title">{list.title}</div>
+        <div className="info-reg">
+          <div className="info-reg-user">
+            <div>작성자: {list.user}</div>
+          </div>
+          <div className="info-reg-dt">
+            <div>작성일: {list.createdtime}</div>
+          </div>
+        </div>
+
+        {/* <div className="board-info">
           <div
             key={list.id}
             className="update_btn"
@@ -41,8 +47,8 @@ function CounselContent() {
           >
             <span>글 수정하기</span>
           </div>
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <div
             key={list.id}
             className="update_btn"
@@ -52,9 +58,9 @@ function CounselContent() {
           >
             <span>답변 달기</span>
           </div>
-        </div>
+        </div> */}
         {/* 답변 */}
-        <div className="box">
+        {/* <div className="box">
           <h2>{answerlist.title}</h2>
           <div>{answerlist.content}</div>
           <div>작성자: {answerlist.user}</div>
@@ -68,8 +74,9 @@ function CounselContent() {
           >
             답변수정하기
           </div>
-        </div>
+        </div> */}
       </div>
+      <div id="board-desc">{list.content}</div>
     </div>
   );
 }

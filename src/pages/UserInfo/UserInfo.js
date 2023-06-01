@@ -39,9 +39,9 @@ function UserInfoContent() {
             <ImgWrapper
               src={process.env.REACT_APP_API_URL + user.userImage}
               alt={"유저이미지"}
-              width="100px"
-              height="100px"
-              borderRadius="50px"
+              width="70px"
+              height="70px"
+              borderRadius="50%"
               defaultImg={defaultImg}
             />
             <div> {user.nickname}</div>

@@ -124,11 +124,15 @@
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
-  border-bottom: 10px solid #eeeeee;
 }
 
-.board-list-col .board-list-item:first-child {
-  border-top: 10px solid #eeeeee;
+.board-list-col .board-list-item::after,
+.board-list-col .board-list-item:first-child::before {
+  content: "";
+  width: 100%;
+  background-color: #eeeeee;
+  height: 10px;
+  /* border-top: 10px solid #eeeeee; */
 }
 
 .board-list-title {
@@ -166,5 +170,4 @@
 }
 
 .board-list-item:hover {
-  background-color: #d9d9d9;
 }

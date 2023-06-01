@@ -23,7 +23,7 @@ export default function ChangeUserPassword() {
         });
       }}
     >
-      비밀번호 변경
+      <div>비밀번호 변경</div>
     </div>
   );
 }

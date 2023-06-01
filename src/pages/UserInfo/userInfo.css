@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 0 8px;
+  padding: 16px 8px;
 }
 
 #user-info > div:nth-child(1) {
