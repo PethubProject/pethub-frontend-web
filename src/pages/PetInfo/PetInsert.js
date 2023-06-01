@@ -12,6 +12,8 @@ function PetInsert() {
   const [weight, setWeight] = useState("");
   const [disease, setDisease] = useState("");
   const nav = useNavigate();
+  const [animalGroup, setAnimalGroup] = useState("");
+
   
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -120,6 +122,7 @@ function PetInsert() {
             style={{ maxWidth: "300px", marginTop: "10px" }}
           />
         )}
+        
         <label>
           반려동물 이름:
           <input className="name" type="text" placeholder="이름" />
@@ -137,7 +140,8 @@ function PetInsert() {
 
         <label>
           반려동물 종류:
-          <select className="animal_group">
+          <select className="animal_group"
+          onChange={(event) => setAnimalGroup(event.target.value)}>
             <option value="" selected disabled hidden>
               선택하시오
             </option>
@@ -152,27 +156,42 @@ function PetInsert() {
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-            <optgroup label="소형견">
+            {animalGroup ==="강아지" &&(
+              <optgroup label="소형견">
               {PetDummy.DogBreeds.small.map((breed) => (
                 <option key={breed} value={breed}>
                   {breed}
                 </option>
               ))}
-            </optgroup>
-            <optgroup label="중형견">
-              {PetDummy.DogBreeds.medium.map((breed) => (
+              </optgroup>
+            )}
+            {animalGroup ==="강아지" &&(
+              <optgroup label="중형견">
+              {PetDummy.DogBreeds.small.map((breed) => (
                 <option key={breed} value={breed}>
                   {breed}
                 </option>
               ))}
-            </optgroup>
-            <optgroup label="대형견">
-              {PetDummy.DogBreeds.large.map((breed) => (
+              </optgroup>
+            )}
+            {animalGroup ==="강아지" &&(
+              <optgroup label="대형견">
+              {PetDummy.DogBreeds.small.map((breed) => (
                 <option key={breed} value={breed}>
                   {breed}
                 </option>
               ))}
+              </optgroup>
+            )}
+            {animalGroup === "고양이" && (
+            <optgroup label="고양이 종">
+            {PetDummy.CatBreeds.고양이.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))} 
             </optgroup>
+            )}
           </select>
         </label>
 
@@ -187,14 +206,11 @@ function PetInsert() {
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-            <option value="알수없음">알수없음</option>
-            <option value="없음">없음</option>
-            <option value="피부질병">피부질병</option>
-            <option value="소화기질병">소화기질병</option>
-            <option value="눈질병">눈 질병</option>
-            <option value="심장">심장질병</option>
-            <option value="외상">외상</option>
-            <option value="구토">구토</option>
+            {PetDummy.Disease.Disease.map((dis) => (
+                  <option key={dis} value={dis}>
+                    {dis}
+                  </option>
+                ))}
           </select>
         </label>
 

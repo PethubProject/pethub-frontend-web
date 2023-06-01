@@ -1,6 +1,7 @@
 #freeboard {
   padding: 8px 0;
   gap: 8px;
+  justify-content: flex-start;
 }
 
 #board-info {

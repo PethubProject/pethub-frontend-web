@@ -7,7 +7,7 @@ import PetDummy from "../../dummy/PetDummy.js";
 function PetDetail() {
   const nav = useNavigate();
   const [searchparams, setsearchparams] = useSearchParams();
-  const PetDummys = PetDummy.find(
+  const PetDummys = PetDummy.PetDummy.find(
     (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
   );
 
@@ -24,7 +24,7 @@ function PetDetail() {
         <div className="box">
           <div>펫 이름: {PetDummys.name}</div>
           <div>펫 나이: {PetDummys.age}살</div>
-          <div>펫 종류: {PetDummys.family}</div>
+          <div>펫 종류: {PetDummys.dorc}</div>
           <div>펫 품종: {PetDummys.breed}</div>
           <div>펫 체중: {PetDummys.weight}kg</div>
           <div>펫 질병: {PetDummys.disease}</div>

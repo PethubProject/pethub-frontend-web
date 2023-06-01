@@ -12,9 +12,10 @@ function PetUpdate() {
   const [weight, setWeight] = useState("");
   const [disease, setDisease] = useState("");
   const [searchparams, setsearchparams] = useSearchParams();
+  const [animalGroup, setAnimalGroup] = useState("");
 
   const nav = useNavigate();
-  const PetDummys = PetDummy.find(
+  const PetDummys = PetDummy.PetDummy.find(
     (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
   );
 
@@ -52,39 +53,79 @@ function PetUpdate() {
       <form onSubmit={handleSubmit}>
         <label>
           반려동물 이름:
-          <input className="name" type="text" value={PetDummys.name} />
+          <input
+            className="name"
+            type="text"
+            value={PetDummys.name}
+            onChange={handleNameChange}
+          />
         </label>
         <label>
           반려동물 나이:
           <input className="age" type="number" min="0" value={PetDummys.age} />
           살
         </label>
+
         <label>
-          반려동물 품종:
-          <select className="breed">
-            <optgroup label="소형견">
-              <option value="" selected disabled hidden>
-                선택하시오
-              </option>
-              <option value="말티즈">말티즈</option>
-              <option value="포메라니안">포메라니안</option>
-              <option value="치와와">치와와</option>
-              <option value="비글">비글</option>
-            </optgroup>
-            <optgroup label="중형견">
-              <option value="비숑프리제">비숑프리제</option>
-              <option value="사모예드">사모예드</option>
-              <option value="웰시코기">웰시코기</option>
-              <option value="시베리안 허스키">시베리안 허스키</option>``
-            </optgroup>
-            <optgroup label="대형견">
-              <option value="블러드하운드">블러드하운드</option>
-              <option value="리트리버">리트리버</option>
-              <option value="하운드">하운드</option>
-              <option value="셰퍼드">셰퍼드</option>
-            </optgroup>
+          반려동물 종류:
+          <select
+            className="animal_group"
+            onChange={(event) => setAnimalGroup(event.target.value)}
+          >
+            {/* 기존에 선택한 것을 selected를 통해 기본 값으로 하고 싶긴한데 그러면 코드가 내 생각에는 복잡해지는 것 같아서 굳이인것 같다. */}
+            <option value="" selected disabled hidden>
+              선택하시오
+            </option>
+            <option value="강아지">강아지</option>
+            <option value="고양이">고양이</option>
           </select>
         </label>
+
+        <label>
+          반려동물 품종:
+          <select>
+            <option value="" selected disabled hidden>
+              선택하시오
+            </option>
+            {animalGroup === "강아지" && (
+              <optgroup label="소형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {animalGroup === "강아지" && (
+              <optgroup label="중형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {animalGroup === "강아지" && (
+              <optgroup label="대형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {animalGroup === "고양이" && (
+              <optgroup label="고양이 종">
+                {PetDummy.CatBreeds.고양이.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+          </select>
+        </label>
+
         <label>
           반려동물 무게:
           <input
@@ -101,14 +142,11 @@ function PetUpdate() {
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-            <option value="알수없음">알수없음</option>
-            <option value="없음">없음</option>
-            <option value="피부질병">피부질병</option>
-            <option value="소화기질병">소화기질병</option>
-            <option value="눈질병">눈 질병</option>
-            <option value="심장">심장질병</option>
-            <option value="외상">외상</option>
-            <option value="구토">구토</option>
+            {PetDummy.Disease.Disease.map((dis) => (
+              <option key={dis} value={dis}>
+                {dis}
+              </option>
+            ))}
           </select>
         </label>
 

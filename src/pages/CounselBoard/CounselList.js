@@ -4,7 +4,6 @@ import BtnFloat from "../../components/Button/BtnFloat.js";
 import BoardHeader from "../../components/Header/HeaderBoard.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
 import lists from "../../dummy/Lists.js";
-import "./Counsel.css";
 function CounselList() {
   const nav = useNavigate();
 
