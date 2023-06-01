@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./input.css";
 export default function InputNickName({
-  labelText = "",
+  labelText = "닉네임",
   state = () => {},
   onEnter = () => {},
 }) {

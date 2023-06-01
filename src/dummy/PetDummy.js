@@ -6,17 +6,17 @@ const PetDummy = [
     age: 2,
     breed: "말티즈",
     weight: 5.5,
-    disease: "감기",    
+    disease: "감기",
     createdtime: ctime.toISOString(),
   },
-  
+
   {
     id: 2,
     name: "우주",
     age: 3,
     breed: "푸들",
     weight: 5,
-    disease: "변비",    
+    disease: "변비",
     createdtime: ctime.toISOString(),
   },
 ];
@@ -28,7 +28,7 @@ const DogBreeds = {
 };
 
 const CatBreeds = {
-  "고양이": [
+  고양이: [
     "아비시니안",
     "먼치킨",
     "러시안 블루",
@@ -42,4 +42,4 @@ const CatBreeds = {
   ],
 };
 
-export default { PetDummy, DogBreeds, CatBreeds};
+export default { PetDummy, DogBreeds, CatBreeds };
