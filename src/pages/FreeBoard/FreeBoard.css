@@ -1,7 +1,7 @@
 #freeboard {
-  padding: 8px 0;
-  gap: 8px;
+  padding: 0;
   justify-content: flex-start;
+  margin: 0;
 }
 
 #board-info {
@@ -169,5 +169,47 @@
   text-align: right;
 }
 
-.board-list-item:hover {
+.board-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-form-item {
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+}
+.board-form-title {
+}
+.board-form-content {
+  flex-grow: 1;
+}
+.board-form-item > label {
+  display: inline-block;
+  padding: 8px;
+}
+.board-form-input {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  padding: 16px;
+}
+.board-form-input:focus {
+  outline: none;
+}
+
+.board-form-textarea {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  box-sizing: border-box;
+  resize: none;
+  flex-grow: 1;
+}
+
+.board-form-textarea:focus {
+  outline: none;
 }

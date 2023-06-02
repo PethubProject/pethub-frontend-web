@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import { isEmpty, unscript } from "../../utils/Utils";
 import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
+import "./FreeBoard.css";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -64,29 +65,30 @@ export default function FreeBoardInsert() {
         />
 
         <form id="freeboard" className="content">
-          <div className="form-item">
-            <label>제목</label>
-            <input
-              className="form-item-input"
-              type="text"
-              placeholder="제목입력"
-              onChange={onFormChagne}
-              value={postData.title}
-              name="title"
-              maxLength="255"
-            />
-          </div>
-          <div className="form-item">
-            <label>내용</label>
-            <textarea
-              className="form-item-textarea"
-              placeholder="내용입력"
-              rows={20}
-              onChange={onFormChagne}
-              value={postData.content}
-              name="content"
-              maxLength="500"
-            ></textarea>
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input
+                className="board-form-input"
+                type="text"
+                placeholder="제목입력"
+                onChange={onFormChagne}
+                value={postData.title}
+                name="title"
+                maxLength="255"
+              />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea
+                className="board-form-textarea"
+                placeholder="내용입력"
+                onChange={onFormChagne}
+                value={postData.content}
+                name="content"
+                maxLength="500"
+              ></textarea>
+            </div>
           </div>
         </form>
         <BottomFileUpload />
