@@ -26,7 +26,7 @@ function CounselContent() {
   return (
     <div id="main">
       <div id="counsel_header">
-        <BoardHeader />
+        <BoardHeader title={<div>상담게시판</div>} />
       </div>
       <div id="board-info">
         <div className="info-title">{list.title}</div>

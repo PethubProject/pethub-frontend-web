@@ -24,8 +24,17 @@ function CounselList() {
                 }}
               >
                 <div className="board-list-title">{list.title}</div>
-                <div className="board-list-content" style={{ width: "100%" }}>
-                  {list.content.slice(0, 14) + "..."}
+                <div className="board-list-content">
+                  {list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content +
+                    list.content}
                 </div>
                 <div className="board-list-reg">
                   <div className="board-list-reg-user">{list.user}</div>

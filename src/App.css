@@ -240,3 +240,17 @@ form {
   border-bottom: 1px solid black;
   padding: 20px;
 }
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+.btn-ellipsis {
+  padding: "16px";
+  position: "relative";
+  cursor: "pointer";
+  z-index: 500;
+}

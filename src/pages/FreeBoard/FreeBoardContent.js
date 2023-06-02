@@ -110,7 +110,9 @@ function Right({ content }) {
             삭제
           </button>
         </EllipsisVertical>
-      ) : null}
+      ) : (
+        <div className="btn-ellipsis"></div>
+      )}
     </>
   );
 }

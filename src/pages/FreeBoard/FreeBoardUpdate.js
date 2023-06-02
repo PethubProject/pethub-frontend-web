@@ -55,14 +55,11 @@ export default function FreeBoardUpdate() {
         }
       }
     });
-    console.log("asdasda");
     if (!ok) {
       return false;
     }
-    console.log(123123);
     putApi({ url: `/api/post/${postData.postId}`, data: postData }).then(
       (resp) => {
-        console.log(resp);
         if (resp.status === 200) {
           navigate(`/freeboard/content?contentId=${postData.postId}`, {
             replace: true,
@@ -75,7 +72,7 @@ export default function FreeBoardUpdate() {
     <LayoutUserExist>
       <div id="main">
         <BoardHeader
-          title={postData.title + " 수정"}
+          title="자유게시판 글 수정"
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
@@ -85,29 +82,30 @@ export default function FreeBoardUpdate() {
         />
 
         <form id="freeboard" className="content">
-          <div className="form-item">
-            <label>제목</label>
-            <input
-              className="form-item-input"
-              type="text"
-              placeholder="제목입력"
-              onChange={onFormChagne}
-              value={postData.title}
-              name="title"
-              maxLength="255"
-            />
-          </div>
-          <div className="form-item">
-            <label>내용</label>
-            <textarea
-              className="form-item-textarea"
-              placeholder="내용입력"
-              rows={50}
-              onChange={onFormChagne}
-              value={postData.content}
-              name="content"
-              maxLength="500"
-            ></textarea>
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input
+                className="board-form-input"
+                type="text"
+                placeholder="제목입력"
+                onChange={onFormChagne}
+                value={postData.title}
+                name="title"
+                maxLength="255"
+              />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea
+                className="board-form-textarea"
+                placeholder="내용입력"
+                onChange={onFormChagne}
+                value={postData.content}
+                name="content"
+                maxLength="500"
+              ></textarea>
+            </div>
           </div>
         </form>
         <BottomFileUpload />

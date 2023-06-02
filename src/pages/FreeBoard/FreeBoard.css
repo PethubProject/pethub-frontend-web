@@ -7,7 +7,7 @@
 #board-info {
   display: flex;
   flex-wrap: wrap;
-  padding: 8px 16px;
+  padding: 4px 16px;
   border-bottom: 1px solid #d9d9d9;
 }
 .board-info {
@@ -20,9 +20,9 @@
 #board-info .info-title {
   width: 100%;
   margin: 4px 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 #board-info .info-reg {
   display: flex;
@@ -138,18 +138,19 @@
 .board-list-title {
   width: 100%;
   margin: 4px 0;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 8px 16px 4px 16px;
 }
 .board-list-content {
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: 1rem;
-  margin: 8px 0 16px 0;
+  white-space: nowrap;
+  font-size: 0.6rem;
+  margin: 4px 0 8px 0;
   box-sizing: border-box;
-  padding: 8px 16px;
+  padding: 4px 20px;
 }
 
 .board-list-reg {
