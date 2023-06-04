@@ -1,3 +1,5 @@
+import image1 from "./image/cloud_dog.jpg"
+import image2 from "./image/space_dog.jpg"
 const ctime = new Date();
 const PetDummy = [
   {
@@ -9,7 +11,7 @@ const PetDummy = [
     weight: 5.5,
     disease: "감기",    
     createdtime: ctime.toISOString(),
-    image:"cloud_dog.jpg"
+    image: image1,
   },
   
   {
@@ -21,7 +23,7 @@ const PetDummy = [
     weight: 5,
     disease: "변비",    
     createdtime: ctime.toISOString(),
-    image:"space_dog.png"
+    image:image2,
   },
 ];
 

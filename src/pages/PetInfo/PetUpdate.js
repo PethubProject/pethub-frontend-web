@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
@@ -13,6 +13,17 @@ function PetUpdate() {
   const [disease, setDisease] = useState("");
   const [searchparams, setsearchparams] = useSearchParams();
   const [animalGroup, setAnimalGroup] = useState("");
+  const [detialAnimalGroup,setDetailAnimalGroup]=useState([]);
+  useEffect(()=>{
+   if(animalGroup==="강아지"){
+    setDetailAnimalGroup([...PetDummy.DogBreeds.small,...PetDummy.DogBreeds.medium,...PetDummy.DogBreeds.large])
+   } 
+   else if(animalGroup==="고양이"){
+    setDetailAnimalGroup(PetDummy.CatBreeds.고양이)
+} else{
+    setDetailAnimalGroup([])
+   }
+  },[animalGroup])
 
   const nav = useNavigate();
   const PetDummys = PetDummy.PetDummy.find(
@@ -73,10 +84,10 @@ function PetUpdate() {
             onChange={(event) => setAnimalGroup(event.target.value)}
           >
             {/* 기존에 선택한 것을 selected를 통해 기본 값으로 하고 싶긴한데 그러면 코드가 내 생각에는 복잡해지는 것 같아서 굳이인것 같다. */}
-            <option value="" selected disabled hidden>
+            <option value="" selected={false} disabled hidden>
               선택하시오
             </option>
-            <option value="강아지">강아지</option>
+            <option value="강아지" selected={true}>강아지</option>
             <option value="고양이">고양이</option>
           </select>
         </label>
@@ -87,42 +98,11 @@ function PetUpdate() {
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-            {animalGroup === "강아지" && (
-              <optgroup label="소형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
+                {detialAnimalGroup.map((breed) => (
                   <option key={breed} value={breed}>
                     {breed}
                   </option>
                 ))}
-              </optgroup>
-            )}
-            {animalGroup === "강아지" && (
-              <optgroup label="중형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {animalGroup === "강아지" && (
-              <optgroup label="대형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {animalGroup === "고양이" && (
-              <optgroup label="고양이 종">
-                {PetDummy.CatBreeds.고양이.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
           </select>
         </label>
 

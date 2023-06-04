@@ -7,6 +7,7 @@ import BoardHeader from "../../components/Header/HeaderBoard.js";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import useApiHooks from "../../api/BaseApi.js";
 import PetDummy from "../../dummy/PetDummy.js";
+import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 
 function PetList() {
   const nav = useNavigate();
@@ -36,13 +37,14 @@ function PetList() {
                     nav(`/petinfo/detail?detailID=${petDummys.id}`);
                   }}
                 >
-                  {/* 왜 alt 값이 읽히지 src 경로는 잘 한 것 같은데 잘 모르겠넹..*/}
                   <div className="list-title">
-                    <img
-                      src={`/dummy/image/${petDummys.image}`}
-                      alt={petDummys.name + "의 사진"}
-                      
-                    ></img>
+                    <ImgWrapper
+                    src={petDummys.image}
+                    alt={petDummys.name + "의 사진"}
+                    width="30px"
+                    height="30px"
+                    borderRadius="15px"
+                    ></ImgWrapper>
                   </div>
                   <div style={{ display: "flex", width: "100%" }}>
                     <div className="list-reg-user"></div>
