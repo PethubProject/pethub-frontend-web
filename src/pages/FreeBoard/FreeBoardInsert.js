@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import { isEmpty, unscript } from "../../utils/Utils";
 import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
-import "./FreeBoard.css";
+import "./Board.css";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -36,10 +36,11 @@ export default function FreeBoardInsert() {
       return false;
     }
     postApi({ url: "/api/post", data: postData }).then((resp) => {
+      console.log(resp);
       if (resp.status === 200) {
-        navigate(`/freeboard/content?contentId=${resp.data.data}`, {
-          replace: true,
-        });
+        // navigate(`/freeboard/content?contentId=${resp.data.data}`, {
+        //   replace: true,
+        // });
       }
     });
     // var formData = new FormData();
@@ -64,7 +65,7 @@ export default function FreeBoardInsert() {
           }
         />
 
-        <form id="freeboard" className="content">
+        <form id="board" className="content">
           <div className="board-form">
             <div className="board-form-item">
               <label>제목</label>

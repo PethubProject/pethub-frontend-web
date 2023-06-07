@@ -35,9 +35,9 @@ export default function FreeBoardContent() {
           <div className="info-title">{content.title}</div>
           <div className="info-reg">
             <div className="info-reg-user">
-              {contains(content, "user") &&
-                contains(content.user, "nickname") &&
-                content.user.nickname}
+              {contains(content, "ownerInfo") &&
+                contains(content.ownerInfo, "nickname") &&
+                content.ownerInfo.nickname}
             </div>
             <div className="info-reg-dt">
               {dateToDiffStr(new Date(), new Date(content.createdAt))}
@@ -62,8 +62,8 @@ function Right({ content }) {
   const { deleteApi } = useApiHooks();
   return (
     <>
-      {contains(content, "user") &&
-      contains(content.user, "email") &&
+      {contains(content, "ownerInfo") &&
+      contains(content.ownerInfo, "email") &&
       user.email === content.user.email ? (
         <EllipsisVertical>
           <button

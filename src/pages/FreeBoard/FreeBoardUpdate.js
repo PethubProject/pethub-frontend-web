@@ -30,7 +30,7 @@ export default function FreeBoardUpdate() {
         alert("등록된 글 데이터가 없습니다.");
         navigate("/freeboard");
       }
-      if (user.email !== data.user.email) {
+      if (user.postId !== data.ownerInfo.postId) {
         alert("잘 못된 접속입니다.");
         navigate("/freeboard");
       }
@@ -81,7 +81,7 @@ export default function FreeBoardUpdate() {
           }
         />
 
-        <form id="freeboard" className="content">
+        <form id="board" className="content">
           <div className="board-form">
             <div className="board-form-item">
               <label>제목</label>

@@ -1,92 +1,99 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import lists from "../../dummy/Lists.js";
-import BoardHeader from "../../components/Header/HeaderBoard.js";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import BtnRegister from "../../components/Button/BtnRegister";
+import BoardHeader from "../../components/Header/HeaderBoard";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
+import { useCallback, useState } from "react";
+import useApiHooks from "../../api/BaseApi";
+import { isEmpty, unscript } from "../../utils/Utils";
+import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
+import "./Board.css";
+export default function CounselInsert() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { postApi, postApiWithFile } = useApiHooks();
 
-//리스트에 올라가야함
-//제목, 내용, 유저이름, 시간을 받아야함.
+  const [postData, setPostData] = useState({
+    title: "",
+    content: "",
+  });
 
-function CounselInsert() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [user, setUser] = useState("");
-  const nav = useNavigate();
+  const onFormChagne = useCallback((e) => {
+    const { name, value } = e.target;
+    setPostData((p) => ({ ...p, [name]: value }));
+  }, []);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleContentChange = (event) => {
-    setContent(event.target.value);
-  };
-
-  const handleUserChange = (event) => {
-    setUser(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const id = lists.length + 1;
-    const createdtime = new Date().toISOString();
-    const newContent = {
-      id,
-      title,
-      content,
-      user,
-      createdtime,
-    };
-    lists.push(newContent);
-    nav(`/counselboard/content?contentID=${lists.id}`);
-  };
-
+  const onRegist = useCallback(() => {
+    var ok = true;
+    Object.keys(postData).map((k) => {
+      const v = postData[k];
+      if (isEmpty(v)) {
+        document.querySelector(`[name="${k}"]`).focus();
+        ok = false;
+        return false;
+      }
+    });
+    if (!ok) {
+      return false;
+    }
+    postApi({ url: "/api/post", data: postData }).then((resp) => {
+      console.log(resp);
+      if (resp.status === 200) {
+        navigate(`/counselboard/content?contentId=${resp.data.data.postId}`, {
+          replace: true,
+        });
+      }
+    });
+    // var formData = new FormData();
+    // formData.append("file", null);
+    // Object.keys(postData).map((k) => {
+    //   formData.append(k, postData[k]);
+    // });
+    // postApiWithFile({ url: "/api/post/save", data: formData }).then((resp) => {
+    //   console.log(resp);
+    // });
+  }, [postData]);
   return (
-    <div id="main">
-      <div>
-        <BoardHeader />
-      </div>
-      <div id="insert_title">
-        <h2>답변 작성페이지</h2>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          작성자:
-          <input
-            className="user"
-            type="text"
-            value={user}
-            onChange={handleUserChange}
-          />
-        </label>
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader
+          title="상담게시판 글 등록"
+          right={
+            <div className="btn-wrapper">
+              {/* <button className="btn">임시저장</button> */}
+              <BtnRegister onClick={onRegist} />
+            </div>
+          }
+        />
 
-        <label>
-          <div className="insert_title">
-            제목:
-            <input type="text" value={title} onChange={handleTitleChange} />
+        <form id="board" className="content">
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input
+                className="board-form-input"
+                type="text"
+                placeholder="제목입력"
+                onChange={onFormChagne}
+                value={postData.title}
+                name="title"
+                maxLength="255"
+              />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea
+                className="board-form-textarea"
+                placeholder="내용입력"
+                onChange={onFormChagne}
+                value={postData.content}
+                name="content"
+                maxLength="1024"
+              ></textarea>
+            </div>
           </div>
-        </label>
-
-        <label>
-          <div className="insert_content">
-            내용:
-            <textarea value={content} onChange={handleContentChange} />
-          </div>
-        </label>
-
-        <div className="board_update_btn">
-          <button
-            type="submit"
-            className="insert_btn"
-            onClick={() => {
-              nav(`/counselboard/`);
-            }}
-          >
-            등록
-          </button>
-        </div>
-      </form>
-    </div>
+        </form>
+        <BottomFileUpload />
+      </div>
+    </LayoutUserExist>
   );
 }
-
-export default CounselInsert;

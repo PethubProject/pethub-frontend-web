@@ -42,7 +42,6 @@ export default function Camera() {
       <canvas ref={canvasRef}></canvas>
       <div
         onClick={() => {
-          console.log();
           const a = document.createElement("a");
           a.href = canvasRef.current.toDataURL("image/jpeg");
           a.download = "test.jpeg";

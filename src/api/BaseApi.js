@@ -182,7 +182,7 @@ const useApiHooks = () => {
     apiSignOut: async () => {
       const state = { ok: false, msg: "", data: {} };
       let result = await postApi({
-        url: "/api/auth/logout",
+        url: "/api/user/logout",
         data: {},
       });
 
@@ -197,7 +197,7 @@ const useApiHooks = () => {
     apiSignIn: async (data) => {
       const state = { ok: false, msg: "", data: {} };
       let result = await postApi({
-        url: "/api/auth/login",
+        url: "/api/user/login",
         data: data,
       });
       if (result.status === 400) {
@@ -214,7 +214,7 @@ const useApiHooks = () => {
     apiSignUp: async (user, callBack = () => {}) => {
       const state = { ok: false, msg: "", data: {} };
       let result = await postApi({
-        url: "/api/auth/duplicate-email",
+        url: "/api/user/duplicate-email",
         data: user,
       });
 
@@ -222,16 +222,17 @@ const useApiHooks = () => {
         state.msg = "이메일이 존재합니다.";
         return state;
       }
+      // result = await postApi({
+      //   url: "/api/user/duplicate-nickname",
+      //   data: user,
+      // });
+      // console.log(result);
+      // if (result.status !== 200) {
+      //   state.msg = "닉네임이 존재합니다.";
+      //   return state;
+      // }
       result = await postApi({
-        url: "/api/auth/duplicate-nickname",
-        data: user,
-      });
-      if (result.status !== 200) {
-        state.msg = "닉네임이 존재합니다.";
-        return state;
-      }
-      result = await postApi({
-        url: "/api/auth/duplicate-phone",
+        url: "/api/user/duplicate-phone",
         data: user,
       });
       if (result.status !== 200) {
@@ -239,7 +240,7 @@ const useApiHooks = () => {
         return state;
       }
       result = await postApi({
-        url: "/api/auth/join",
+        url: "/api/user/join",
         data: user,
       });
       if (result.status === 200) {
