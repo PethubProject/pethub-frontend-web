@@ -4,7 +4,9 @@ export default function LayoutUserExist({ children }) {
   return (
     <UserWrapper
       isUser={children}
-      noUser={<Navigate to="/signin" />}
+      noUser={
+        <Navigate to="/signin" state={{ prevPath: window.location.pathname }} />
+      }
     ></UserWrapper>
   );
 }

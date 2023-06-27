@@ -1,64 +1,89 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import BtnFloat from "../../components/Button/BtnFloat.js";
-import BoardHeader from "../../components/Header/HeaderBoard.js";
-import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
-import lists from "../../dummy/Lists.js";
-import "../FreeBoard/FreeBoard.css";
-import { dateToDiffStr } from "../../utils/DateTime.js";
-function CounselList() {
+import BoardHeader from "../../components/Header/HeaderBoard";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+
+// css
+import { useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
+import useApiHooks from "../../api/BaseApi";
+import BtnFloat from "../../components/Button/BtnFloat";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
+import { UserState } from "../../state/User";
+import { contains, isEmpty } from "../../utils/Utils";
+import "./Board.css";
+import BoardList from "./BoardList";
+export default function CounselList() {
   const nav = useNavigate();
+  const { getApi } = useApiHooks();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [boardList, setBoardList] = useState([]);
+  const [totalCnt, setTotalCnt] = useState(0);
+  const listColRef = useRef();
+  const user = useRecoilValue(UserState);
+  useEffect(() => {
+    if (user.loading && !isEmpty(user.email)) {
+      const url =
+        user.role === "OWNER"
+          ? `/api/post/posts/${user.userId}/${currentPage}`
+          : `/api/post/posts/${currentPage}`;
+      getApi({ url: url }).then((resp) => {
+        if (resp.status !== 200) return false;
+        let data = {};
+        if (contains(resp.data, "content")) {
+          data = resp.data;
+        } else {
+          data = resp.data.data;
+        }
+        const { content, pageable } = data;
+        console.log(content);
+        setTotalCnt(data.totalElements);
+        if (content !== null && content.length > 0) {
+          setBoardList((p) => [...p, ...content]);
+        }
+      });
+    }
+  }, [currentPage, user]);
+  useEffect(() => {
+    if (listColRef && boardList.length < totalCnt && boardList > 0) {
+      if (
+        listColRef.current.clientHeight >
+        document.querySelector(".list-item").clientHeight * boardList.length
+      ) {
+        setCurrentPage((p) => p + 1);
+      }
+    }
+  }, [boardList]);
+  const reload = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    const reloadPoint = scrollTop + clientHeight;
+    if (reloadPoint < scrollHeight && reloadPoint > scrollHeight - 36) {
+      setCurrentPage((p) => p + 1);
+    }
+  };
 
   return (
-    <div id="main">
-      <BoardHeader title="상담게시판" />
-      <div id="counsel-board" className="content flex-column">
-        <div className="content scroll-hide board-list">
-          <div className="board-list-col">
-            {lists.map((list) => (
-              <div
-                key={list.id}
-                className="board-list-item"
-                onClick={() => {
-                  nav(`/counselboard/content?contentID=${list.id}`);
-                }}
-              >
-                <div className="board-list-title">{list.title}</div>
-                <div className="board-list-content">
-                  {list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content +
-                    list.content}
-                </div>
-                <div className="board-list-reg">
-                  <div className="board-list-reg-user">{list.user}</div>
-                  <div className="board-list-reg-dt">
-                    {dateToDiffStr(new Date(), new Date(list.createdtime))}
-                  </div>
-                </div>
-              </div>
-            ))}
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader title="상담 게시판" />
+        <div className="content flex-column">
+          <div
+            className="content scroll-hide board-list"
+            onScroll={reload}
+            ref={listColRef}
+          >
+            <BoardList list={boardList} totalCnt={totalCnt} />
           </div>
+          {user.role === "OWNER" && (
+            <BtnFloat
+              onClick={() => {
+                nav("/counselboard/insert");
+              }}
+            />
+          )}
         </div>
 
-        <BtnFloat
-          onClick={() => {
-            nav("/counselboard/insert");
-          }}
-        />
+        <BottomTabNavigation />
       </div>
-      {/* <div>
-        <BtnInsert></BtnInsert>
-      </div> */}
-      <BottomTabNavigation />
-    </div>
+    </LayoutUserExist>
   );
 }
-
-export default CounselList;

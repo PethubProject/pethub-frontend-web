@@ -37,22 +37,15 @@ function ChangePassword() {
   const updatePassword = useCallback(
     async (data) => {
       let result = await postApi({
-        url: "/api/auth/check-pw",
+        url: "/api/user/check-pw",
         data: data,
       });
       if (result.status !== 200) {
         alert(result.data);
         return;
+      } else {
+        reset();
       }
-
-      // result = await putApi({
-      //   url: "/api/user",
-      //   data: data,
-      // });
-      // if (result.status === 200) {
-      //   setUser((p) => ({ ...p, ...data }));
-      //   reset();
-      // }
     },
     [prevPw]
   );
@@ -63,7 +56,7 @@ function ChangePassword() {
         <InputPassword state={setNewPw} labelText={"새 비밀번호"} />
         <InputConfirmPassword
           state={setConfirmNewPw}
-          password={newPw}
+          password={newPw.value}
           labelText={"새 비밀번호 확인"}
         />
 
@@ -71,7 +64,7 @@ function ChangePassword() {
           <BtnRegister
             text="변경"
             onClick={() => {
-              updatePassword({ ...user, password: prevPw.value });
+              updatePassword({ password: prevPw.value });
             }}
           />
           <BtnClose

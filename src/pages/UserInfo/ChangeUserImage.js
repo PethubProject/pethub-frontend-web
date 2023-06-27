@@ -14,9 +14,21 @@ export default function ChangeUserImage() {
           var file = e.target.files[0];
           var formData = new FormData();
           formData.append("photo", file);
-          fileUpload({ url: "/api/user/image", data: formData }).then((r) => {
-            setUser((p) => ({ ...p, userImage: r.data.img }));
-          });
+          if (user.role === "OWNER") {
+            fileUpload({ url: "/api/owner/image", data: formData }).then(
+              (r) => {
+                setUser((p) => ({ ...p, userImage: r.data.img }));
+              }
+            );
+          }
+          // 수정
+          if (user.role === "VET") {
+            fileUpload({ url: "/api/owner/image", data: formData }).then(
+              (r) => {
+                setUser((p) => ({ ...p, userImage: r.data.img }));
+              }
+            );
+          }
         }}
       ></input>
       {/* <label htmlFor="input-img">사진 변경</label>

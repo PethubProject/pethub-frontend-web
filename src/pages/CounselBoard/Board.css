@@ -1,0 +1,243 @@
+#board {
+  padding: 0;
+  justify-content: flex-start;
+  margin: 0;
+}
+
+#board-info {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 16px;
+  border-bottom: 1px solid #d9d9d9;
+}
+.board-info {
+  min-height: 16px;
+}
+
+.board-list-reg-dt {
+  text-align: right;
+}
+#board-info .info-title {
+  width: 100%;
+  margin: 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 4px 0;
+}
+#board-info .info-reg {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+#board-info .info-reg-user,
+#board-info .info-reg-dt {
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.info-reg-dt {
+  text-align: right;
+}
+
+#board-desc {
+  padding: 16px;
+  min-height: 240px;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+#board-reply {
+  padding: 16px;
+}
+
+.board-list-col {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 40px 0;
+}
+
+.board-list-col .board-list-item {
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.board-list-col .board-list-item::after,
+.board-list-col .board-list-item:first-child::before {
+  content: "";
+  width: 100%;
+  background-color: #eeeeee;
+  height: 10px;
+  /* border-top: 10px solid #eeeeee; */
+}
+
+.board-list-title {
+  width: 100%;
+  margin: 4px 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 16px 4px 16px;
+}
+.board-list-content {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.6rem;
+  margin: 4px 0 8px 0;
+  box-sizing: border-box;
+  padding: 4px 20px;
+}
+
+.board-list-reg {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  border-top: 1px solid #d9d9d9;
+  padding: 8px 16px;
+}
+.board-list-reg-user,
+.board-list-reg-dt {
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.board-list-reg-dt {
+  text-align: right;
+}
+
+.board-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-form-item {
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+}
+.board-form-title {
+}
+.board-form-content {
+  flex-grow: 1;
+}
+.board-form-item > label {
+  display: inline-block;
+  padding: 8px;
+}
+.board-form-input {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  padding: 16px;
+}
+.board-form-input:focus {
+  outline: none;
+}
+
+.board-form-textarea {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  box-sizing: border-box;
+  resize: none;
+  flex-grow: 1;
+}
+
+.board-form-textarea:focus {
+  outline: none;
+}
+
+.borad-list-comment-cnt {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.comment-input {
+  height: 100%;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  margin-right: 16px;
+}
+
+.btn-comment-send {
+  border: 1px solid #d9d9d9;
+  display: inline-block;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+#board-comment {
+  padding-top: 16px;
+  border-top: 8px solid #eeeeee;
+}
+#board-comment ul {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#board-comment .board-comment-item {
+  border-bottom: 1px solid #eeeeee;
+  padding: 8px;
+  box-sizing: border-box;
+}
+#board-comment .board-comment-content {
+  font-size: 14px;
+  padding: 0px 0 16px 0;
+}
+
+#board-comment .comment-reg {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+#board-comment .comment-reg-user,
+#board-comment .comment-reg-dt {
+  font-size: 10px;
+  margin: 4px 0;
+}
+
+#board-comment .comment-btn {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.board-comment-update {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+}
+.board-comment-update input {
+  border: none;
+  border-bottom: 1px solid #d9d9d9;
+  flex-grow: 1;
+}
+
+#board-comment .comment-btn > span,
+.board-comment-update span {
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+}
+
+.board-comment-update span {
+  background-color: rgb(46, 46, 143);
+  color: white;
+}
+
+#board-comment .comment-btn > span:hover {
+  background-color: #d9d9d9;
+  box-shadow: 1px 1px 1px 1px rgba(217, 217, 217, 0.8);
+}
+
+.board-comment-update span:hover {
+  box-shadow: 0px 0px 1px 1px rgba(46, 46, 143, 0.3);
+}

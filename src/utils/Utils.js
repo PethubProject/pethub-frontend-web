@@ -24,7 +24,7 @@ export const isEmpty = (obj) => {
 };
 
 export const contains = (obj, key) => {
-  if (Object.keys(obj).includes(key)) {
+  if (!isEmpty(obj) && Object.keys(obj).includes(key)) {
     return true;
   }
   return false;

@@ -42,7 +42,7 @@ export default function MainHeader() {
                 defaultImg={defaultImg}
               />
               <span></span>
-              <span>{user.nickname}</span>
+              <span>{user.name}</span>
               <span></span>
               <FontAwesomeIcon icon={faBell} style={{ fontSize: "20px" }} />
             </div>

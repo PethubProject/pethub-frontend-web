@@ -71,7 +71,7 @@ export default function Main() {
               <span>반려견 </span>
               <span>정보</span>
             </div>
-            <div
+            {/* <div
               className="btn-only-border"
               onClick={() => {
                 navigate("/freeboard");
@@ -79,7 +79,7 @@ export default function Main() {
             >
               <span>자유</span>
               <span>게시판</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

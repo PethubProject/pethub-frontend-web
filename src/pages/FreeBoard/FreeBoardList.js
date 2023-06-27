@@ -6,16 +6,14 @@ import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import BtnFloat from "../../components/Button/BtnFloat";
-import BoardList from "./BoardList";
-import { FreeboardState } from "../../state/board/FreeboardState";
-import "./FreeBoard.css";
+import BoardList from "../CounselBoard/BoardList";
+import "./Board.css";
 import useApiHooks from "../../api/BaseApi";
 import { useRef } from "react";
 export default function FreeBoardList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
   const [currentPage, setCurrentPage] = useState(0);
-  const randomFreeBoardList = useRecoilValue(FreeboardState);
   const [boardList, setBoardList] = useState([]);
   const [totalCnt, setTotalCnt] = useState(0);
   const listColRef = useRef();
@@ -31,7 +29,6 @@ export default function FreeBoardList() {
       const { content, pageable } = data;
       setTotalCnt(data.totalElements);
       if (content !== null && content.length > 0) {
-        console.log(content, pageable.pageNumber);
         setBoardList((p) => [...p, ...content]);
       }
     });

@@ -25,14 +25,14 @@ function UserInfoContent() {
   const { getApi } = useApiHooks();
   const user = useRecoilValue(UserState);
   useEffect(() => {
-    getApi({ url: `/api/user/nickname?nickname=${user.nickname}` }).then((r) =>
-      console.log(r)
+    getApi({ url: `/api/user/nickname?nickname=${user.info.nickname}` }).then(
+      (r) => {}
     );
   }, []);
 
   return (
     <div id="main">
-      <BoardHeader />
+      <BoardHeader title={"내 정보"} />
       <div className="content flex-column">
         <div id="user-info">
           <div>
@@ -44,7 +44,7 @@ function UserInfoContent() {
               borderRadius="50%"
               defaultImg={defaultImg}
             />
-            <div> {user.nickname}</div>
+            <div> {user.info.nickname}</div>
           </div>
           <ChangeUserNickName />
         </div>
