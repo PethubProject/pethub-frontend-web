@@ -6,7 +6,7 @@ import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import BtnFloat from "../../components/Button/BtnFloat";
-import BoardList from "../../components/List/BoardList";
+import BoardList from "./BoardList";
 import { FreeboardState } from "../../state/board/FreeboardState";
 import "./FreeBoard.css";
 import useApiHooks from "../../api/BaseApi";
@@ -14,7 +14,7 @@ import { useRef } from "react";
 export default function FreeBoardList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const randomFreeBoardList = useRecoilValue(FreeboardState);
   const [boardList, setBoardList] = useState([]);
   const [totalCnt, setTotalCnt] = useState(0);
@@ -24,19 +24,20 @@ export default function FreeBoardList() {
     //   ...p,
     //   ...randomFreeBoardList.slice(currentPage * 50, (currentPage + 1) * 50),
     // ]);
-    getApi({ url: "/api/post/paging", data: { page: currentPage } }).then(
-      (resp) => {
-        const { data } = resp.data;
-        const { content, pageable } = data;
-        setTotalCnt(data.totalElements);
-        if (data !== null && pageable.pageNumber !== currentPage) {
-          setBoardList((p) => [...p, ...content]);
-        }
+    getApi({ url: `/api/post/posts/${currentPage}` }).then((resp) => {
+      console.log(resp);
+      if (resp.status !== 200) return false;
+      const { data } = resp;
+      const { content, pageable } = data;
+      setTotalCnt(data.totalElements);
+      if (content !== null && content.length > 0) {
+        console.log(content, pageable.pageNumber);
+        setBoardList((p) => [...p, ...content]);
       }
-    );
+    });
   }, [currentPage]);
   useEffect(() => {
-    if (listColRef && boardList.length > 0) {
+    if (listColRef && boardList.length < totalCnt && boardList > 0) {
       if (
         listColRef.current.clientHeight >
         document.querySelector(".list-item").clientHeight * boardList.length

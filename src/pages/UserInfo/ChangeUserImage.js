@@ -21,7 +21,7 @@ export default function ChangeUserImage() {
       ></input>
       {/* <label htmlFor="input-img">사진 변경</label>
        */}
-      사진 변경
+      <div>사진 변경</div>
     </label>
   );
 }

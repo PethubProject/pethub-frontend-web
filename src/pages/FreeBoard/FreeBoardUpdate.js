@@ -15,8 +15,8 @@ export default function FreeBoardUpdate() {
   const user = useRecoilValue(UserState);
   const [postData, setPostData] = useState({
     postId: "",
-    postTitle: "",
-    postContents: "",
+    title: "",
+    content: "",
   });
   useEffect(() => {
     const postId = searchParams.get("contentId");
@@ -25,7 +25,7 @@ export default function FreeBoardUpdate() {
         alert("서버 통신 실패");
         navigate("/freeboard");
       }
-      const { data } = resp.data;
+      const { data } = resp;
       if (data == null) {
         alert("등록된 글 데이터가 없습니다.");
         navigate("/freeboard");
@@ -34,7 +34,7 @@ export default function FreeBoardUpdate() {
         alert("잘 못된 접속입니다.");
         navigate("/freeboard");
       }
-      setPostData(resp.data.data);
+      setPostData(resp.data);
     });
   }, []);
   const onFormChagne = useCallback((e) => {
@@ -47,27 +47,32 @@ export default function FreeBoardUpdate() {
     Object.keys(postData).map((k) => {
       const v = postData[k];
       if (isEmpty(v)) {
-        document.querySelector(`[name="${k}"]`).focus();
-        ok = false;
-        return false;
+        var target = document.querySelector(`[name="${k}"]`);
+        if (!isEmpty(target)) {
+          target.focus();
+          ok = false;
+          return false;
+        }
       }
     });
     if (!ok) {
       return false;
     }
-    putApi({ url: "/api/post/update", data: postData }).then((resp) => {
-      if (resp.status === 200) {
-        navigate(`/freeboard/content?contentId=${resp.data.data.postId}`, {
-          replace: true,
-        });
+    putApi({ url: `/api/post/${postData.postId}`, data: postData }).then(
+      (resp) => {
+        if (resp.status === 200) {
+          navigate(`/freeboard/content?contentId=${postData.postId}`, {
+            replace: true,
+          });
+        }
       }
-    });
+    );
   }, []);
   return (
     <LayoutUserExist>
       <div id="main">
         <BoardHeader
-          title={postData.postTitle + " 수정"}
+          title="자유게시판 글 수정"
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
@@ -77,29 +82,30 @@ export default function FreeBoardUpdate() {
         />
 
         <form id="freeboard" className="content">
-          <div className="form-item">
-            <label>제목</label>
-            <input
-              className="form-item-input"
-              type="text"
-              placeholder="제목입력"
-              onChange={onFormChagne}
-              value={postData.postTitle}
-              name="postTitle"
-              maxLength="255"
-            />
-          </div>
-          <div className="form-item">
-            <label>내용</label>
-            <textarea
-              className="form-item-textarea"
-              placeholder="내용입력"
-              rows={50}
-              onChange={onFormChagne}
-              value={postData.postContents}
-              name="postContents"
-              maxLength="500"
-            ></textarea>
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input
+                className="board-form-input"
+                type="text"
+                placeholder="제목입력"
+                onChange={onFormChagne}
+                value={postData.title}
+                name="title"
+                maxLength="255"
+              />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea
+                className="board-form-textarea"
+                placeholder="내용입력"
+                onChange={onFormChagne}
+                value={postData.content}
+                name="content"
+                maxLength="500"
+              ></textarea>
+            </div>
           </div>
         </form>
         <BottomFileUpload />

@@ -6,14 +6,15 @@ import { useCallback, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import { isEmpty, unscript } from "../../utils/Utils";
 import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
+import "./FreeBoard.css";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { postApi, postApiWithFile } = useApiHooks();
 
   const [postData, setPostData] = useState({
-    postTitle: "",
-    postContents: "",
+    title: "",
+    content: "",
   });
 
   const onFormChagne = useCallback((e) => {
@@ -34,9 +35,9 @@ export default function FreeBoardInsert() {
     if (!ok) {
       return false;
     }
-    postApi({ url: "/api/post/save", data: postData }).then((resp) => {
+    postApi({ url: "/api/post", data: postData }).then((resp) => {
       if (resp.status === 200) {
-        navigate(`/freeboard/content?contentId=${resp.data.data.postId}`, {
+        navigate(`/freeboard/content?contentId=${resp.data.data}`, {
           replace: true,
         });
       }
@@ -64,29 +65,30 @@ export default function FreeBoardInsert() {
         />
 
         <form id="freeboard" className="content">
-          <div className="form-item">
-            <label>제목</label>
-            <input
-              className="form-item-input"
-              type="text"
-              placeholder="제목입력"
-              onChange={onFormChagne}
-              value={postData.postTitle}
-              name="postTitle"
-              maxLength="255"
-            />
-          </div>
-          <div className="form-item">
-            <label>내용</label>
-            <textarea
-              className="form-item-textarea"
-              placeholder="내용입력"
-              rows={20}
-              onChange={onFormChagne}
-              value={postData.postContents}
-              name="postContents"
-              maxLength="500"
-            ></textarea>
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input
+                className="board-form-input"
+                type="text"
+                placeholder="제목입력"
+                onChange={onFormChagne}
+                value={postData.title}
+                name="title"
+                maxLength="255"
+              />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea
+                className="board-form-textarea"
+                placeholder="내용입력"
+                onChange={onFormChagne}
+                value={postData.content}
+                name="content"
+                maxLength="500"
+              ></textarea>
+            </div>
           </div>
         </form>
         <BottomFileUpload />

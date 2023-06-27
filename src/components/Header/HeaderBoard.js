@@ -1,8 +1,8 @@
 import BtnGoBack from "../Button/BtnGoBack";
-
-export default function BoardHeader({ title, left, right }) {
+import { isEmpty } from "../../utils/Utils";
+export default function BoardHeader({ title, left, right, className }) {
   return (
-    <header>
+    <header className={`board ${!isEmpty(className) ? className : ""}`}>
       <div>
         <BtnGoBack />
       </div>

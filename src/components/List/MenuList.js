@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import "./list.css";
 import SignOut from "../../pages/Sign/SignOut";
 import UserWrapper from "../Wrapper/UserWrapper";
 
@@ -14,7 +13,7 @@ export default function MenuList() {
           navigate("/userinfo");
         }}
       >
-        내정보
+        <div> 내정보</div>
       </div>
       <div
         className="list-item v-exp"
@@ -22,7 +21,7 @@ export default function MenuList() {
           navigate("/freeboard");
         }}
       >
-        자유게시판
+        <div>자유게시판</div>
       </div>
       <div
         className="list-item v-exp"
@@ -30,7 +29,7 @@ export default function MenuList() {
           navigate("/counselboard");
         }}
       >
-        상담게시판
+        <div>상담게시판</div>
       </div>
       <UserWrapper isUser={<SignOut />} />
     </div>

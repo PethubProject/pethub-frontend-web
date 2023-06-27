@@ -6,24 +6,24 @@ const PetDummy = [
     id: 1,
     name: "구름",
     age: 2,
-    dorc:"강아지",
+    dorc: "강아지",
     breed: "말티즈",
     weight: 5.5,
-    disease: "감기",    
+    disease: "감기",
     createdtime: ctime.toISOString(),
-    image: image1,
+    image: "cloud_dog.jpg",
   },
-  
+
   {
     id: 2,
     name: "우주",
     age: 3,
-    dorc:"고양이",
+    dorc: "고양이",
     breed: "먼치킨",
     weight: 5,
-    disease: "변비",    
+    disease: "변비",
     createdtime: ctime.toISOString(),
-    image:image2,
+    image: "space_dog.png",
   },
 ];
 
@@ -34,7 +34,7 @@ const DogBreeds = {
 };
 
 const CatBreeds = {
-  "고양이": [
+  고양이: [
     "아비시니안",
     "먼치킨",
     "러시안 블루",
@@ -47,8 +47,17 @@ const CatBreeds = {
     "샴",
   ],
 };
-const Disease= {
-  "Disease": ["알수없음","없음","피부질병","소화기질병","눈질병","심장","외상","구토"],
-}
+const Disease = {
+  Disease: [
+    "알수없음",
+    "없음",
+    "피부질병",
+    "소화기질병",
+    "눈질병",
+    "심장",
+    "외상",
+    "구토",
+  ],
+};
 
-export default { PetDummy, DogBreeds, CatBreeds, Disease};
+export default { PetDummy, DogBreeds, CatBreeds, Disease };

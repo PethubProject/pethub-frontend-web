@@ -1,17 +1,14 @@
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useState } from "react";
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import useApiHooks from "../../api/BaseApi";
 import BtnClose from "../../components/Button/BtnClose";
 import BtnRegister from "../../components/Button/BtnRegister";
-import InputNickName from "../../components/Input/InputNickName";
+import InputConfirmPassword from "../../components/Input/InputConfirmPassword";
+import InputPassword from "../../components/Input/InputPassword";
 import "../../components/List/list.css";
 import { modalState } from "../../components/Modal/Modal";
 import { UserState } from "../../state/User";
 import "./userInfo.css";
-import InputPassword from "../../components/Input/InputPassword";
-import InputConfirmPassword from "../../components/Input/InputConfirmPassword";
 export default function ChangeUserPassword() {
   const setModal = useSetRecoilState(modalState);
   return (
@@ -26,7 +23,7 @@ export default function ChangeUserPassword() {
         });
       }}
     >
-      비밀번호 변경
+      <div>비밀번호 변경</div>
     </div>
   );
 }

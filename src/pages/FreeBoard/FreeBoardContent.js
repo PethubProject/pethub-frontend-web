@@ -8,6 +8,7 @@ import { contains } from "../../utils/Utils";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
 import { modalState } from "../../components/Modal/Modal";
+import { dateToDiffStr } from "../../utils/DateTime";
 export default function FreeBoardContent() {
   const { getApi } = useApiHooks();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,10 +17,10 @@ export default function FreeBoardContent() {
   useEffect(() => {
     const postId = searchParams.get("contentId");
     getApi({ url: `/api/post/${postId}` }).then((resp) => {
-      if (resp.data.data == null) {
+      if (resp.data == null) {
         return;
       }
-      setContent(resp.data.data);
+      setContent(resp.data);
     });
   }, []);
 
@@ -31,18 +32,20 @@ export default function FreeBoardContent() {
       />
       <div className="content scroll-hide">
         <div id="board-info">
-          <div className="info-title">{content.postTitle}</div>
-          <div className="info-reg-user">
-            {contains(content, "user") &&
-              contains(content.user, "nickname") &&
-              content.user.nickname}
-          </div>
-          <div className="info-reg-dt">
-            {new Date(content.createdAt).format("yyyy-MM-dd HH:mm:ss")}
+          <div className="info-title">{content.title}</div>
+          <div className="info-reg">
+            <div className="info-reg-user">
+              {contains(content, "user") &&
+                contains(content.user, "nickname") &&
+                content.user.nickname}
+            </div>
+            <div className="info-reg-dt">
+              {dateToDiffStr(new Date(), new Date(content.createdAt))}
+            </div>
           </div>
         </div>
         <div id="board-desc">
-          <p style={{ width: "100%" }}>{content.postContents}</p>
+          <p style={{ width: "100%" }}>{content.content}</p>
         </div>
       </div>
 
@@ -87,7 +90,7 @@ function Right({ content }) {
                     msg: "삭제하시겠습니까?",
                     onClick: (e) => {
                       deleteApi({
-                        url: `/api/post/delete/${content.postId}`,
+                        url: `/api/post/${content.postId}`,
                       }).then((resp) => {
                         if (resp.status === 200) {
                           navigate("/freeboard");
@@ -107,7 +110,9 @@ function Right({ content }) {
             삭제
           </button>
         </EllipsisVertical>
-      ) : null}
+      ) : (
+        <div className="btn-ellipsis"></div>
+      )}
     </>
   );
 }
