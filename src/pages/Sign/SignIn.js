@@ -25,51 +25,46 @@ export default function SignIn() {
   const { apiSignIn, getApi } = useApiHooks();
   const [type, setType] = useState("OWNER");
   const onSubmitHandler = useCallback(async () => {
-    apiSignIn({ email: email.value, password: pw.value, role: type }).then(
-      (r) => {
-        if (r.ok) {
-          const { role, userId } = r.data.data;
-          if (role !== type) {
-            alert("유저 타입을 다시 선택해 주세요");
-            return;
-          }
-
-          setUserState((p) => ({
-            ...p,
-            ...r.data.data,
-          }));
-          if (role === "VET") {
-            getApi({ url: `/api/vet/${userId}` }).then((resp) => {
-              setUserState((p) => ({
-                ...p,
-                info: { ...p.info, ...resp.data.data },
-                userImage: r.data.data.vetIamge,
-              }));
-            });
-          }
-          if (role === "OWNER") {
-            getApi({ url: `/api/owner` }).then((resp) => {
-              setUserState((p) => ({
-                ...p,
-                info: { ...p.info, ...resp.data.data },
-              }));
-            });
-          }
-
-          if (
-            contains(location, "state") &&
-            contains(location.state, "prevPath") &&
-            !isEmpty(location.state.prevPath)
-          ) {
-            navigate(location.state.prevPath, { replace: true });
-          } else {
-            navigate("/", { replace: true });
-          }
-        } else {
-          alert(r.msg);
+    apiSignIn({ email: email.value, password: pw.value, role: type }).then((r) => {
+      if (r.ok) {
+        console.log(r);
+        const { role, userId } = r.data.data;
+        if (role !== type) {
+          alert("유저 타입을 다시 선택해 주세요");
+          return;
         }
+
+        setUserState((p) => ({
+          ...p,
+          ...r.data.data,
+        }));
+        if (role === "VET") {
+          getApi({ url: `/api/vet/${userId}` }).then((resp) => {
+            setUserState((p) => ({
+              ...p,
+              info: { ...p.info, ...resp.data.data },
+              userImage: r.data.data.vetIamge,
+            }));
+          });
+        }
+        if (role === "OWNER") {
+          getApi({ url: `/api/owner` }).then((resp) => {
+            setUserState((p) => ({
+              ...p,
+              info: { ...p.info, ...resp.data.data },
+            }));
+          });
+        }
+
+        if (contains(location, "state") && contains(location.state, "prevPath") && !isEmpty(location.state.prevPath)) {
+          navigate(location.state.prevPath, { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } else {
+        alert(r.msg);
       }
-    );
+    });
   }, [email, pw, type, location]);
 
   return (
