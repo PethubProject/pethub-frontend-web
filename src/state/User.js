@@ -23,8 +23,9 @@ const checkSignIn = (setSelf) => {
     validateStatus: false,
   };
   axios
-    .get(process.env.REACT_APP_API_URL + "/api/user", config)
+    .get(process.env.REACT_APP_API_URL + "/api/owner", config)
     .then((resp) => {
+      console.log(resp);
       const { role, userId } = resp.data.data;
       let userIamge = "";
       setSelf((p) => ({
@@ -32,28 +33,19 @@ const checkSignIn = (setSelf) => {
         ...resp.data.data,
       }));
       if (role === "VET") {
-        axios
-          .get(process.env.REACT_APP_API_URL + `/api/vet/${userId}`, config)
-          .then((resp) => {
-            setSelf((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-              userImage: resp.data.data.vetIamge,
-            }));
-          });
+        resp.data.data.userImage = resp.data.data.vetImage;
       }
       if (role === "OWNER") {
-        axios
-          .get(process.env.REACT_APP_API_URL + `/api/owner`, config)
-          .then((resp) => {
-            setSelf((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-            }));
-          });
+        resp.data.data.userImage = resp.data.data.ownerImage;
       }
+      axios.get(process.env.REACT_APP_API_URL + `/api/owner`, config).then((resp) => {
+        setSelf((p) => ({
+          ...p,
+          info: { ...p.info, ...resp.data.data },
+        }));
+      });
     })
-    .catch((err) => alert("유저 정보 불러오기 : " + err.message))
+    .catch((err) => console.log("유저 정보 불러오기 : " + err.message))
     .finally(() => {
       setSelf((p) => ({ ...p, loading: true }));
     });
