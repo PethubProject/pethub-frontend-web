@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import "./camera.css";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
+import useApiHooks from "../../api/BaseApi";
+import axios from "axios";
 export default function Camera() {
   const webcamRef = useRef();
   const [facingMode, setFacingMode] = useState(getDeviceType().facingMode);
   const [mirrored, setMirrored] = useState(getDeviceType().mirror);
   const [loading, setLoading] = useState(true);
+  const { postApiWithFile } = useApiHooks();
   const videoConstraints = {
     width: { ideal: window.innerHeight * 3 },
     height: { ideal: window.innerWidth * 3 },
@@ -17,7 +20,19 @@ export default function Camera() {
   const navigate = useNavigate();
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    // navigate("/ai/result", { state: { imageSrc: imageSrc } });
+
+    var file = base64toFile(imageSrc, "capture.png");
+    var formData = new FormData();
+    formData.append("file", file);
+    axios
+      .post("http://localhost:8080/predict", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((resp) => {
+        navigate("/ai/result", {
+          state: { imageSrc: imageSrc, data: resp.data },
+        });
+      });
   }, [webcamRef]);
 
   useEffect(() => {
@@ -80,3 +95,17 @@ const getDeviceType = () => {
   }
   return { facingMode: "user", mirror: true };
 };
+
+function base64toFile(base_data, filename) {
+  var arr = base_data.split(","),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: mime });
+}

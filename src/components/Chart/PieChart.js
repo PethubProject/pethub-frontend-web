@@ -28,7 +28,7 @@ export default function PieChart({ r = 20, per = 1, stroke = "yellowgreen" }) {
         y={(r * 3) / 2}
         fontSize="6"
       >
-        {per * 100}%
+        {(per * 100).toFixed(2)}%
       </text>
     </svg>
   );

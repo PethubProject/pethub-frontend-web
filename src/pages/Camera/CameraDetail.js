@@ -14,14 +14,18 @@ export default function CameraDetail() {
       <div className="content">
         <div></div>
         <div id="ai-graph">
-          <div>
-            <PieChart r={20} per={0.2} stroke={"#3eebad"} />
-            <span>AI 결과 분석 #1</span>
-          </div>
-          <div>
-            <PieChart r={20} per={0.1} stroke={"#6c3eeb"} />
-            <span>AI 결과 분석 #2</span>
-          </div>
+          {Object.keys(location.state.data["클래스별_예측도"]).map((k) => {
+            return (
+              <div key={Math.random()}>
+                <PieChart
+                  r={20}
+                  per={location.state.data["클래스별_예측도"][k]}
+                  stroke={"#3eebad"}
+                />
+                <span>{k}</span>
+              </div>
+            );
+          })}
         </div>
         <div id="ai-result">
           <div id="camera-shot">
@@ -29,8 +33,8 @@ export default function CameraDetail() {
             <img src={location.state.imageSrc} alt="사진 결과" />
           </div>
           <div>
-            <span className="title">진단 설명</span>
-            <p>이렇쿵 저러쿵</p>
+            <span className="title">결과</span>
+            <p>{location.state.data["예측값"]}</p>
           </div>
         </div>
       </div>
