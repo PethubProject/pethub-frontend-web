@@ -17,7 +17,7 @@ export default function Camera() {
   const navigate = useNavigate();
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    navigate("/ai/result", { state: { imageSrc: imageSrc } });
+    // navigate("/ai/result", { state: { imageSrc: imageSrc } });
   }, [webcamRef]);
 
   useEffect(() => {

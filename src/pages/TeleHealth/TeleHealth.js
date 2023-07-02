@@ -32,9 +32,11 @@ export default function TeleHealth() {
   // async await ;
 
   //
-  const DataList = data.map((d) => {
-    return <div key={Math.random()}></div>;
-  });
+  const DataList = () => {
+    return data.map((d) => {
+      return <div key={Math.random()}></div>;
+    });
+  };
   /**
    *
    * 파이썬 -> 리스트,딕션너리,튜플 -> 모두가 class
