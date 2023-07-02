@@ -14,31 +14,9 @@ import ChangeUserPassword from "../UserInfo/ChangeUserPassword";
 export default function VetInfo() {
   const [user, setUser] = useRecoilState(UserState);
   return (
-    <LayoutVetExist>
-      <div id="main">
-        <BoardHeader title={"수의사 정보"} />
-        <div className="content flex-column">
-          <div id="user-info">
-            <div>
-              <ImgWrapper
-                src={process.env.REACT_APP_API_URL + user.userImage}
-                alt={"유저이미지"}
-                width="70px"
-                height="70px"
-                borderRadius="50%"
-                defaultImg={defaultImg}
-              />
-              <div> {user.name}</div>
-            </div>
-          </div>
-          <div className="list-col">
-            {/* <div className="list-item v-exp">사진 변경</div> */}
-            <ChangeUserImage />
-            <ChangeUserPassword />
-            {/* <div className="list-item v-exp">비밀번호 변경</div> */}
-          </div>
-        </div>
-      </div>
-    </LayoutVetExist>
+    <div id="main">
+      <BoardHeader title={"수의사 정보"} />
+      <div className="content flex-column"></div>
+    </div>
   );
 }
