@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { UserState } from "../state/User";
 import { useNavigate } from "react-router-dom";
+import { loading } from "../components/Utils/Loading";
 export const postApi = async ({ url, data }) => {
   let result;
   try {
@@ -16,16 +17,41 @@ export const postApi = async ({ url, data }) => {
   return result;
 };
 
+export const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  withCredentials: true,
+  validateStatus: false,
+});
+api.interceptors.request.use(
+  function (config) {
+    loading.on();
+    return config;
+  },
+  function (err) {
+    loading.off();
+    return Promise.reject(err);
+  }
+);
+api.interceptors.response.use(
+  function (response) {
+    loading.off();
+    return response;
+  },
+  async function (error) {
+    if (error.response.status === 401) {
+    }
+    loading.off();
+    return Promise.reject(error);
+  }
+);
+
 const useApiHooks = () => {
   const userReset = useResetRecoilState(UserState);
   const navigate = useNavigate();
   const postApi = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
-        withCredentials: true,
-        validateStatus: false,
-      });
+      result = await api.post(url, data, {});
       if (result.status === 401) {
         userReset();
         navigate("/");
@@ -47,9 +73,7 @@ const useApiHooks = () => {
   const postApiWithFile = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
-        withCredentials: true,
-        validateStatus: false,
+      result = await api.post(url, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -75,10 +99,7 @@ const useApiHooks = () => {
   const putApi = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.put(process.env.REACT_APP_API_URL + url, data, {
-        withCredentials: true,
-        validateStatus: false,
-      });
+      result = await api.put(url, data, {});
       if (result.status === 401) {
         userReset();
         navigate("/");
@@ -100,10 +121,8 @@ const useApiHooks = () => {
   const getApi = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.get(process.env.REACT_APP_API_URL + url, {
+      result = await api.get(url, {
         params: data,
-        withCredentials: true,
-        validateStatus: false,
       });
       if (result.status === 401) {
         userReset();
@@ -126,10 +145,8 @@ const useApiHooks = () => {
   const deleteApi = async ({ url, data }) => {
     let result;
     try {
-      result = await axios.delete(process.env.REACT_APP_API_URL + url, {
+      result = await api.delete(url, {
         params: data,
-        withCredentials: true,
-        validateStatus: false,
       });
       if (result.status === 401) {
         userReset();
@@ -154,9 +171,7 @@ const useApiHooks = () => {
     let result;
 
     try {
-      result = await axios.post(process.env.REACT_APP_API_URL + url, data, {
-        withCredentials: true,
-        validateStatus: false,
+      result = await api.post(url, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

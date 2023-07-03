@@ -1,12 +1,12 @@
+import { useCallback, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import useApiHooks from "../../api/BaseApi";
 import BtnRegister from "../../components/Button/BtnRegister";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
-import { useCallback, useState } from "react";
-import useApiHooks from "../../api/BaseApi";
-import { isEmpty, unscript } from "../../utils/Utils";
 import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
 import "./Board.css";
+import { isEmpty } from "../../components/Utils/Utils";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -69,26 +69,11 @@ export default function FreeBoardInsert() {
           <div className="board-form">
             <div className="board-form-item">
               <label>제목</label>
-              <input
-                className="board-form-input"
-                type="text"
-                placeholder="제목입력"
-                onChange={onFormChagne}
-                value={postData.title}
-                name="title"
-                maxLength="255"
-              />
+              <input className="board-form-input" type="text" placeholder="제목입력" onChange={onFormChagne} value={postData.title} name="title" maxLength="255" />
             </div>
             <div className="board-form-item board-form-content">
               <label>내용</label>
-              <textarea
-                className="board-form-textarea"
-                placeholder="내용입력"
-                onChange={onFormChagne}
-                value={postData.content}
-                name="content"
-                maxLength="500"
-              ></textarea>
+              <textarea className="board-form-textarea" placeholder="내용입력" onChange={onFormChagne} value={postData.content} name="content" maxLength="500"></textarea>
             </div>
           </div>
         </form>

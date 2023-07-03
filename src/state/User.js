@@ -1,12 +1,13 @@
 import { atom } from "recoil";
 import axios from "axios";
+import { api } from "../api/BaseApi";
 export const UserInit = {
   name: "",
   userId: "",
   role: "",
   userImage: "",
   email: "",
-  authTokenResponseDto: {},
+  // authTokenResponseDto: {},
   info: {},
   loading: true,
 };
@@ -22,12 +23,11 @@ const checkSignIn = (setSelf) => {
     withCredentials: true,
     validateStatus: false,
   };
-  axios
-    .get(process.env.REACT_APP_API_URL + "/api/owner", config)
+  api
+    .get("/api/user", config)
     .then((resp) => {
-      console.log(resp);
-      const { role, userId } = resp.data.data;
-      let userIamge = "";
+      const { role, userId, authTokenResponseDto } = resp.data.data;
+
       setSelf((p) => ({
         ...p,
         ...resp.data.data,
@@ -37,13 +37,13 @@ const checkSignIn = (setSelf) => {
       }
       if (role === "OWNER") {
         resp.data.data.userImage = resp.data.data.ownerImage;
+        axios.get(process.env.REACT_APP_API_URL + `/api/owner`, config).then((resp) => {
+          setSelf((p) => ({
+            ...p,
+            info: { ...p.info, ...resp.data.data },
+          }));
+        });
       }
-      axios.get(process.env.REACT_APP_API_URL + `/api/owner`, config).then((resp) => {
-        setSelf((p) => ({
-          ...p,
-          info: { ...p.info, ...resp.data.data },
-        }));
-      });
     })
     .catch((err) => console.log("유저 정보 불러오기 : " + err.message))
     .finally(() => {

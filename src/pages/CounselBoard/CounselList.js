@@ -9,9 +9,9 @@ import useApiHooks from "../../api/BaseApi";
 import BtnFloat from "../../components/Button/BtnFloat";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import { UserState } from "../../state/User";
-import { contains, isEmpty } from "../../utils/Utils";
 import "./Board.css";
 import BoardList from "./BoardList";
+import { contains, isEmpty } from "../../components/Utils/Utils";
 export default function CounselList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
@@ -22,10 +22,7 @@ export default function CounselList() {
   const user = useRecoilValue(UserState);
   useEffect(() => {
     if (user.loading && !isEmpty(user.email)) {
-      const url =
-        user.role === "OWNER"
-          ? `/api/post/posts/${user.userId}/${currentPage}`
-          : `/api/post/posts/${currentPage}`;
+      const url = user.role === "OWNER" ? `/api/post/posts/${user.userId}/${currentPage}` : `/api/post/posts/${currentPage}`;
       getApi({ url: url }).then((resp) => {
         if (resp.status !== 200) return false;
         let data = {};
@@ -45,10 +42,7 @@ export default function CounselList() {
   }, [currentPage, user]);
   useEffect(() => {
     if (listColRef && boardList.length < totalCnt && boardList > 0) {
-      if (
-        listColRef.current.clientHeight >
-        document.querySelector(".list-item").clientHeight * boardList.length
-      ) {
+      if (listColRef.current.clientHeight > document.querySelector(".list-item").clientHeight * boardList.length) {
         setCurrentPage((p) => p + 1);
       }
     }
@@ -66,11 +60,7 @@ export default function CounselList() {
       <div id="main">
         <BoardHeader title="상담 게시판" />
         <div className="content flex-column">
-          <div
-            className="content scroll-hide board-list"
-            onScroll={reload}
-            ref={listColRef}
-          >
+          <div className="content scroll-hide board-list" onScroll={reload} ref={listColRef}>
             <BoardList list={boardList} totalCnt={totalCnt} />
           </div>
           {user.role === "OWNER" && (

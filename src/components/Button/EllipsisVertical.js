@@ -1,7 +1,7 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { isEmpty } from "../../utils/Utils";
+import { isEmpty } from "../../components/Utils/Utils";
 
 export default function EllipsisVertical({ children, className }) {
   const [show, setShow] = useState(false);

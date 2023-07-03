@@ -1,5 +1,6 @@
+import download from "downloadjs";
+import html2canvas from "html2canvas";
 import { useLocation, useNavigate } from "react-router-dom";
-import uuid from "react-uuid";
 import logo from "../../resources/image/logo.png";
 import BtnDownload from "../Button/BtnDownload";
 export default function HeaderAi() {
@@ -20,13 +21,20 @@ export default function HeaderAi() {
       <div>
         <BtnDownload
           onClick={() => {
-            const a = document.createElement("a");
-            a.href = location.state.imageSrc;
-            a.download = `${uuid().replace(
-              /-/,
-              ""
-            )}_${new Date().toISOString()}.jpeg`;
-            a.click();
+            var wrapper = document.querySelector(".content");
+            html2canvas(wrapper).then((canvas) => {
+              canvas.toBlob((Blob) => {
+                download(Blob, "asdasd.jpg");
+              });
+            });
+
+            // const a = document.createElement("a");
+            // a.href = location.state.imageSrc;
+            // a.download = `${uuid().replace(
+            //   /-/,
+            //   ""
+            // )}_${new Date().toISOString()}.jpeg`;
+            // a.click();
           }}
         />
       </div>

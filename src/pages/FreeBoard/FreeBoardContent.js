@@ -4,11 +4,11 @@ import EllipsisVertical from "../../components/Button/EllipsisVertical";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import useApiHooks from "../../api/BaseApi";
-import { contains } from "../../utils/Utils";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
 import { modalState } from "../../components/Modal/Modal";
-import { dateToDiffStr } from "../../utils/DateTime";
+import { contains } from "../../components/Utils/Utils";
+import { dateToDiffStr } from "../../components/Utils/DateTime";
 export default function FreeBoardContent() {
   const { getApi } = useApiHooks();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,22 +26,13 @@ export default function FreeBoardContent() {
 
   return (
     <div id="main">
-      <BoardHeader
-        title={<div>자유게시판</div>}
-        right={<Right content={content} />}
-      />
+      <BoardHeader title={<div>자유게시판</div>} right={<Right content={content} />} />
       <div className="content scroll-hide">
         <div id="board-info">
           <div className="info-title">{content.title}</div>
           <div className="info-reg">
-            <div className="info-reg-user">
-              {contains(content, "ownerInfo") &&
-                contains(content.ownerInfo, "nickname") &&
-                content.ownerInfo.nickname}
-            </div>
-            <div className="info-reg-dt">
-              {dateToDiffStr(new Date(), new Date(content.createdAt))}
-            </div>
+            <div className="info-reg-user">{contains(content, "ownerInfo") && contains(content.ownerInfo, "nickname") && content.ownerInfo.nickname}</div>
+            <div className="info-reg-dt">{dateToDiffStr(new Date(), new Date(content.createdAt))}</div>
           </div>
         </div>
         <div id="board-desc">
@@ -62,20 +53,9 @@ function Right({ content }) {
   const { deleteApi } = useApiHooks();
   return (
     <>
-      {contains(content, "ownerInfo") &&
-      contains(content.ownerInfo, "email") &&
-      user.email === content.user.email ? (
+      {contains(content, "ownerInfo") && contains(content.ownerInfo, "email") && user.email === content.user.email ? (
         <EllipsisVertical>
-          <button
-            className="btn btn-update"
-            onClick={() =>
-              navigate(
-                `/freeboard/update?contentId=${
-                  content.postId && content.postId
-                }`
-              )
-            }
-          >
+          <button className="btn btn-update" onClick={() => navigate(`/freeboard/update?contentId=${content.postId && content.postId}`)}>
             수정
           </button>
           <button

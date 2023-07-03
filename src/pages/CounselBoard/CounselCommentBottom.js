@@ -2,7 +2,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useRef, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
-import { isEmpty } from "../../utils/Utils";
+import { isEmpty } from "../../components/Utils/Utils";
 
 export default function CounselCommentBootom({ postId, setContent }) {
   const [comment, setComment] = useState("");

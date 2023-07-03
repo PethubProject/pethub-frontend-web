@@ -4,10 +4,10 @@ import useApiHooks from "../../api/BaseApi";
 import BtnUpdate from "../../components/Button/BtnUpdate";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
-import { isEmpty } from "../../utils/Utils";
 import { useRecoilValue } from "recoil";
 import { UserState } from "../../state/User";
 import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
+import { isEmpty } from "../../components/Utils/Utils";
 export default function CounselUpdate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -58,15 +58,13 @@ export default function CounselUpdate() {
     if (!ok) {
       return false;
     }
-    putApi({ url: `/api/post/${postData.postId}`, data: postData }).then(
-      (resp) => {
-        if (resp.status === 200) {
-          navigate(`/counselboard/content?contentId=${postData.postId}`, {
-            replace: true,
-          });
-        }
+    putApi({ url: `/api/post/${postData.postId}`, data: postData }).then((resp) => {
+      if (resp.status === 200) {
+        navigate(`/counselboard/content?contentId=${postData.postId}`, {
+          replace: true,
+        });
       }
-    );
+    });
   }, []);
   return (
     <LayoutUserExist>
@@ -85,27 +83,11 @@ export default function CounselUpdate() {
           <div className="board-form">
             <div className="board-form-item">
               <label>제목</label>
-              <input
-                className="board-form-input"
-                type="text"
-                placeholder="제목입력"
-                onChange={onFormChagne}
-                value={postData.title}
-                name="title"
-                maxLength="255"
-              />
+              <input className="board-form-input" type="text" placeholder="제목입력" onChange={onFormChagne} value={postData.title} name="title" maxLength="255" />
             </div>
             <div className="board-form-item board-form-content">
               <label>내용</label>
-              <textarea
-                className="board-form-textarea"
-                placeholder="내용입력"
-                onChange={onFormChagne}
-                onPaste={onFormChagne}
-                value={postData.content}
-                name="content"
-                maxLength="1024"
-              ></textarea>
+              <textarea className="board-form-textarea" placeholder="내용입력" onChange={onFormChagne} onPaste={onFormChagne} value={postData.content} name="content" maxLength="1024"></textarea>
             </div>
           </div>
         </form>
