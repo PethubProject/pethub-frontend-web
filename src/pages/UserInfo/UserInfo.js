@@ -13,22 +13,12 @@ import defaultImg from "../../resources/image/userDefault.png";
 import ChangeUserPassword from "./ChangeUserPassword";
 import ChangeUserImage from "./ChangeUserImage";
 export default function UserInfo() {
-  return (
-    <UserWrapper
-      isUser={<UserInfoContent />}
-      noUser={<Navigate to="/signin" />}
-    />
-  );
+  return <UserWrapper isUser={<UserInfoContent />} noUser={<Navigate to="/signin" />} />;
 }
 
 function UserInfoContent() {
   const { getApi } = useApiHooks();
   const user = useRecoilValue(UserState);
-  useEffect(() => {
-    getApi({ url: `/api/user/nickname?nickname=${user.info.nickname}` }).then(
-      (r) => {}
-    );
-  }, []);
 
   return (
     <div id="main">
@@ -36,14 +26,7 @@ function UserInfoContent() {
       <div className="content flex-column">
         <div id="user-info">
           <div>
-            <ImgWrapper
-              src={process.env.REACT_APP_API_URL + user.userImage}
-              alt={"유저이미지"}
-              width="70px"
-              height="70px"
-              borderRadius="50%"
-              defaultImg={defaultImg}
-            />
+            <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
             <div> {user.info.nickname}</div>
           </div>
           <ChangeUserNickName />

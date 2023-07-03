@@ -1,18 +1,19 @@
+import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import "./camera.css";
-import { faImage } from "@fortawesome/free-regular-svg-icons";
-import useApiHooks from "../../api/BaseApi";
-import axios from "axios";
+import { isEmpty } from "../../components/Utils/Utils";
 export default function Camera() {
   const webcamRef = useRef();
+  const controllerRef = useRef();
+  const cameraRef = useRef();
   const [facingMode, setFacingMode] = useState(getDeviceType().facingMode);
   const [mirrored, setMirrored] = useState(getDeviceType().mirror);
   const [loading, setLoading] = useState(true);
-  const { postApiWithFile } = useApiHooks();
   const videoConstraints = {
     width: { ideal: window.innerHeight * 3 },
     height: { ideal: window.innerWidth * 3 },
@@ -25,7 +26,7 @@ export default function Camera() {
     var formData = new FormData();
     formData.append("file", file);
     axios
-      .post("http://localhost:8080/predict", formData, {
+      .post("http://localhost:9898/predict", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((resp) => {
@@ -33,7 +34,7 @@ export default function Camera() {
           state: { imageSrc: imageSrc, data: resp.data },
         });
       });
-  }, [webcamRef]);
+  }, [webcamRef, navigate]);
 
   useEffect(() => {
     webcamRef.current.video.addEventListener("loadedmetadata", () => {
@@ -41,43 +42,63 @@ export default function Camera() {
     });
   }, [webcamRef, mirrored]);
 
+  useEffect(() => {
+    // const { clientWidth, clientHeight } = webcamRef.current.video;
+    // console.log(clientWidth, clientHeight, webcamRef.current.video);
+    const resize = (e) => {
+      const { clientHeight } = e.target;
+      controllerRef.current.style.top = +clientHeight - 48 + "px";
+    };
+    if (!isEmpty(webcamRef.current)) {
+      webcamRef.current.video.addEventListener("resize", resize);
+    }
+    return () => {
+      if (!isEmpty(webcamRef.current)) {
+        webcamRef.current.video.removeEventListener("resize", resize);
+      }
+    };
+  }, [webcamRef]);
+
   return (
-    <div id="camera" className={loading ? "camera-hide" : "camera-show"}>
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={{ ...videoConstraints, facingMode: facingMode }}
-        minScreenshotHeight={window.innerHeight * 2}
-        minScreenshotWidth={window.innerWidth * 2}
-        mirrored={mirrored}
-        // screenshotQuality={1}
-      />
-      <div className="camera-control">
-        <div className="camera-file">
-          <FontAwesomeIcon icon={faImage} />
-        </div>
-        <div onClick={capture} className="camera-btn"></div>
-        <div
-          className="camera-rotate"
-          onClick={() => {
-            setFacingMode((p) => {
-              if (p === "user") {
-                setMirrored(false);
-                setLoading(true);
-                return { exact: "environment" };
-              } else {
-                setLoading(true);
-                setMirrored(true);
-                return "user";
-              }
-            });
-          }}
-        >
-          <FontAwesomeIcon icon={faRotate} />
+    <div id="main">
+      <div className="content">
+        <div id="camera" className={loading ? "camera-hide" : "camera-show"} ref={cameraRef}>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={{ ...videoConstraints, facingMode: facingMode }}
+            minScreenshotHeight={window.innerHeight * 2}
+            minScreenshotWidth={window.innerWidth * 2}
+            mirrored={mirrored}
+          />
+          <div className="camera-control" ref={controllerRef}>
+            <div className="camera-file">
+              <FontAwesomeIcon icon={faImage} />
+            </div>
+            <div onClick={capture} className="camera-btn"></div>
+            <div
+              className="camera-rotate"
+              onClick={() => {
+                setFacingMode((p) => {
+                  if (p === "user") {
+                    setMirrored(false);
+                    setLoading(true);
+                    return { exact: "environment" };
+                  } else {
+                    setLoading(true);
+                    setMirrored(true);
+                    return "user";
+                  }
+                });
+              }}
+            >
+              <FontAwesomeIcon icon={faRotate} />
+            </div>
+          </div>
+          <div className="camera-guide-line"></div>
         </div>
       </div>
-      <div className="camera-guide-line"></div>
     </div>
   );
 }
@@ -86,11 +107,7 @@ const getDeviceType = () => {
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
     return { facingMode: { exact: "environment" }, mirror: false };
   }
-  if (
-    /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
-      ua
-    )
-  ) {
+  if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
     return { facingMode: { exact: "environment" }, mirror: false };
   }
   return { facingMode: "user", mirror: true };

@@ -3,9 +3,6 @@ import BoardHeader from "../../components/Header/HeaderBoard";
 
 // css
 import { useEffect, useState } from "react";
-import { getVetList } from "../../api/TeleHealthApi";
-import VetList from "../../components/List/VetList";
-import { scrollReload } from "../../utils/scroll";
 import useApiHooks from "../../api/BaseApi";
 import "./telehealth.css";
 export default function TeleHealth() {
