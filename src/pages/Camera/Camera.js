@@ -25,14 +25,14 @@ export default function Camera() {
     var formData = new FormData();
     formData.append("file", file);
     axios
-      .post("http://localhost:8080/predict", formData, {
+      .post("http://121.161.138.149:8080/predict", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((resp) => {
         navigate("/ai/result", {
           state: { imageSrc: imageSrc, data: resp.data },
         });
-      });
+      })
   }, [webcamRef]);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function Camera() {
   }, [webcamRef, mirrored]);
 
   return (
+
     <div id="camera" className={loading ? "camera-hide" : "camera-show"}>
       <Webcam
         audio={false}
