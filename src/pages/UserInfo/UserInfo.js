@@ -12,32 +12,31 @@ import ChangeUserNickName from "./ChangeUserNickName";
 import defaultImg from "../../resources/image/userDefault.png";
 import ChangeUserPassword from "./ChangeUserPassword";
 import ChangeUserImage from "./ChangeUserImage";
-export default function UserInfo() {
-  return <UserWrapper isUser={<UserInfoContent />} noUser={<Navigate to="/signin" />} />;
-}
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 
-function UserInfoContent() {
-  const { getApi } = useApiHooks();
+export default function UserInfo() {
   const user = useRecoilValue(UserState);
 
   return (
-    <div id="main">
-      <BoardHeader title={"내 정보"} />
-      <div className="content flex-column">
-        <div id="user-info">
-          <div>
-            <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
-            <div> {user.info.nickname}</div>
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader title={"내 정보"} />
+        <div className="content flex-column">
+          <div id="user-info">
+            <div>
+              <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
+              <div> {user.info.nickname}</div>
+            </div>
+            <ChangeUserNickName />
           </div>
-          <ChangeUserNickName />
-        </div>
-        <div className="list-col">
-          {/* <div className="list-item v-exp">사진 변경</div> */}
-          <ChangeUserImage />
-          <ChangeUserPassword />
-          {/* <div className="list-item v-exp">비밀번호 변경</div> */}
+          <div className="list-col">
+            {/* <div className="list-item v-exp">사진 변경</div> */}
+            <ChangeUserImage />
+            <ChangeUserPassword />
+            {/* <div className="list-item v-exp">비밀번호 변경</div> */}
+          </div>
         </div>
       </div>
-    </div>
+    </LayoutUserExist>
   );
 }
