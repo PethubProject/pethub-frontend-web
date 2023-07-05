@@ -30,7 +30,7 @@ export default function Camera() {
     var formData = new FormData();
     formData.append("file", file);
     axios
-      .post(process.env.REACT_APP_AI_API_URL + "/predict", formData, {
+      .post("http://121.161.138.149:8080/predict", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((resp) => {
@@ -38,8 +38,8 @@ export default function Camera() {
           state: { imageSrc: imageSrc, data: resp.data },
           replace: true,
         });
-      });
-  }, [webcamRef, navigate]);
+      })
+  }, [webcamRef]);
 
   useEffect(() => {
     const loadedmetadata = (e) => {
