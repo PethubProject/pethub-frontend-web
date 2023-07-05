@@ -1,22 +1,45 @@
 import axios from "axios";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import BoardHeader from "../../components/Header/HeaderBoard";
 import { loading } from "../../components/Utils/Loading";
-import { useEffect } from "react";
 
 export default function CameraSelect() {
   const navigate = useNavigate();
 
+  const onMoveCamera = useCallback((e) => {
+    console.log(window.cordova?.plugins.permissions);
+    if (window.cordova?.plugins.permissions) {
+      var permissions = window.cordova.plugins.permissions;
+      permissions.checkPermission(permissions.CAMERA, function (status) {
+        if (status.hasPermission) {
+          console.log("카메라 권한 있음");
+          navigate("/ai", { state: { cordova: true } });
+        } else {
+          permissions.requestPermission(permissions.CAMERA, success, error);
+          function error() {
+            alert("권한 없음");
+          }
+          function success(status) {
+            if (!status.hasPermission) {
+              error();
+              return;
+            } else {
+              navigate("/ai", { state: { cordova: true } });
+            }
+          }
+        }
+      });
+    } else {
+      navigate("/ai", { state: { cordova: false } });
+    }
+  }, []);
   return (
     <div id="main">
+      <BoardHeader title="" />
       <div className="content">
         <div id="camera-select">
-          <div
-            onClick={(e) => {
-              navigate("/ai");
-            }}
-          >
-            카메라로 촬영
-          </div>
+          <div onClick={onMoveCamera}>카메라로 촬영</div>
           <label htmlFor="image-select">사진 선택</label>
           <input
             id="image-select"

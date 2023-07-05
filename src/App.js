@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import BeforeInstallPopup from "./components/Install/BeforeInstallPopup";
@@ -30,9 +30,13 @@ import VetInfo from "./pages/VetInfo/VetInfo";
 import CameraSelect from "./pages/Camera/CameraSelect";
 
 function App() {
+  let RouterWrap = BrowserRouter;
+  if (window.cordova) {
+    RouterWrap = HashRouter;
+  }
   return (
     <div className="App">
-      <BrowserRouter>
+      <RouterWrap>
         <Routes>
           <Route path="/" element={<Main />} />
 
@@ -80,8 +84,8 @@ function App() {
           <Route path="/chat" element={<Chat />} />
         </Routes>
         <Modal />
-        <BeforeInstallPopup />
-      </BrowserRouter>
+        {/* <BeforeInstallPopup /> */}
+      </RouterWrap>
     </div>
   );
 }

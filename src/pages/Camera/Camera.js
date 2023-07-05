@@ -3,21 +3,25 @@ import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import "./camera.css";
-import { isEmpty } from "../../components/Utils/Utils";
+
 export default function Camera() {
+  const location = useLocation();
+
   const webcamRef = useRef();
   const controllerRef = useRef();
   const cameraRef = useRef();
   const [facingMode, setFacingMode] = useState(getDeviceType().facingMode);
   const [mirrored, setMirrored] = useState(getDeviceType().mirror);
   const [loading, setLoading] = useState(true);
+
   const videoConstraints = {
     width: { ideal: window.innerHeight * 3 },
     height: { ideal: window.innerWidth * 3 },
   };
+
   const navigate = useNavigate();
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -32,37 +36,39 @@ export default function Camera() {
       .then((resp) => {
         navigate("/ai/result", {
           state: { imageSrc: imageSrc, data: resp.data },
+          replace: true,
         });
       });
   }, [webcamRef, navigate]);
 
   useEffect(() => {
-    webcamRef.current.video.addEventListener("loadedmetadata", () => {
+    const loadedmetadata = (e) => {
       setLoading(false);
-    });
+    };
+    webcamRef.current.video.addEventListener("loadedmetadata", loadedmetadata);
   }, [webcamRef, mirrored]);
 
   useEffect(() => {
-    // const { clientWidth, clientHeight } = webcamRef.current.video;
-    // console.log(clientWidth, clientHeight, webcamRef.current.video);
-    const resize = (e) => {
-      const { clientHeight } = e.target;
-      controllerRef.current.style.top = +clientHeight - 48 + "px";
-    };
-    if (!isEmpty(webcamRef.current)) {
-      webcamRef.current.video.addEventListener("resize", resize);
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: "camera" }).then((res) => {
+        if (res.state === "granted") {
+        } else if (res.state === "propmt") {
+        } else {
+          alert("카메라 권한이 없습니다");
+          navigate(-1);
+          return;
+        }
+      });
+    } else if (!location.state?.cordova) {
+      alert("카메라 권한이 없습니다");
+      navigate(-1);
+      return;
     }
-    return () => {
-      if (!isEmpty(webcamRef.current)) {
-        webcamRef.current.video.removeEventListener("resize", resize);
-      }
-    };
-  }, [webcamRef]);
-
+  }, []);
   return (
     <div id="main">
       <div className="content">
-        <div id="camera" className={loading ? "camera-hide" : "camera-show"} ref={cameraRef}>
+        <div id="camera" ref={cameraRef} className={loading ? "camera-hide" : "camera-show "}>
           <Webcam
             audio={false}
             ref={webcamRef}
@@ -71,6 +77,7 @@ export default function Camera() {
             minScreenshotHeight={window.innerHeight * 2}
             minScreenshotWidth={window.innerWidth * 2}
             mirrored={mirrored}
+            className={loading ? "camera-hide" : "camera-show "}
           />
           <div className="camera-control" ref={controllerRef}>
             <div className="camera-file">
@@ -84,6 +91,7 @@ export default function Camera() {
                   if (p === "user") {
                     setMirrored(false);
                     setLoading(true);
+
                     return { exact: "environment" };
                   } else {
                     setLoading(true);
