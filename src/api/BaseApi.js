@@ -38,9 +38,9 @@ api.interceptors.response.use(
     return response;
   },
   async function (error) {
+    loading.off();
     if (error.response.status === 401) {
     }
-    loading.off();
     return Promise.reject(error);
   }
 );

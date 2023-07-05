@@ -11,7 +11,6 @@ export default function CameraDetail() {
   useEffect(() => {
     setPredictResult(location.state.data["클래스별_예측도"]);
     setImgSrc(location.state.imageSrc);
-    console.log(location.state.imageSrc);
   }, []);
   return (
     <div id="main">

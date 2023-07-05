@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import "./camera.css";
+import { loading } from "../../components/Utils/Loading";
 
 export default function Camera() {
   const location = useLocation();
@@ -15,7 +16,7 @@ export default function Camera() {
   const cameraRef = useRef();
   const [facingMode, setFacingMode] = useState(getDeviceType().facingMode);
   const [mirrored, setMirrored] = useState(getDeviceType().mirror);
-  const [loading, setLoading] = useState(true);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   const videoConstraints = {
     width: { ideal: window.innerHeight * 3 },
@@ -29,8 +30,9 @@ export default function Camera() {
     var file = base64toFile(imageSrc, "capture.png");
     var formData = new FormData();
     formData.append("file", file);
+    loading.on();
     axios
-      .post("http://121.161.138.149:8080/predict", formData, {
+      .post(process.env.REACT_APP_AI_API_URL + "/predict", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((resp) => {
@@ -39,11 +41,14 @@ export default function Camera() {
           replace: true,
         });
       })
+      .finally(() => {
+        loading.off();
+      });
   }, [webcamRef]);
 
   useEffect(() => {
     const loadedmetadata = (e) => {
-      setLoading(false);
+      setVideoLoading(false);
     };
     webcamRef.current.video.addEventListener("loadedmetadata", loadedmetadata);
   }, [webcamRef, mirrored]);
@@ -68,7 +73,7 @@ export default function Camera() {
   return (
     <div id="main">
       <div className="content">
-        <div id="camera" ref={cameraRef} className={loading ? "camera-hide" : "camera-show "}>
+        <div id="camera" ref={cameraRef} className={videoLoading ? "camera-hide" : "camera-show "}>
           <Webcam
             audio={false}
             ref={webcamRef}
@@ -77,7 +82,7 @@ export default function Camera() {
             minScreenshotHeight={window.innerHeight * 2}
             minScreenshotWidth={window.innerWidth * 2}
             mirrored={mirrored}
-            className={loading ? "camera-hide" : "camera-show "}
+            className={videoLoading ? "camera-hide" : "camera-show "}
           />
           <div className="camera-control" ref={controllerRef}>
             <div className="camera-file">
@@ -90,11 +95,11 @@ export default function Camera() {
                 setFacingMode((p) => {
                   if (p === "user") {
                     setMirrored(false);
-                    setLoading(true);
+                    setVideoLoading(true);
 
                     return { exact: "environment" };
                   } else {
-                    setLoading(true);
+                    setVideoLoading(true);
                     setMirrored(true);
                     return "user";
                   }
