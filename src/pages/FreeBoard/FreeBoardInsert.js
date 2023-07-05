@@ -1,44 +1,84 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import BoardHeader from "../../components/Header/HeaderBoard";
-import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import { useCallback, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import useApiHooks from "../../api/BaseApi";
 import BtnRegister from "../../components/Button/BtnRegister";
-
+import BoardHeader from "../../components/Header/HeaderBoard";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
+import BottomFileUpload from "../../components/Navigation/BottomFileUpload";
+import "./Board.css";
+import { isEmpty } from "../../components/Utils/Utils";
 export default function FreeBoardInsert() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { postApi, postApiWithFile } = useApiHooks();
 
+  const [postData, setPostData] = useState({
+    title: "",
+    content: "",
+  });
+
+  const onFormChagne = useCallback((e) => {
+    const { name, value } = e.target;
+    setPostData((p) => ({ ...p, [name]: value }));
+  }, []);
+
+  const onRegist = useCallback(() => {
+    var ok = true;
+    Object.keys(postData).map((k) => {
+      const v = postData[k];
+      if (isEmpty(v)) {
+        document.querySelector(`[name="${k}"]`).focus();
+        ok = false;
+        return false;
+      }
+    });
+    if (!ok) {
+      return false;
+    }
+    postApi({ url: "/api/post", data: postData }).then((resp) => {
+      console.log(resp);
+      if (resp.status === 200) {
+        // navigate(`/freeboard/content?contentId=${resp.data.data}`, {
+        //   replace: true,
+        // });
+      }
+    });
+    // var formData = new FormData();
+    // formData.append("file", null);
+    // Object.keys(postData).map((k) => {
+    //   formData.append(k, postData[k]);
+    // });
+    // postApiWithFile({ url: "/api/post/save", data: formData }).then((resp) => {
+    //   console.log(resp);
+    // });
+  }, [postData]);
   return (
-    <div id="main">
-      <BoardHeader
-        title="자유게시판 글 등록"
-        right={
-          <div className="btn-wrapper">
-            {/* <button className="btn">임시저장</button> */}
-            <BtnRegister
-              onClick={() => {
-                navigate("/freeboard");
-              }}
-            />
-          </div>
-        }
-      />
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader
+          title="자유게시판 글 등록"
+          right={
+            <div className="btn-wrapper">
+              {/* <button className="btn">임시저장</button> */}
+              <BtnRegister onClick={onRegist} />
+            </div>
+          }
+        />
 
-      <form>
-        <div className="form-item">
-          <input
-            className="form-item-input"
-            type="text"
-            placeholder="제목입력"
-          />
-        </div>
-        <div className="form-item">
-          <textarea
-            className="form-item-textarea"
-            placeholder="내용입력"
-          ></textarea>
-        </div>
-      </form>
-      {/* <BottomTabNavigation /> */}
-    </div>
+        <form id="board" className="content">
+          <div className="board-form">
+            <div className="board-form-item">
+              <label>제목</label>
+              <input className="board-form-input" type="text" placeholder="제목입력" onChange={onFormChagne} value={postData.title} name="title" maxLength="255" />
+            </div>
+            <div className="board-form-item board-form-content">
+              <label>내용</label>
+              <textarea className="board-form-textarea" placeholder="내용입력" onChange={onFormChagne} value={postData.content} name="content" maxLength="500"></textarea>
+            </div>
+          </div>
+        </form>
+        <BottomFileUpload />
+      </div>
+    </LayoutUserExist>
   );
 }

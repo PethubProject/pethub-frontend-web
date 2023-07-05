@@ -32,3 +32,12 @@ export function Validation() {
   };
   return obj;
 }
+
+export const validUserRole = (user, { owner, vet }) => {
+  if (user.role === "OWNER") {
+    return owner();
+  }
+  if (user.role === "VET") {
+    return vet();
+  }
+};

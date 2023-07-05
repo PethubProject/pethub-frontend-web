@@ -1,27 +1,44 @@
 .list-col {
   display: flex;
   flex-direction: column;
-  margin: 16px 0;
-  padding: 8px;
+  margin: 0 0 40px 0;
 }
 
 .list-col .list-item {
   display: flex;
   flex-wrap: wrap;
-  padding: 8px 16px;
   cursor: pointer;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .list-title {
   width: 100%;
-  height: 24px;
+  margin: 4px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 8px 16px;
+}
+.list-content {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 1rem;
+  margin: 8px 0 16px 0;
+  box-sizing: border-box;
+  padding: 8px 16px;
 }
 
+.list-reg {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  border-top: 1px solid #d9d9d9;
+  padding: 8px 16px;
+}
 .list-reg-user,
 .list-reg-dt {
   font-size: 12px;
-  width: 50%;
+  margin: 4px 0;
 }
 
 .list-reg-dt {
@@ -65,6 +82,12 @@
   border-radius: 50%;
 }
 
-.list-item.v-exp {
+.list-item.v-exp > div {
   padding: 16px;
+}
+.v-exp:first-child::before {
+  content: "";
+  width: 100%;
+  background-color: #eeeeee;
+  height: 10px;
 }

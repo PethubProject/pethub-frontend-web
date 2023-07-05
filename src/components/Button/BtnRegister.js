@@ -1,5 +1,5 @@
 import "./button.css";
-export default function BtnRegister({ onClick }) {
+export default function BtnRegister({ onClick = () => {}, text = "등록" }) {
   return (
     <button
       className="btn btn-register"
@@ -7,7 +7,7 @@ export default function BtnRegister({ onClick }) {
         onClick(e);
       }}
     >
-      등록
+      {text}
     </button>
   );
 }

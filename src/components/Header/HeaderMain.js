@@ -2,18 +2,22 @@ import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import logo from "../../resources/image/logo.png";
-import { UserInit, UserState } from "../../state/User";
+import { UserState } from "../../state/User";
 import BtnSignUp from "../Button/BtnSignUp";
-import { postApi } from "../../api/BaseApi";
-import { apiSignOut } from "../../api/SignApi";
+import ImgWrapper from "../Wrapper/ImgWrapper";
+import useApiHooks from "../../api/BaseApi";
+import UserWrapper from "../Wrapper/UserWrapper";
+import defaultImg from "../../resources/image/userDefault.png";
 export default function MainHeader() {
-  const [user, setUserState] = useRecoilState(UserState);
+  const user = useRecoilValue(UserState);
   const navigate = useNavigate();
   const onSignInClick = useCallback(() => {
     navigate("/signin");
-  }, []);
+  }, [navigate]);
+  const { getApi } = useApiHooks();
+
   return (
     <header>
       <div
@@ -24,36 +28,26 @@ export default function MainHeader() {
       >
         <img src={logo} alt="logo" />
       </div>
-      <div>
-        {user.nickName ? (
-          <div className="span-v-bar">
-            <span>{user.nickName}</span>
-            <span></span>
-            <span
-              onClick={() => {
-                apiSignOut().then((r) => {
-                  console.log(r);
-                  if (r.ok) {
-                    setUserState(UserInit);
-                    navigate("/");
-                  } else {
-                    alert(r.msg);
-                  }
-                });
-              }}
-            >
-              로그아웃
-            </span>
-            <span></span>
-            <FontAwesomeIcon icon={faBell} style={{ fontSize: "24px" }} />
-          </div>
-        ) : (
-          <div className="span-v-bar">
-            <span onClick={onSignInClick}>로그인</span>
-            <span></span>
-            <BtnSignUp />
-          </div>
-        )}
+
+      <div id="header-user-info">
+        <UserWrapper
+          isUser={
+            <div className="span-v-bar">
+              <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="36px" height="36px" borderRadius="18px" defaultImg={defaultImg} />
+              <span></span>
+              <span>{user.info.nickname}</span>
+              <span></span>
+              <FontAwesomeIcon icon={faBell} style={{ fontSize: "20px" }} />
+            </div>
+          }
+          noUser={
+            <div className="span-v-bar">
+              <span onClick={onSignInClick}>로그인</span>
+              <span></span>
+              <BtnSignUp />
+            </div>
+          }
+        />
       </div>
     </header>
   );

@@ -1,6 +1,6 @@
 header {
   width: calc(100% - 52px);
-  display: flex;
+  display: flex !important;
   align-items: center;
   height: var(--headerHeight);
   align-self: flex-start;
@@ -21,4 +21,10 @@ header #right {
 }
 header #left {
   margin-right: auto;
+}
+
+header.board {
+  border-bottom: 1px solid #d9d9d9;
+  height: calc(var(--headerHeight) * 0.7);
+  position: relative;
 }

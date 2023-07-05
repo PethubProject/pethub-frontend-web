@@ -1,27 +1,54 @@
 import { useNavigate } from "react-router-dom";
-import "./list.css";
+import SignOut from "../../pages/Sign/SignOut";
+import { useRecoilValue } from "recoil";
+import { UserState } from "../../state/User";
+import UserWrapper from "../Wrapper/UserWrapper";
+import { validUserRole } from "../../common/Validation";
 
 export default function MenuList() {
   const navigate = useNavigate();
+  const user = useRecoilValue(UserState);
   return (
     <div className="list-col">
-      <div className="list-item v-exp">내정보</div>
-      <div
+      <UserWrapper
+        isUser={
+          <div
+            className="list-item v-exp"
+            onClick={() => {
+              navigate(
+                validUserRole(user, {
+                  owner: (_) => "/userinfo",
+                  vet: (_) => "/vetinfo",
+                })
+              );
+            }}
+          >
+            <div>
+              {validUserRole(user, {
+                owner: (_) => "내 정보",
+                vet: (_) => "수의사 정보",
+              })}
+            </div>
+          </div>
+        }
+      />
+      {/* <div
         className="list-item v-exp"
         onClick={() => {
           navigate("/freeboard");
         }}
       >
-        자유게시판
-      </div>
+        <div>자유게시판</div>
+      </div> */}
       <div
         className="list-item v-exp"
         onClick={() => {
           navigate("/counselboard");
         }}
       >
-        상담게시판
+        <div>상담게시판</div>
       </div>
+      <UserWrapper isUser={<SignOut />} />
     </div>
   );
 }

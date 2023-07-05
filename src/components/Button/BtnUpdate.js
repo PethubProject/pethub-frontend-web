@@ -1,5 +1,5 @@
 import "./button.css";
-export default function BtnRegister({ onClick }) {
+export default function BtnRegister({ onClick, children }) {
   return (
     <button
       className="btn btn-update"
@@ -7,7 +7,7 @@ export default function BtnRegister({ onClick }) {
         onClick(e);
       }}
     >
-      수정
+      {children ? children : "수정"}
     </button>
   );
 }
