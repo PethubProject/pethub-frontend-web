@@ -1,6 +1,6 @@
 header {
   width: calc(100% - 52px);
-  display: flex;
+  display: flex !important;
   align-items: center;
   height: var(--headerHeight);
   align-self: flex-start;

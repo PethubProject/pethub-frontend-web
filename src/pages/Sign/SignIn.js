@@ -12,7 +12,7 @@ import useApiHooks from "../../api/BaseApi";
 import InputEmail from "../../components/Input/InputEmail";
 import dog from "../../resources/image/dog_ani_img.png";
 import vet from "../../resources/image/vet_ani_img.png";
-import { contains, isEmpty } from "../../utils/Utils";
+import { contains, isEmpty } from "../../components/Utils/Utils";
 
 export default function SignIn() {
   const [email, setEmail] = useState({});

@@ -12,49 +12,31 @@ import ChangeUserNickName from "./ChangeUserNickName";
 import defaultImg from "../../resources/image/userDefault.png";
 import ChangeUserPassword from "./ChangeUserPassword";
 import ChangeUserImage from "./ChangeUserImage";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
+
 export default function UserInfo() {
-  return (
-    <UserWrapper
-      isUser={<UserInfoContent />}
-      noUser={<Navigate to="/signin" />}
-    />
-  );
-}
-
-function UserInfoContent() {
-  const { getApi } = useApiHooks();
   const user = useRecoilValue(UserState);
-  useEffect(() => {
-    getApi({ url: `/api/user/nickname?nickname=${user.info.nickname}` }).then(
-      (r) => {}
-    );
-  }, []);
 
   return (
-    <div id="main">
-      <BoardHeader title={"내 정보"} />
-      <div className="content flex-column">
-        <div id="user-info">
-          <div>
-            <ImgWrapper
-              src={process.env.REACT_APP_API_URL + user.userImage}
-              alt={"유저이미지"}
-              width="70px"
-              height="70px"
-              borderRadius="50%"
-              defaultImg={defaultImg}
-            />
-            <div> {user.info.nickname}</div>
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader title={"내 정보"} />
+        <div className="content flex-column">
+          <div id="user-info">
+            <div>
+              <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
+              <div> {user.info.nickname}</div>
+            </div>
+            <ChangeUserNickName />
           </div>
-          <ChangeUserNickName />
-        </div>
-        <div className="list-col">
-          {/* <div className="list-item v-exp">사진 변경</div> */}
-          <ChangeUserImage />
-          <ChangeUserPassword />
-          {/* <div className="list-item v-exp">비밀번호 변경</div> */}
+          <div className="list-col">
+            {/* <div className="list-item v-exp">사진 변경</div> */}
+            <ChangeUserImage />
+            <ChangeUserPassword />
+            {/* <div className="list-item v-exp">비밀번호 변경</div> */}
+          </div>
         </div>
       </div>
-    </div>
+    </LayoutUserExist>
   );
 }

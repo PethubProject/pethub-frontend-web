@@ -1,12 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./navigation.css";
-import {
-  faBars,
-  faClipboardList,
-  faDog,
-  faHouse,
-  faUserDoctor,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faClipboardList, faDog, faHouse, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function BottomTabNavigation() {
@@ -15,9 +9,7 @@ export default function BottomTabNavigation() {
   return (
     <div id="bottom-nav" className="flex-row-between">
       <div
-        className={`flex-column flex-align-center pointer ${
-          location.pathname === "/" && "nav-active"
-        }`}
+        className={`flex-column flex-align-center pointer ${location.pathname === "/" && "nav-active"}`}
         onClick={() => {
           navigate("/");
         }}
@@ -25,11 +17,7 @@ export default function BottomTabNavigation() {
         <FontAwesomeIcon icon={faHouse} size={"2x"} />
         <span>홈</span>
       </div>
-      <div
-        className={`flex-column flex-align-center pointer ${
-          location.pathname === "/consultBoard" && "nav-active"
-        }`}
-      >
+      <div className={`flex-column flex-align-center pointer ${location.pathname === "/consultBoard" && "nav-active"}`}>
         <FontAwesomeIcon icon={faUserDoctor} size={"2x"} />
         <span>상담게시판</span>
       </div>
@@ -39,24 +27,18 @@ export default function BottomTabNavigation() {
           /\/ai/.test(location.pathname) && "nav-active"
         }`}
         onClick={() => {
-          navigate("/ai");
+          navigate("/cameraselect");
         }}
       >
         <FontAwesomeIcon icon={faDog} size={"2x"} />
         <span>AI 진단</span>
       </div>
-      <div
-        className={`flex-column flex-align-center pointer ${
-          location.pathname === "/medicalList" && "nav-active"
-        }`}
-      >
+      <div className={`flex-column flex-align-center pointer ${location.pathname === "/medicalList" && "nav-active"}`}>
         <FontAwesomeIcon icon={faClipboardList} size={"2x"} />
         <span>진료내역</span>
       </div>
       <div
-        className={`flex-column flex-align-center pointer ${
-          location.pathname === "/more" && "nav-active"
-        }`}
+        className={`flex-column flex-align-center pointer ${location.pathname === "/more" && "nav-active"}`}
         onClick={() => {
           navigate("/more");
         }}

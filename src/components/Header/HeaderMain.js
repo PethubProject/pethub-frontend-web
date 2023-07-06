@@ -35,7 +35,7 @@ export default function MainHeader() {
             <div className="span-v-bar">
               <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="36px" height="36px" borderRadius="18px" defaultImg={defaultImg} />
               <span></span>
-              <span>{user.nickname}</span>
+              <span>{user.info.nickname}</span>
               <span></span>
               <FontAwesomeIcon icon={faBell} style={{ fontSize: "20px" }} />
             </div>

@@ -4,11 +4,11 @@ import EllipsisVertical from "../../components/Button/EllipsisVertical";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import useApiHooks from "../../api/BaseApi";
-import { contains, isEmpty } from "../../utils/Utils";
+import { contains, isEmpty } from "../../components/Utils/Utils";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
 import { modalState } from "../../components/Modal/Modal";
-import { dateToDiffStr } from "../../utils/DateTime";
+import { dateToDiffStr } from "../../components/Utils/DateTime";
 import CounselCommentBootom from "./CounselCommentBottom";
 import VetWrapper from "../../components/Wrapper/VetWrapper";
 export default function CounselContent() {
@@ -35,22 +35,13 @@ export default function CounselContent() {
   };
   return (
     <div id="main">
-      <BoardHeader
-        title={<div>상담게시판</div>}
-        right={<Right content={content} />}
-      />
+      <BoardHeader title={<div>상담게시판</div>} right={<Right content={content} />} />
       <div className="content scroll-hide">
         <div id="board-info">
           <div className="info-title">{content.title}</div>
           <div className="info-reg">
-            <div className="info-reg-user">
-              {contains(content, "ownerInfo") &&
-                contains(content.ownerInfo, "nickname") &&
-                content.ownerInfo.nickname}
-            </div>
-            <div className="info-reg-dt">
-              {dateToDiffStr(new Date(), new Date(content.createdAt))}
-            </div>
+            <div className="info-reg-user">{contains(content, "ownerInfo") && contains(content.ownerInfo, "nickname") && content.ownerInfo.nickname}</div>
+            <div className="info-reg-dt">{dateToDiffStr(new Date(), new Date(content.createdAt))}</div>
           </div>
         </div>
         <div id="board-desc">
@@ -84,12 +75,8 @@ export default function CounselContent() {
 
                       {!isEmpty(vetInfo) && (
                         <div className="comment-reg">
-                          <span className="comment-reg-user">
-                            {vetInfo.name}
-                          </span>
-                          <span className="comment-reg-dt">
-                            {dateToDiffStr(new Date(), new Date(d.createdAt))}
-                          </span>
+                          <span className="comment-reg-user">{vetInfo.name}</span>
+                          <span className="comment-reg-dt">{dateToDiffStr(new Date(), new Date(d.createdAt))}</span>
                           {vetInfo.vetId === user.info.vetId && (
                             <div className="comment-btn">
                               {updateTarget !== i && (
@@ -114,15 +101,7 @@ export default function CounselContent() {
           </>
         )}
       </div>
-      <VetWrapper
-        isVet={
-          <CounselCommentBootom
-            postId={content.postId}
-            setContent={setContent}
-          />
-        }
-        noVet={<BottomTabNavigation />}
-      />
+      <VetWrapper isVet={<CounselCommentBootom postId={content.postId} setContent={setContent} />} noVet={<BottomTabNavigation />} />
     </div>
   );
 }
@@ -160,20 +139,9 @@ function Right({ content }) {
   const { deleteApi } = useApiHooks();
   return (
     <>
-      {contains(content, "ownerInfo") &&
-      contains(content.ownerInfo, "userId") &&
-      user.userId === content.ownerInfo.userId ? (
+      {contains(content, "ownerInfo") && contains(content.ownerInfo, "userId") && user.userId === content.ownerInfo.userId ? (
         <EllipsisVertical>
-          <button
-            className="btn btn-update"
-            onClick={() =>
-              navigate(
-                `/counselboard/update?contentId=${
-                  content.postId && content.postId
-                }`
-              )
-            }
-          >
+          <button className="btn btn-update" onClick={() => navigate(`/counselboard/update?contentId=${content.postId && content.postId}`)}>
             수정
           </button>
           <button

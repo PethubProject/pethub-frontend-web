@@ -2,8 +2,12 @@ import { useNavigate } from "react-router-dom";
 import HeaderMain from "../../components/Header/HeaderMain";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import "./main.css";
+import { useRecoilValue } from "recoil";
+import { UserState } from "../../state/User";
 export default function Main() {
   const navigate = useNavigate();
+  const user = useRecoilValue(UserState);
+  console.log(user);
   return (
     <div id="main">
       <HeaderMain />
@@ -17,7 +21,7 @@ export default function Main() {
             <div
               className="btn-fill bg-main"
               onClick={() => {
-                navigate("/ai");
+                navigate("/cameraselect");
               }}
             >
               AI 진단

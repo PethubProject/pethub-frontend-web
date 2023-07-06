@@ -1,0 +1,30 @@
+#loading_cc{
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(180,180,180,0.2);
+    z-index: 20000;
+}
+.loading_wrap_cc{
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    width:160px;
+    height:100px;
+    justify-content: space-between;
+    align-items: center;
+}
+.loading_bar_cc{
+    width:10px;
+    height:20%;
+    background-color: white;
+    z-index: 20001;
+    border-radius: 8px;
+}
+.loading_overflow_cc{
+    overflow: hidden;
+}
