@@ -6,6 +6,7 @@
   display:flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 #camera-detail{
@@ -27,15 +28,24 @@ video {
   transform: translate(-50%);
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap:8px;
   width: 88%;
   box-sizing: border-box;
-  justify-content: space-between;
-  color: white;
   padding: 16px 38px;
   border-radius: 12px;
-  font-size: 24px;
-  cursor: pointer;
   background-color: rgba(90,90,90,0.5);
+}
+
+.camera-control > div:nth-child(2){
+  width:100%;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 24px;
+
 }
 .camera-btn {
   width: 36px;

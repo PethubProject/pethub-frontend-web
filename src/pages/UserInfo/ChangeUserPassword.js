@@ -6,23 +6,11 @@ import BtnRegister from "../../components/Button/BtnRegister";
 import InputConfirmPassword from "../../components/Input/InputConfirmPassword";
 import InputPassword from "../../components/Input/InputPassword";
 import "../../components/List/list.css";
-import { modalState } from "../../components/Modal/Modal";
 import { UserState } from "../../state/User";
 import "./userInfo.css";
 export default function ChangeUserPassword() {
-  const setModal = useSetRecoilState(modalState);
   return (
-    <div
-      className="pointer list-item v-exp"
-      onClick={(e) => {
-        setModal({
-          status: true,
-          type: "popup",
-          head: "비밀번호변경",
-          body: <ChangePassword />,
-        });
-      }}
-    >
+    <div className="pointer list-item v-exp" onClick={(e) => {}}>
       <div>비밀번호 변경</div>
     </div>
   );
@@ -31,7 +19,6 @@ function ChangePassword() {
   const [prevPw, setPrevPw] = useState({ value: "" });
   const [newPw, setNewPw] = useState({ value: "" });
   const [confirmNewPw, setConfirmNewPw] = useState({ value: "" });
-  const reset = useResetRecoilState(modalState);
   const [user, setUser] = useRecoilState(UserState);
   const { postApi, putApi, getApi } = useApiHooks();
   const updatePassword = useCallback(
@@ -44,7 +31,6 @@ function ChangePassword() {
         alert(result.data);
         return;
       } else {
-        reset();
       }
     },
     [prevPw]
@@ -54,11 +40,7 @@ function ChangePassword() {
       <div className="flex-column" style={{ gap: "16px" }}>
         <InputPassword state={setPrevPw} labelText={"현재 비밀번호"} />
         <InputPassword state={setNewPw} labelText={"새 비밀번호"} />
-        <InputConfirmPassword
-          state={setConfirmNewPw}
-          password={newPw.value}
-          labelText={"새 비밀번호 확인"}
-        />
+        <InputConfirmPassword state={setConfirmNewPw} password={newPw.value} labelText={"새 비밀번호 확인"} />
 
         <div className="btn-wrap">
           <BtnRegister
@@ -67,11 +49,7 @@ function ChangePassword() {
               updatePassword({ password: prevPw.value });
             }}
           />
-          <BtnClose
-            onClick={() => {
-              reset();
-            }}
-          />
+          <BtnClose onClick={() => {}} />
         </div>
       </div>
     </>

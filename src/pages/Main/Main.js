@@ -84,6 +84,15 @@ export default function Main() {
               <span>자유</span>
               <span>게시판</span>
             </div> */}
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/example");
+              }}
+            >
+              <span>개발</span>
+              <span>예제</span>
+            </div>
           </div>
         </div>
       </div>

@@ -7,7 +7,6 @@ import useApiHooks from "../../api/BaseApi";
 import { contains, isEmpty } from "../../components/Utils/Utils";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
-import { modalState } from "../../components/Modal/Modal";
 import { dateToDiffStr } from "../../components/Utils/DateTime";
 import CounselCommentBootom from "./CounselCommentBottom";
 import VetWrapper from "../../components/Wrapper/VetWrapper";
@@ -18,7 +17,6 @@ export default function CounselContent() {
   const [updateTarget, setUpdateTarget] = useState(-1);
   const [postId, setPostId] = useState(-1);
   const user = useRecoilValue(UserState);
-  const setModal = useSetRecoilState(modalState);
 
   useEffect(() => {
     const postId = searchParams.get("contentId");
@@ -134,8 +132,6 @@ function UpdateComment({ value, postId, commentId, ok }) {
 function Right({ content }) {
   const navigate = useNavigate();
   const user = useRecoilValue(UserState);
-  const setModal = useSetRecoilState(modalState);
-  const modalReset = useResetRecoilState(modalState);
   const { deleteApi } = useApiHooks();
   return (
     <>
@@ -144,35 +140,7 @@ function Right({ content }) {
           <button className="btn btn-update" onClick={() => navigate(`/counselboard/update?contentId=${content.postId && content.postId}`)}>
             수정
           </button>
-          <button
-            className="btn btn-delete"
-            onClick={() => {
-              setModal((p) => {
-                p = {
-                  ...p,
-                  ...{
-                    status: true,
-                    type: "alert",
-                    msg: "삭제하시겠습니까?",
-                    onClick: (e) => {
-                      deleteApi({
-                        url: `/api/post/${content.postId}`,
-                      }).then((resp) => {
-                        if (resp.status === 200) {
-                          navigate("/counselboard");
-                          alert("삭제 완료");
-                        } else {
-                          alert("삭제실패");
-                        }
-                        modalReset();
-                      });
-                    },
-                  },
-                };
-                return p;
-              });
-            }}
-          >
+          <button className="btn btn-delete" onClick={() => {}}>
             삭제
           </button>
         </EllipsisVertical>

@@ -6,7 +6,6 @@ import InputConfirmPassword from "../../components/Input/InputConfirmPassword";
 import InputEmail from "../../components/Input/InputEmail";
 import InputPassword from "../../components/Input/InputPassword";
 import LayoutCloseForm from "../../components/Layout/LayoutCloseForm";
-import { modalState } from "../../components/Modal/Modal";
 // img
 import InputPhone from "../../components/Input/InputPhone";
 import dog from "../../resources/image/dog_ani_img.png";
@@ -22,7 +21,6 @@ export default function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState({});
   const [nickname, setNickname] = useState({});
   const [name, setName] = useState({});
-  const [modal, setModal] = useRecoilState(modalState);
   const navigate = useNavigate();
   const { apiSignUp } = useApiHooks();
   const [type, setType] = useState("OWNER");
@@ -57,11 +55,7 @@ export default function SignUp() {
       <div className="btn-wrap">
         <BtnRequest
           confirm={
-            pw.state &&
-            confirmPw.state &&
-            email.state &&
-            phoneNumber.state &&
-            name.state
+            pw.state && confirmPw.state && email.state && phoneNumber.state && name.state
             // &&
             // nickname.state
           }

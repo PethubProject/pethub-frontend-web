@@ -7,23 +7,11 @@ import BtnClose from "../../components/Button/BtnClose";
 import BtnRegister from "../../components/Button/BtnRegister";
 import InputNickName from "../../components/Input/InputNickName";
 import "../../components/List/list.css";
-import { modalState } from "../../components/Modal/Modal";
 import { UserState } from "../../state/User";
 import "./userInfo.css";
 export default function ChangeUserNickName() {
-  const setModal = useSetRecoilState(modalState);
   return (
-    <div
-      className="pointer"
-      onClick={(e) => {
-        setModal({
-          status: true,
-          type: "popup",
-          head: "닉네임 변경",
-          body: <ChangeNickName />,
-        });
-      }}
-    >
+    <div className="pointer" onClick={(e) => {}}>
       <FontAwesomeIcon icon={faPenToSquare} />
       <span>닉네임 변경</span>
     </div>
@@ -31,7 +19,6 @@ export default function ChangeUserNickName() {
 }
 function ChangeNickName() {
   const [nickname, setNickname] = useState({ value: "" });
-  const reset = useResetRecoilState(modalState);
   const [user, setUser] = useRecoilState(UserState);
   const { postApi, putApi } = useApiHooks();
   const upadateNickname = useCallback(
@@ -51,7 +38,6 @@ function ChangeNickName() {
       });
       if (result.status === 200) {
         setUser((p) => ({ ...p, ...data }));
-        reset();
       }
     },
     [nickname]
@@ -67,11 +53,7 @@ function ChangeNickName() {
               upadateNickname({ ...user, nickname: nickname.value });
             }}
           />
-          <BtnClose
-            onClick={() => {
-              reset();
-            }}
-          />
+          <BtnClose onClick={() => {}} />
         </div>
       </div>
     </>

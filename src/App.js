@@ -1,10 +1,9 @@
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
-import BeforeInstallPopup from "./components/Install/BeforeInstallPopup";
-import Modal from "./components/Modal/Modal";
 import Camera from "./pages/Camera/Camera";
 import CameraDetail from "./pages/Camera/CameraDetail";
+import CameraSelect from "./pages/Camera/CameraSelect";
 import Chat from "./pages/Chat/Chat";
 import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
@@ -25,9 +24,12 @@ import PetUpdate from "./pages/PetInfo/PetUpdate";
 import SignIn from "./pages/Sign/SignIn";
 import SignUp from "./pages/Sign/SignUp";
 import TeleHealth from "./pages/TeleHealth/TeleHealth";
+import Test from "./pages/Test/Test";
 import UserInfo from "./pages/UserInfo/UserInfo";
 import VetInfo from "./pages/VetInfo/VetInfo";
-import CameraSelect from "./pages/Camera/CameraSelect";
+import Example from "./pages/Example/Example";
+import KakaoAddress from "./pages/Example/KakaoAddress";
+import TouchGesture from "./pages/Example/TouchGesture";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -82,8 +84,15 @@ function App() {
 
           {/* chat */}
           <Route path="/chat" element={<Chat />} />
+
+          {/* Test */}
+
+          <Route>
+            <Route path="example" index element={<Example />} />
+            <Route path="example/kakaoaddress" element={<KakaoAddress />} />
+            <Route path="example/touchgesture" element={<TouchGesture />} />
+          </Route>
         </Routes>
-        <Modal />
         {/* <BeforeInstallPopup /> */}
       </RouterWrap>
     </div>

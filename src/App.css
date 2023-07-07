@@ -258,3 +258,7 @@ form {
   cursor: "pointer";
   z-index: 500;
 }
+
+.padding-h-regular{
+  padding:0 16px;
+}
