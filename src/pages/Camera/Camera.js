@@ -85,7 +85,7 @@ export default function Camera() {
   }, [webcamRef, mirrored, scale, imgRangeRef]);
 
   useEffect(() => {
-    if (navigator.permissions) {
+    if (navigator.permissions) {  
       navigator.permissions.query({ name: "camera" }).then((res) => {
         if (res.state === "granted") {
         } else if (res.state === "prompt") {

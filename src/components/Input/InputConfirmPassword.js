@@ -5,6 +5,7 @@ export default function InputConfirmPassword({
   password = "",
   labelText = "비밀번호 확인",
   placeholder = "비밀번호 확인",
+  reset
 }) {
   const [focusClass, setFocusClass] = useState("");
   const [confirmPassword, setConfirmPassword] = useState({
@@ -12,6 +13,16 @@ export default function InputConfirmPassword({
     state: false,
     msg: "",
   });
+  useEffect(() => {
+    if(reset){
+      setConfirmPassword({
+        value: "",
+        state: false,
+        msg: "",
+      });
+      setFocusClass("");
+    }
+  }, [reset]);
   useEffect(() => {
     setConfirmPassword((p) => {
       if (password !== p.value && p.value.replace(/[\s]+/gi, "").length > 0) {

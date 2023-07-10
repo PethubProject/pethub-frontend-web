@@ -36,29 +36,7 @@ export default function SignIn() {
           ...p,
           ...r.data.data,
         }));
-        if (role === "VET") {
-          getApi({ url: `/api/vet/${userId}` }).then((resp) => {
-            setUserState((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-              userImage: r.data.data.vetIamge,
-            }));
-          });
-        }
-        if (role === "OWNER") {
-          getApi({ url: `/api/owner` }).then((resp) => {
-            setUserState((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-            }));
-          });
-        }
 
-        // if (location.state?.prevPath) {
-        //   console.log(window.history);
-        //   navigate(location.state.prevPath, { replace: true });
-        // } else {
-        // }
         navigate("/", { replace: true });
       } else {
         alert(r.msg);

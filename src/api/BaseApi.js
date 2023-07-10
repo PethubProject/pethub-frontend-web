@@ -237,15 +237,14 @@ const useApiHooks = () => {
         state.msg = "이메일이 존재합니다.";
         return state;
       }
-      // result = await postApi({
-      //   url: "/api/user/duplicate-nickname",
-      //   data: user,
-      // });
-      // console.log(result);
-      // if (result.status !== 200) {
-      //   state.msg = "닉네임이 존재합니다.";
-      //   return state;
-      // }
+      result = await postApi({
+        url: "/api/user/duplicate-nickname",
+        data: user,
+      });
+      if (result.status !== 200) {
+        state.msg = "닉네임이 존재합니다.";
+        return state;
+      }
       result = await postApi({
         url: "/api/user/duplicate-phone",
         data: user,

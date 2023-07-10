@@ -1,9 +1,10 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Modal from "react-modal";
-import { useFetcher, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import BtnRegister from "../Button/BtnRegister";
+import BtnClose from "../Button/BtnClose";
 
 Modal.setAppElement("#root");
 export function AlertModal({ modalIsOpen, setIsOpen, style }) {
@@ -19,12 +20,50 @@ export function AlertModal({ modalIsOpen, setIsOpen, style }) {
     </Modal>
   );
 }
+export function ConfirmModal({ modalIsOpen, close, children,confirm ,registerText}) {
+
+  function closeModal() {
+    close();
+  }
+
+
+  return (
+    <SModalOveray display={modalIsOpen ? "block" : "none"}>
+      <SWrapper>
+      <SHeader
+       
+      >
+        <span  onClick={() => {
+          closeModal();
+        }}>
+          <FontAwesomeIcon icon={faClose} />
+        </span>
+      </SHeader>
+      <Sbody>
+      {children}
+      <div className="btn-wrap">
+          <BtnRegister
+            text={registerText || "확인"}
+            onClick={()=>{
+              confirm()
+              
+            }}
+          />
+          <BtnClose onClick={() => {
+            closeModal()
+          }} />
+        </div>
+      </Sbody>
+      </SWrapper>
+    </SModalOveray>
+  );
+}
 
 export function AddressSearchModal({ modalIsOpen, setIsOpen, onComplete = () => {} }) {
   const searchRef = useRef();
   function closeModal() {
     setIsOpen(false);
-    loadSearchPannel();
+    
   }
   useEffect(() => {
     if (window.cordova?.InAppBrowser.open) {
@@ -33,15 +72,18 @@ export function AddressSearchModal({ modalIsOpen, setIsOpen, onComplete = () => 
     loadSearchPannel();
   }, []);
   const loadSearchPannel = useCallback(() => {
+    if(!searchRef?.current) return 
     new window.daum.Postcode({
       oncomplete: function (data) {
         onComplete(data);
       },
       onclose: function (state) {
+        
         if (state === "FORCE_CLOSE") {
         } else if (state === "COMPLETE_CLOSE") {
-          closeModal();
+          
         }
+        closeModal();
       },
       width: "100%",
       height: "100%",
@@ -50,7 +92,7 @@ export function AddressSearchModal({ modalIsOpen, setIsOpen, onComplete = () => 
   }, []);
 
   return (
-    <SModalOveray display={modalIsOpen ? "block" : "none"}>
+    <SModalOveray display={modalIsOpen ? "block" : "none"} >
       <STopHeader
         onClick={() => {
           closeModal();
@@ -66,7 +108,7 @@ export function AddressSearchModal({ modalIsOpen, setIsOpen, onComplete = () => 
 }
 
 const SModalOveray = styled.div`
-  width: 100%;
+  width: 100vw;
   position: fixed;
   inset: 0 auto;
   background: rgba(255, 255, 255, 0.3);
@@ -99,3 +141,35 @@ const STopHeader = styled.div`
     cursor: pointer;
   }
 `;
+
+const SHeader = styled.div`
+  width: 100%;
+  height: 48px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: right;
+  line-height: 48px;
+  background-color: white;
+  padding: 0 16px;
+  box-sizing: border-box;
+  > span {
+    cursor: pointer;
+  }
+  border: 1px solid #d9d9d9;
+`;
+
+const SWrapper = styled.div`
+position: absolute;
+width: 100%;
+inset: auto auto 50% 50%;
+transform:translate(-50%,50%);
+box-sizing: border-box;
+padding:5%;
+background-color:white;
+
+`
+
+const Sbody = styled.div`
+border: 1px solid #d9d9d9;
+padding:16px;
+`
