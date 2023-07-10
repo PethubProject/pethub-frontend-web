@@ -39,7 +39,9 @@ export default function CounselUpdate() {
   }, []);
   const onFormChagne = useCallback((e) => {
     const { name, value } = e.target;
-    setPostData((p) => ({ ...p, [name]: value }));
+    setPostData((p) => {
+      return { ...p, [name]: value };
+    });
   }, []);
 
   const onUpdate = useCallback(() => {
@@ -48,7 +50,7 @@ export default function CounselUpdate() {
       const v = postData[k];
       if (isEmpty(v)) {
         var target = document.querySelector(`[name="${k}"]`);
-        if (!isEmpty(target)) {
+        if (!isEmpty(target) && isEmpty(target.value)) {
           target.focus();
           ok = false;
           return false;
@@ -65,7 +67,7 @@ export default function CounselUpdate() {
         });
       }
     });
-  }, []);
+  }, [postData]);
   return (
     <LayoutUserExist>
       <div id="main">

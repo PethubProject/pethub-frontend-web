@@ -20,13 +20,46 @@ export function AlertModal({ modalIsOpen, setIsOpen, style }) {
     </Modal>
   );
 }
+
+
+export function YesOrNoModal({ modalIsOpen, close, confirm,children }) {
+  function closeModal() {
+    close();
+  }
+  return <SModalOveray display={modalIsOpen ? "block" : "none"}>
+  <SWrapper>
+  <SHeader
+   
+  >
+    <span  onClick={() => {
+      closeModal();
+    }}>
+      <FontAwesomeIcon icon={faClose} />
+    </span>
+  </SHeader>
+  <Sbody>
+  {children}
+  <div className="btn-wrap">
+      <BtnRegister
+        text={"예"}
+        onClick={()=>{
+          confirm()
+          
+        }}
+      />
+      <BtnClose text="아니요" onClick={() => {
+        closeModal()
+      }} />
+    </div>
+  </Sbody>
+  </SWrapper>
+</SModalOveray>
+}
 export function ConfirmModal({ modalIsOpen, close, children,confirm ,registerText}) {
 
   function closeModal() {
     close();
   }
-
-
   return (
     <SModalOveray display={modalIsOpen ? "block" : "none"}>
       <SWrapper>
