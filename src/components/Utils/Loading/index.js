@@ -17,6 +17,7 @@ export class Loading {
   }
 
   on() {
+    this.off();
     this.bodyAttrs = document.body.getAttributeNames().reduce((o, k) => {
       o[k] = document.body.getAttribute(k);
       return o;

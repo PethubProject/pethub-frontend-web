@@ -1,18 +1,14 @@
-import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import useApiHooks from "../../api/BaseApi";
 import BoardHeader from "../../components/Header/HeaderBoard";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import "../../components/List/list.css";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper";
-import UserWrapper from "../../components/Wrapper/UserWrapper";
-import { UserState } from "../../state/User";
-import "./userInfo.css";
-import ChangeUserNickName from "./ChangeUserNickName";
 import defaultImg from "../../resources/image/userDefault.png";
-import ChangeUserPassword from "./ChangeUserPassword";
+import { UserState } from "../../state/User";
 import ChangeUserImage from "./ChangeUserImage";
-import LayoutUserExist from "../../components/Layout/LayoutUserExist";
+import ChangeUserNickName from "./ChangeUserNickName";
+import ChangeUserPassword from "./ChangeUserPassword";
+import "./userInfo.css";
 
 export default function UserInfo() {
   const user = useRecoilValue(UserState);
@@ -24,8 +20,8 @@ export default function UserInfo() {
         <div className="content flex-column">
           <div id="user-info">
             <div>
-              <ImgWrapper src={process.env.REACT_APP_API_URL + "/" + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
-              <div> {user.info.nickname}</div>
+              <ImgWrapper src={process.env.REACT_APP_API_URL  + user.userImage} alt={"유저이미지"} width="70px" height="70px" borderRadius="50%" defaultImg={defaultImg} />
+              <div> {user.nickname}</div>
             </div>
             <ChangeUserNickName />
           </div>

@@ -24,26 +24,14 @@ const checkSignIn = (setSelf) => {
     validateStatus: false,
   };
   api
-    .get("/api/user", config)
+    .get("/api/user/info", config)
     .then((resp) => {
-      const { role, userId, authTokenResponseDto } = resp.data.data;
-
+      console.log(resp.data)
       setSelf((p) => ({
         ...p,
-        ...resp.data.data,
+        ...resp.data,
       }));
-      if (role === "VET") {
-        resp.data.data.userImage = resp.data.data.vetImage;
-      }
-      if (role === "OWNER") {
-        resp.data.data.userImage = resp.data.data.ownerImage;
-        axios.get(process.env.REACT_APP_API_URL + `/api/owner`, config).then((resp) => {
-          setSelf((p) => ({
-            ...p,
-            info: { ...p.info, ...resp.data.data },
-          }));
-        });
-      }
+     
     })
     .catch((err) => console.log("유저 정보 불러오기 : " + err.message))
     .finally(() => {

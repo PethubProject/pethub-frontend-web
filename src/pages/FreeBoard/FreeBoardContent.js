@@ -6,7 +6,6 @@ import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import useApiHooks from "../../api/BaseApi";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
-import { modalState } from "../../components/Modal/Modal";
 import { contains } from "../../components/Utils/Utils";
 import { dateToDiffStr } from "../../components/Utils/DateTime";
 export default function FreeBoardContent() {
@@ -48,8 +47,6 @@ export default function FreeBoardContent() {
 function Right({ content }) {
   const navigate = useNavigate();
   const user = useRecoilValue(UserState);
-  const setModal = useSetRecoilState(modalState);
-  const modalReset = useResetRecoilState(modalState);
   const { deleteApi } = useApiHooks();
   return (
     <>
@@ -58,35 +55,7 @@ function Right({ content }) {
           <button className="btn btn-update" onClick={() => navigate(`/freeboard/update?contentId=${content.postId && content.postId}`)}>
             수정
           </button>
-          <button
-            className="btn btn-delete"
-            onClick={() => {
-              setModal((p) => {
-                p = {
-                  ...p,
-                  ...{
-                    status: true,
-                    type: "alert",
-                    msg: "삭제하시겠습니까?",
-                    onClick: (e) => {
-                      deleteApi({
-                        url: `/api/post/${content.postId}`,
-                      }).then((resp) => {
-                        if (resp.status === 200) {
-                          navigate("/freeboard");
-                          alert("삭제 완료");
-                        } else {
-                          alert("삭제실패");
-                        }
-                        modalReset();
-                      });
-                    },
-                  },
-                };
-                return p;
-              });
-            }}
-          >
+          <button className="btn btn-delete" onClick={() => {}}>
             삭제
           </button>
         </EllipsisVertical>

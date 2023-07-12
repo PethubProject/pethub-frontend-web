@@ -6,12 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function BottomTabNavigation() {
   const location = useLocation();
   const navigate = useNavigate();
+  const replace = location.pathname !== "/";
   return (
     <div id="bottom-nav" className="flex-row-between">
       <div
         className={`flex-column flex-align-center pointer ${location.pathname === "/" && "nav-active"}`}
         onClick={() => {
-          navigate("/");
+          navigate("/", { replace: replace });
         }}
       >
         <FontAwesomeIcon icon={faHouse} size={"2x"} />
@@ -27,7 +28,7 @@ export default function BottomTabNavigation() {
           /\/ai/.test(location.pathname) && "nav-active"
         }`}
         onClick={() => {
-          navigate("/cameraselect");
+          navigate("/cameraselect", { replace: replace });
         }}
       >
         <FontAwesomeIcon icon={faDog} size={"2x"} />
@@ -40,7 +41,7 @@ export default function BottomTabNavigation() {
       <div
         className={`flex-column flex-align-center pointer ${location.pathname === "/more" && "nav-active"}`}
         onClick={() => {
-          navigate("/more");
+          navigate("/more", { replace: replace });
         }}
       >
         <FontAwesomeIcon icon={faBars} size={"2x"} />

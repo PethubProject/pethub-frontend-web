@@ -2,12 +2,8 @@ import { useNavigate } from "react-router-dom";
 import HeaderMain from "../../components/Header/HeaderMain";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import "./main.css";
-import { useRecoilValue } from "recoil";
-import { UserState } from "../../state/User";
 export default function Main() {
   const navigate = useNavigate();
-  const user = useRecoilValue(UserState);
-  console.log(user);
   return (
     <div id="main">
       <HeaderMain />
@@ -84,6 +80,15 @@ export default function Main() {
               <span>자유</span>
               <span>게시판</span>
             </div> */}
+            <div
+              className="btn-only-border"
+              onClick={() => {
+                navigate("/example");
+              }}
+            >
+              <span>개발</span>
+              <span>예제</span>
+            </div>
           </div>
         </div>
       </div>

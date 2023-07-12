@@ -52,7 +52,7 @@ export default function CameraSelect() {
                 var formData = new FormData();
                 formData.append("file", e.target.files[0]);
                 axios
-                  .post("http://localhost:9898/predict", formData, {
+                  .post(process.env.REACT_APP_AI_API_URL+"/predict", formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                   })
                   .then((resp) => {

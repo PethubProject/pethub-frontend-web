@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import BtnRequest from "../../components/Button/BtnRequest";
 import InputConfirmPassword from "../../components/Input/InputConfirmPassword";
 import InputEmail from "../../components/Input/InputEmail";
 import InputPassword from "../../components/Input/InputPassword";
 import LayoutCloseForm from "../../components/Layout/LayoutCloseForm";
-import { modalState } from "../../components/Modal/Modal";
 // img
 import InputPhone from "../../components/Input/InputPhone";
 import dog from "../../resources/image/dog_ani_img.png";
@@ -14,6 +12,7 @@ import vet from "../../resources/image/vet_ani_img.png";
 // import InputNickName from "../../components/Input/InputNickName";
 import useApiHooks from "../../api/BaseApi";
 import InputName from "../../components/Input/InputName";
+import InputNickName from "../../components/Input/InputNickName";
 
 export default function SignUp() {
   const [pw, setPw] = useState({});
@@ -22,7 +21,6 @@ export default function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState({});
   const [nickname, setNickname] = useState({});
   const [name, setName] = useState({});
-  const [modal, setModal] = useRecoilState(modalState);
   const navigate = useNavigate();
   const { apiSignUp } = useApiHooks();
   const [type, setType] = useState("OWNER");
@@ -49,7 +47,7 @@ export default function SignUp() {
         </div>
       </div>
       <InputEmail state={setEmail} />
-      {/* <InputNickName state={setNickname} /> */}
+      <InputNickName state={setNickname} />
       <InputName state={setName} />
       <InputPassword state={setPw} />
       <InputConfirmPassword state={setConfirmPw} password={pw.value} />
@@ -57,18 +55,14 @@ export default function SignUp() {
       <div className="btn-wrap">
         <BtnRequest
           confirm={
-            pw.state &&
-            confirmPw.state &&
-            email.state &&
-            phoneNumber.state &&
-            name.state
-            // &&
-            // nickname.state
+            pw.state && confirmPw.state && email.state && phoneNumber.state && name.state
+            &&
+            nickname.state
           }
           onClick={() => {
             apiSignUp({
               email: email.value,
-              // nickname: nickname.value,
+              nickname: nickname.value,
               name: name.value,
               password: pw.value,
               callNumber: phoneNumber.value,

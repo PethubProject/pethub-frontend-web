@@ -4,7 +4,6 @@ import { useSetRecoilState } from "recoil";
 import BtnRequest from "../../components/Button/BtnRequest";
 import InputPassword from "../../components/Input/InputPassword";
 import LayoutCloseForm from "../../components/Layout/LayoutCloseForm";
-import { modalState } from "../../components/Modal/Modal";
 import { UserState } from "../../state/User";
 import "./sign.css";
 // img
@@ -18,7 +17,6 @@ export default function SignIn() {
   const [email, setEmail] = useState({});
   const [pw, setPw] = useState({});
   const navigate = useNavigate();
-  const setModal = useSetRecoilState(modalState);
   const setUserState = useSetRecoilState(UserState);
   const location = useLocation();
   // const [userToken, setUserToken] = useRecoilState(UserTokenState);
@@ -38,29 +36,8 @@ export default function SignIn() {
           ...p,
           ...r.data.data,
         }));
-        if (role === "VET") {
-          getApi({ url: `/api/vet/${userId}` }).then((resp) => {
-            setUserState((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-              userImage: r.data.data.vetIamge,
-            }));
-          });
-        }
-        if (role === "OWNER") {
-          getApi({ url: `/api/owner` }).then((resp) => {
-            setUserState((p) => ({
-              ...p,
-              info: { ...p.info, ...resp.data.data },
-            }));
-          });
-        }
 
-        if (contains(location, "state") && contains(location.state, "prevPath") && !isEmpty(location.state.prevPath)) {
-          navigate(location.state.prevPath, { replace: true });
-        } else {
-          navigate("/", { replace: true });
-        }
+        navigate("/", { replace: true });
       } else {
         alert(r.msg);
       }

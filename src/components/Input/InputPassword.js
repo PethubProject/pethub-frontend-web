@@ -5,6 +5,7 @@ export default function InputPassword({
   onEnter = () => {},
   labelText = "비밀번호",
   placeholder = "비밀번호",
+  reset
 }) {
   const [focusClass, setFocusClass] = useState("");
   const [password, setPassword] = useState({
@@ -15,6 +16,16 @@ export default function InputPassword({
   useEffect(() => {
     state(password);
   }, [password]);
+  useEffect(() => {
+    if(reset){
+      setPassword({
+        value: "",
+        state: false,
+        msg: "",
+      });
+      setFocusClass("");
+    }
+  }, [reset]);
   const onChangeHandler = useCallback((e) => {
     const { value } = e.target;
     setPassword((p) => {

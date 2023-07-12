@@ -1,20 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
 import "./input.css";
-export default function InputNickName({
-  labelText = "닉네임",
-  state = () => {},
-  onEnter = () => {},
-}) {
+export default function InputNickName({ value, labelText = "닉네임", state = () => {}, onEnter = () => {}, reset }) {
   const [focusClass, setFocusClass] = useState("");
-  const [nickname, setNickname] = useState({
-    value: "",
-    state: false,
-    msg: "",
-  });
+  const [nickname, setNickname] = useState(
+    value || {
+      value: "",
+      state: false,
+      msg: "",
+    }
+  );
+
   useEffect(() => {
     state(nickname);
   }, [nickname]);
-  const onChangeHandler = useCallback((e) => {
+
+  useEffect(() => {
+    if(reset){
+      setNickname({
+        value: "",
+        state: false,
+        msg: "",
+      });
+      setFocusClass("");
+    }
+  }, [reset]);
+
+  const onChangeHandler = useCallback((e,state) => {
     const { value } = e.target;
     setNickname((p) => {
       if (value.replace(/[\s]+/gi, "").length === 0) {
