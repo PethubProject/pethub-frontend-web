@@ -9,21 +9,36 @@ import useApiHooks from "../../api/BaseApi.js";
 import PetDummy from "../../dummy/PetDummy.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 
+/*
+// backend code 
+// 펫 리스트 조회
+    // userId
+    @ValidToken
+    @AuthCheck(role = AuthCheck.Role.OWNER)
+    @GetMapping("/api/pet")
+    public ResponseEntity<Object> getPetList() {
+        List<PetListResponseDto> responseDto = petService.findPetListByUserId(UserContext.userData.get().getUserId());
+        return ResponseEntity.ok().body(ResponseDto.of("펫 리스트 조회에 성공하였습니다", responseDto));
+    }
+*/
+
+
+
 function PetList() {
   const nav = useNavigate();
-  // const { getApi } = useApiHooks();
-  // const [petList,setPetList] = useState([]);
-  // useEffect(() => {
-  //   getApi({ url: "/api/pet"}).then(r=>{
-  //     if(Array.isArray(r.data)){
-  //       setPetList(r.data);
-  //     }
-  //   });
-  // }, []);
+  const { getApi } = useApiHooks();
+  const [petList,setPetList] = useState([]);
+  useEffect(() => {
+    getApi({ url: "/api/pet"}).then(r=>{
+      if(Array.isArray(r.data)){
+        setPetList(r.data);
+      }
+    });
+  }, []);
 
   //리스트에서 왼쪽에 반려동물 얼굴, 그리고 오른쪽에 이름 있으면 좋겠음.
   return (
-    <LayoutUserExist>
+    
       <div id="main">
         <BoardHeader title="펫 리스트" />
         <div id="counsel-board" className="content flex-column">
@@ -57,14 +72,15 @@ function PetList() {
             </div>
           </div>
         </div>
-        <BottomTabNavigation />
+        
         <BtnFloat
           onClick={() => {
             nav("/petinfo/insert");
           }}
         />
+        <BottomTabNavigation />
       </div>
-    </LayoutUserExist>
+    
   );
 }
 
