@@ -10,7 +10,6 @@ import { isEmpty } from "../../components/Utils/Utils";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import useApiHooks from "../../api/BaseApi";
 
-
 /*
  // 펫 수정
     @ValidToken
@@ -22,25 +21,21 @@ import useApiHooks from "../../api/BaseApi";
     }
 */
 
-
 function PetUpdate() {
-
   const user = useRecoilValue(UserState);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
-  const [petData, setPetData]= useState({
-    image:"1",
-    name:"",
-    age:"",
-    breed:"",
-    weight:"",
-    disease:"",
-    animalGroup:"",
-    detialAnimalGroup:"",
+  const [petData, setPetData] = useState({
+    image: "1",
+    name: "",
+    age: "",
+    breed: "",
+    weight: "",
+    disease: "",
+    animalGroup: "",
+    detialAnimalGroup: "",
   });
-
-
 
   // const [name, setName] = useState("");
   // const [age, setAge] = useState("");
@@ -50,16 +45,16 @@ function PetUpdate() {
   // const [searchparams, setsearchparams] = useSearchParams();
   // const [animalGroup, setAnimalGroup] = useState("");
   // const [detialAnimalGroup,setDetailAnimalGroup]=useState([]);
-//   useEffect(()=>{
-//    if(animalGroup==="강아지"){
-//     setDetailAnimalGroup([...PetDummy.DogBreeds.small,...PetDummy.DogBreeds.medium,...PetDummy.DogBreeds.large])
-//    } 
-//    else if(animalGroup==="고양이"){
-//     setDetailAnimalGroup(PetDummy.CatBreeds.고양이)
-// } else{
-//     setDetailAnimalGroup([])
-//    }
-//   },[animalGroup])
+  //   useEffect(()=>{
+  //    if(animalGroup==="강아지"){
+  //     setDetailAnimalGroup([...PetDummy.DogBreeds.small,...PetDummy.DogBreeds.medium,...PetDummy.DogBreeds.large])
+  //    }
+  //    else if(animalGroup==="고양이"){
+  //     setDetailAnimalGroup(PetDummy.CatBreeds.고양이)
+  // } else{
+  //     setDetailAnimalGroup([])
+  //    }
+  //   },[animalGroup])
 
   // const PetDummys = PetDummy.PetDummy.find(
   //   (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
@@ -89,7 +84,7 @@ function PetUpdate() {
   // };
 
   useEffect(() => {
-    const petId= searchParams.get("detailID");
+    const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
       if (resp.status !== 200) {
         alert("서버 통신 실패");
@@ -106,10 +101,10 @@ function PetUpdate() {
       }
       setPetData(resp.data);
     });
-  },[]);
+  }, []);
 
-  // 아직 handleSubmit는 안만들었음. 
-  const handleSubmit= null;
+  // 아직 handleSubmit는 안만들었음.
+  const handleSubmit = null;
 
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
@@ -166,7 +161,6 @@ function PetUpdate() {
   }, []);
 
   return (
-    
     <div id="main">
       <div>
         <BoardHeader title="내 반려동물 정보 등록 페이지" />
@@ -186,37 +180,41 @@ function PetUpdate() {
         </label>
         <label>
           반려동물 나이:
-          <input className="age" type="number" min="0" value={petData.age} onChange={onFormChagne} />
+          <input
+            className="age"
+            type="number"
+            min="0"
+            value={petData.age}
+            onChange={onFormChagne}
+          />
           살
         </label>
 
         <label>
           반려동물 종류:
-          <select
-            className="animal_group"
-            onChange={handleAnimalGroupChange}
-          >
+          <select className="animal_group" onChange={handleAnimalGroupChange}>
             <option value="" selected={false} disabled hidden>
               선택하시오
             </option>
-            <option value="강아지" selected={true}>강아지</option>
+            <option value="강아지" selected={true}>
+              강아지
+            </option>
             <option value="고양이">고양이</option>
           </select>
         </label>
 
         <label>
           반려동물 품종:
-          <select
-          className="animal_breed"
-          onChange={handleBreedChange}>
+          <select className="animal_breed" onChange={handleBreedChange}>
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-                {PetDummy.breed.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
+            {/* 추가 수정 */}
+            {PetDummy.DogBreeds.small.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -233,8 +231,7 @@ function PetUpdate() {
         </label>
         <label>
           반려동물 질병:
-          <select className="disease"
-          onChange={handleDiseaseChange}>
+          <select className="disease" onChange={handleDiseaseChange}>
             <option value="" selected disabled hidden>
               선택하시오
             </option>
@@ -247,17 +244,12 @@ function PetUpdate() {
         </label>
 
         <div className="board_update_btn">
-          <button
-            type="submit"
-            className="insert_btn"
-            onClick={onUpdate}
-          >
+          <button type="submit" className="insert_btn" onClick={onUpdate}>
             수정하기
           </button>
         </div>
       </form>
     </div>
-    
   );
 }
 

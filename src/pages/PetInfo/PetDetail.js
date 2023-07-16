@@ -18,6 +18,7 @@ import useApiHooks from "../../api/BaseApi";
 */
 
 function PetDetail() {
+  const nav = useNavigate();
   const { getApi } = useApiHooks();
   const [petContent, setPetContent] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,13 +26,14 @@ function PetDetail() {
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
-      if (resp.data == null) {
+      console.log(resp);
+      if (resp.data.data === null) {
+        // nav(-1);
         return;
       }
-      setPetContent(resp.data);
+      setPetContent(resp.data.data);
     });
   }, []);
-  const nav = useNavigate();
 
   // const PetDummys = PetDummy.PetDummy.find(
   //   (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
@@ -48,8 +50,9 @@ function PetDetail() {
       </div>
       <div id="counsel_content">
         <div className="box">
-          <div>펫 이름: {petContent.name}</div>
-          <div>펫 나이: {petContent.age}살</div>
+          {/* 추가수정 */}
+          <div>펫 이름: {petContent.petName}</div>
+          <div>펫 나이: {petContent.petAge}살</div>
           <div>펫 종류: {petContent.animalGroup}</div>
           <div>펫 분류: {petContent.detialAnimalGroup}</div>
           <div>펫 품종: {petContent.breed}</div>
@@ -57,9 +60,15 @@ function PetDetail() {
           <div>펫 질병: {petContent.disease}</div>
           {/* <div>작성일: {petContent.createdtime}</div> */}
           <div
-            key={petContent.id}
+            key={petContent.petId}
             className="update_btn"
-            onClick={() => nav(`/petinfo/update?detailID=${petContent.id}`)}
+            onClick={() => {
+              nav(`/petinfo/update?detailID=${petContent.petId}`);
+              // if (petContent.petId) {
+              // } else {
+              //   alert("asdasda");
+              // }
+            }}
           >
             <span>펫 정보 수정하기</span>
           </div>
