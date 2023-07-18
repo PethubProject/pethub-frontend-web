@@ -27,14 +27,24 @@ function PetUpdate() {
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
   const [petData, setPetData] = useState({
-    image: "1",
-    name: "",
-    age: "",
-    breed: "",
-    weight: "",
+    // image: "1",
+    // name: "",
+    // age: "",
+    // breed: "",
+    // weight: "",
+    // disease: "",
+    // animalGroup: "",
+    // detialAnimalGroup: "",
+    image: null,
+    petName: "",
+    petAge: "",
+    // 추가돼야하는 코드
+    // animalGroup: "",
+    petBreed: "",
+    petGender: "",
+    petWeight: "",
     disease: "",
-    animalGroup: "",
-    detialAnimalGroup: "",
+    petIntroduction: "",
   });
 
   // const [name, setName] = useState("");
@@ -96,7 +106,7 @@ function PetUpdate() {
         navigate("/petinfo");
       }
       if (user.petId !== data.ownerInfo.petId) {
-        alert("잘 못된 접속입니다.");
+        alert("잘못된 접속입니다.");
         navigate("/petinfo");
       }
       setPetData(resp.data);
@@ -109,7 +119,7 @@ function PetUpdate() {
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
       ...prev,
-      animalGroup: event.target.value,
+      petBreed: event.target.value,
     }));
 
   const handleAnimalGroupChange = (event) =>
@@ -122,6 +132,12 @@ function PetUpdate() {
     setPetData((prev) => ({
       ...prev,
       disease: event.target.value,
+    }));
+    
+    const handleGenderChange = (event) =>
+    setPetData((prev) => ({
+      ...prev,
+      petGender: event.target.value,
     }));
 
   const handleImageChange = (event) =>
@@ -174,7 +190,8 @@ function PetUpdate() {
           <input
             className="name"
             type="text"
-            value={petData.name}
+            name="petName"
+            value={petData.petName}
             onChange={onFormChagne}
           />
         </label>
@@ -184,12 +201,14 @@ function PetUpdate() {
             className="age"
             type="number"
             min="0"
-            value={petData.age}
+            name="petAge"
+            value={petData.petAge}
             onChange={onFormChagne}
           />
           살
         </label>
 
+{/* 1. 아직 백엔드에 animal group 코드가 반영되지 않아 데이터 전달 불가. */}
         <label>
           반려동물 종류:
           <select className="animal_group" onChange={handleAnimalGroupChange}>
@@ -202,6 +221,7 @@ function PetUpdate() {
             <option value="고양이">고양이</option>
           </select>
         </label>
+{/* 1. 종료 */}
 
         <label>
           반려동물 품종:
@@ -218,13 +238,27 @@ function PetUpdate() {
           </select>
         </label>
 
+        {/* 나중에 이미지 클릭으로 바꾸기. */}
+        <label>
+          반려동물 성별:
+          <select className="petData" onChange={handleGenderChange}>
+            <option value="" selected disabled>
+              선택하시오
+            </option>
+            <option value="수컷">수컷</option>
+            <option value="암컷">암컷</option>
+            <option value="중성화 수술">중성화 수술</option>
+          </select>
+        </label>
+
         <label>
           반려동물 무게:
           <input
             className="weight"
             type="number"
+            name="petWeight"
             min="0"
-            value={petData.weight}
+            value={petData.petWeight}
             onChange={onFormChagne}
           />
           kg
@@ -243,11 +277,22 @@ function PetUpdate() {
           </select>
         </label>
 
+        <label>
+          내 반려동물 소개:
+          <input
+            className="petData"
+            name="petIntroduction"
+            value={petData.petIntroduction}
+            onChange={onFormChagne}
+          />
+        </label>
+
         <div className="board_update_btn">
           <button type="submit" className="insert_btn" onClick={onUpdate}>
             수정하기
           </button>
         </div>
+
       </form>
     </div>
   );

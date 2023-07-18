@@ -36,12 +36,13 @@ function PetInsert() {
     image: null,
     petName: "",
     petAge: "",
+    // 추가돼야하는 코드
+    // animalGroup: "",
+    petBreed: "",
     petGender: "",
     petWeight: "",
-    petBreed: "",
-    petIntroduction: "",
     disease: "",
-    animalGroup: "",
+    petIntroduction: "",
   });
 
   const handleSubmit = null;
@@ -49,7 +50,13 @@ function PetInsert() {
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
       ...prev,
-      breed: event.target.value,
+      petBreed: event.target.value,
+    }));
+
+    const handleGenderChange = (event) =>
+    setPetData((prev) => ({
+      ...prev,
+      petGender: event.target.value,
     }));
 
   const handleAnimalGroupChange = (event) =>
@@ -204,8 +211,8 @@ function PetInsert() {
             className="petData-select"
             type="text"
             placeholder="이름"
-            name="name"
-            value={petData.name}
+            name="petName"
+            value={petData.petName}
             onChange={onFormChagne}
           />
         </label>
@@ -213,14 +220,27 @@ function PetInsert() {
           반려동물 나이:
           <input
             className="petData-select"
-            value={petData.age}
-            name="age"
+            value={petData.petAge}
+            name="petAge"
             type="number"
             min="0"
             placeholder="1살미만일 경우 0살"
             onChange={onFormChagne}
           />
           살
+        </label>
+
+{/* 나중에 이미지 클릭으로 바꾸기. */}
+        <label>
+          반려동물 성별:
+          <select className="petData" onChange={handleGenderChange}>
+            <option value="" selected disabled>
+              선택하시오
+            </option>
+            <option value="수컷">수컷</option>
+            <option value="암컷">암컷</option>
+            <option value="중성화 수술">중성화 수술</option>
+          </select>
         </label>
 
         <label>
@@ -282,16 +302,17 @@ function PetInsert() {
         <label>
           반려동물 무게:
           <input
-            className="petData.weight"
+            className="petData"
             type="number"
             min="0"
             placeholder="0.5kg"
-            name="weight"
-            value={petData.weight}
+            name="petWeight"
+            value={petData.petWeight}
             onChange={onFormChagne}
           />
           kg
         </label>
+
         <label>
           반려동물 질병:
           <select className="petData-select" onChange={handleDiseaseChange}>
@@ -305,6 +326,17 @@ function PetInsert() {
             ))}
           </select>
         </label>
+  
+        <label>
+          내 반려동물 소개:
+          <input
+            className="petData"
+            name="petIntroduction"
+            value={petData.petIntroduction}
+            onChange={onFormChagne}
+          />
+        </label>
+        
       </form>
       <div className="board_update_btn">
         <button className="insert_btn" onClick={onRegist}>

@@ -2,29 +2,29 @@ import image1 from "./image/cloud_dog.jpg"
 import image2 from "./image/space_dog.jpg"
 const ctime = new Date();
 const PetDummy = [
-  {
-    id: 1,
-    name: "구름",
-    age: 2,
-    dorc: "강아지",
-    breed: "말티즈",
-    weight: 5.5,
-    disease: "감기",
-    createdtime: ctime.toISOString(),
-    image: "cloud_dog.jpg",
-  },
+  // {
+  //   id: 1,
+  //   name: "구름",
+  //   age: 2,
+  //   dorc: "강아지",
+  //   breed: "말티즈",
+  //   weight: 5.5,
+  //   disease: "감기",
+  //   createdtime: ctime.toISOString(),
+  //   image: "cloud_dog.jpg",
+  // },
 
-  {
-    id: 2,
-    name: "우주",
-    age: 3,
-    dorc: "고양이",
-    breed: "먼치킨",
-    weight: 5,
-    disease: "변비",
-    createdtime: ctime.toISOString(),
-    image: "space_dog.png",
-  },
+  // {
+  //   id: 2,
+  //   name: "우주",
+  //   age: 3,
+  //   dorc: "고양이",
+  //   breed: "먼치킨",
+  //   weight: 5,
+  //   disease: "변비",
+  //   createdtime: ctime.toISOString(),
+  //   image: "space_dog.png",
+  // },
 ];
 
 const DogBreeds = {
