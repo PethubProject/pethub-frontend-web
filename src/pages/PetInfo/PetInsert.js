@@ -27,8 +27,6 @@ function PetInsert() {
     petIntroduction: "",
   });
 
-  
-
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
       ...prev,
@@ -108,46 +106,43 @@ function PetInsert() {
   //   PetDummy.push(newContent);
 
   //속성 값
-  const onFormChagne = useCallback((e) => {
+  const onFormChange = useCallback((e) => {
     const { name, value } = e.target;
     setPetData((preventData) => ({ ...preventData, [name]: value }));
   }, []);
 
-  const onRegist = useCallback(
-    () => {
-      var ok = true;
-      Object.keys(petData).map((k) => {
-        const v = petData[k];
-        if (isEmpty(v)) {
-          const target = document.querySelector(`[name="${k}"]`);
-          if (!isEmpty(target)) {
-            target.focus();
-          }
-          ok = false;
-          return false;
+  const onRegist = useCallback(() => {
+    var ok = true;
+    Object.keys(petData).map((k) => {
+      const v = petData[k];
+      if (isEmpty(v)) {
+        const target = document.querySelector(`[name="${k}"]`);
+        if (!isEmpty(target)) {
+          target.focus();
         }
-      });
-      if (!ok) {
+        ok = false;
         return false;
       }
-      postApi({ url: "/api/pet", data: petData }).then((resp) => {
-        console.log(resp);
-        if (resp.status === 200) {
-          nav(`/petinfo/detail?detailID=${petData.petId}`)
-          // 추가 수정
-          // if (petData.image !== null) {
-          //   const formData = new FormData();
-          //   formData.append("photo", petData.image);
-          //   postApiWithFile({
-          //     url: `/api/pet/${resp.data.petId}/image`,
-          //     data: formData,
-          //   });
-          // }
-        }
-      });
-    },
-    [petData]
-  );
+    });
+    if (!ok) {
+      return false;
+    }
+    postApi({ url: `/api/pet`, data: petData }).then((resp) => {
+      console.log(resp);
+      if (resp.status === 200) {
+        // nav(`/petinfo/detail?detailID=${petData.petId}`)
+        // 추가 수정
+        // if (petData.image !== null) {
+        //   const formData = new FormData();
+        //   formData.append("photo", petData.image);
+        //   postApiWithFile({
+        //     url: `/api/pet/${resp.data.petId}/image`,
+        //     data: formData,
+        //   });
+        // }
+      }
+    });
+  }, [petData]);
 
   //   if (image) {
   //     const formData = new FormData();
@@ -167,12 +162,15 @@ function PetInsert() {
 
   return (
     <div id="main">
-      <div>
-        <BoardHeader title="내 반려동물 정보 등록 페이지" />
-      </div>
-      <div id="insert_title">
-        <h2>반려동물 정보 등록</h2>
-      </div>
+      <BoardHeader
+        title="내 반려동물 정보 등록 페이지"
+        right={
+          <div className="btn-wrapper">
+            {/* <button className="btn">임시저장</button> */}
+            <BtnRegister onClick={onRegist} />
+          </div>
+        }
+      />
       <form id="pet_insert" className="pet_detail">
         {/* <label>
           반려동물 사진:
@@ -188,35 +186,35 @@ function PetInsert() {
           />
         )} */}
 
-        <label>
-          반려동물 이름:
+        <div>
+          <label>반려동물 이름:</label>
           <input
-            className="petData-select"
+            className="petData_name"
             type="text"
             placeholder="이름"
             name="petName"
             value={petData.petName}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
-        </label>
-        <label>
-          반려동물 나이:
+        </div>
+        <div>
+          <label>반려동물 나이:</label>
           <input
-            className="petData-select"
+            className="petData_age"
             value={petData.petAge}
             name="petAge"
             type="number"
             min="0"
             placeholder="1살미만일 경우 0살"
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
           살
-        </label>
+        </div>
 
         {/* 나중에 이미지 클릭으로 바꾸기. */}
-        <label>
-          반려동물 성별:
-          <select className="petData" onChange={handleGenderChange}>
+        <div>
+          <label>반려동물 성별:</label>
+          <select className="petData_gender" onChange={handleGenderChange}>
             <option value="" selected disabled>
               선택하시오
             </option>
@@ -224,7 +222,7 @@ function PetInsert() {
             <option value="암컷">암컷</option>
             <option value="중성화 수술">중성화 수술</option>
           </select>
-        </label>
+        </div>
 
         {/* 우선 반려동물은 강아지로만 한정함. */}
         {/* <label>
@@ -237,10 +235,9 @@ function PetInsert() {
             <option value="고양이">고양이</option>
           </select>
         </label> */}
-
-        <label>
-          반려동물 품종:
-          <select onChange={handleBreedChange}>
+        <div>
+          <label>반려동물 품종:</label>
+          <select name="petBreed" onChange={handleBreedChange}>
             <option value="" selected hidden>
               선택하시오
             </option>
@@ -279,10 +276,9 @@ function PetInsert() {
               </optgroup>
             )} */}
           </select>
-        </label>
-
-        <label>
-          반려동물 무게:
+        </div>
+        <div>
+          <label>반려동물 무게:</label>
           <input
             className="petData"
             type="number"
@@ -290,14 +286,18 @@ function PetInsert() {
             placeholder="0.5kg"
             name="petWeight"
             value={petData.petWeight}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
           kg
-        </label>
+        </div>
 
-        <label>
-          반려동물 질병:
-          <select className="petData-select" onChange={handleDiseaseChange}>
+        <div>
+          <label>반려동물 질병:</label>
+          <select
+            className="petData_disease"
+            name="disease"
+            onChange={handleDiseaseChange}
+          >
             <option value="" selected disabled hidden>
               선택하시오
             </option>
@@ -307,23 +307,17 @@ function PetInsert() {
               </option>
             ))}
           </select>
-        </label>
-
-        <label>
-          내 반려동물 소개:
+        </div>
+        <div>
+          <label>내 반려동물 소개:</label>
           <input
             className="petData"
             name="petIntroduction"
             value={petData.petIntroduction}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
-        </label>
-
-        <div className="btn-wrapper">
-        <BtnRegister onClick={onRegist}/>
-      </div>
+        </div>
       </form>
-      
     </div>
   );
 }

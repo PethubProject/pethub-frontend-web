@@ -9,6 +9,7 @@ import { UserState } from "../../state/User";
 import { isEmpty } from "../../components/Utils/Utils";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import useApiHooks from "../../api/BaseApi";
+import BtnUpdate from "../../components/Button/BtnUpdate";
 
 function PetUpdate() {
   const user = useRecoilValue(UserState);
@@ -94,9 +95,6 @@ function PetUpdate() {
     });
   }, []);
 
-  // 아직 handleSubmit는 안만들었음.
-  const handleSubmit = null;
-
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
       ...prev,
@@ -121,7 +119,7 @@ function PetUpdate() {
   //     image: event.target.files[0],
   //   }));
 
-  const onFormChagne = useCallback((e) => {
+  const onFormChange = useCallback((e) => {
     const { name, value } = e.target;
     setPetData((p) => ({ ...p, [name]: value }));
   }, []);
@@ -153,13 +151,16 @@ function PetUpdate() {
 
   return (
     <div id="main">
-      <div>
-        <BoardHeader title="내 반려동물 정보 등록 페이지" />
-      </div>
-      <div id="insert_title">
-        <h2>반려동물 정보 수정</h2>
-      </div>
-      <form onSubmit={handleSubmit}>
+      <BoardHeader
+        title="내 반려동물 정보 등록 페이지"
+        right={
+          <div className="btn-wrapper">
+            {/* <button className="btn">임시저장</button> */}
+            <BtnUpdate onClick={onUpdate} />
+          </div>
+        }
+      />
+      <form>
         <label>
           반려동물 이름:
           <input
@@ -167,7 +168,7 @@ function PetUpdate() {
             type="text"
             name="petName"
             value={petData.petName}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
         </label>
         <label>
@@ -178,7 +179,7 @@ function PetUpdate() {
             min="0"
             name="petAge"
             value={petData.petAge}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
           살
         </label>
@@ -263,7 +264,7 @@ function PetUpdate() {
             name="petWeight"
             min="0"
             value={petData.petWeight}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
           kg
         </label>
@@ -287,15 +288,9 @@ function PetUpdate() {
             className="petData"
             name="petIntroduction"
             value={petData.petIntroduction}
-            onChange={onFormChagne}
+            onChange={onFormChange}
           />
         </label>
-
-        <div className="board_update_btn">
-          <button type="submit" className="insert_btn" onClick={onUpdate}>
-            수정하기
-          </button>
-        </div>
       </form>
     </div>
   );

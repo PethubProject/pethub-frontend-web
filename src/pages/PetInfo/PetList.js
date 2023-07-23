@@ -20,6 +20,7 @@ function PetList() {
   useEffect(() => {
     getApi({ url: `/api/pet`}).then(r=>{
         setPetList(r.data.data);
+        console.log(r.data.data)
     });
   }, []);
 
