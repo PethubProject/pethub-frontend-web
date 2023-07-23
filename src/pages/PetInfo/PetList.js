@@ -10,6 +10,7 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import useApiHooks from "../../api/BaseApi.js";
 // import PetDummy from "../../dummy/PetDummy.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
+import { isEmpty } from "../../components/Utils/Utils.js";
 
 function PetList() {
   const user = useRecoilValue(UserState);
@@ -17,10 +18,13 @@ function PetList() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
   const [petList,setPetList] = useState([]);
+
   useEffect(() => {
-    getApi({ url: `/api/pet`}).then(r=>{
-        setPetList(r.data.data);
-        console.log(r.data.data)
+    getApi({ url: `/api/pet`}).then(resp=>{
+      if(resp.status ===200){
+        console.log(resp.data.data)
+        setPetList(resp.data.data);
+      }
     });
   }, []);
 
@@ -31,8 +35,9 @@ function PetList() {
         <div id="counsel-board" className="content flex-column">
           <div className="content scroll-hide board-list">
             <div className="list-col">
-              {petList.map((p) => (
-                <div
+              {!isEmpty(petList)>0&&petList.map((p) => {
+                console.log(p)
+                return <div
                   key={p.petId}
                   className="list-item"
                   onClick={() => {
@@ -41,9 +46,10 @@ function PetList() {
                 >
                   <div className="list-title">
                     <ImgWrapper 
-                    src={process.env.REACT_APP_API_URL  + user.userImage} 
+                    src={process.env.REACT_APP_API_URL  + p.petImage} 
                     alt={"내 펫 이미지"} width="30px" height="30px" borderRadius="50%" defaultImg={defaultImg} />
                   </div>
+                  <div>{p.petName}</div>
                   <div style={{ display: "flex", width: "100%" }}>
                     <div className="list-reg-user"></div>
                     <div className="list-reg-dt">
@@ -51,7 +57,7 @@ function PetList() {
                     </div>
                   </div>
                 </div>
-              ))}
+              })}
             </div>
           </div>
         </div>

@@ -119,8 +119,8 @@ function PetInsert() {
         const target = document.querySelector(`[name="${k}"]`);
         if (!isEmpty(target)) {
           target.focus();
+          ok = false;
         }
-        ok = false;
         return false;
       }
     });
@@ -130,7 +130,7 @@ function PetInsert() {
     postApi({ url: `/api/pet`, data: petData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
-        // nav(`/petinfo/detail?detailID=${petData.petId}`)
+        nav(`/petinfo/detail?detailID=${petData.petId}`)
         // 추가 수정
         // if (petData.image !== null) {
         //   const formData = new FormData();
@@ -167,11 +167,12 @@ function PetInsert() {
         right={
           <div className="btn-wrapper">
             {/* <button className="btn">임시저장</button> */}
+
             <BtnRegister onClick={onRegist} />
           </div>
         }
       />
-      <form id="pet_insert" className="pet_detail">
+      <form id="pet_insert" className="pet_detail" >
         {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -214,7 +215,7 @@ function PetInsert() {
         {/* 나중에 이미지 클릭으로 바꾸기. */}
         <div>
           <label>반려동물 성별:</label>
-          <select className="petData_gender" onChange={handleGenderChange}>
+          <select className="petData_gender" name="petGender"onChange={handleGenderChange}>
             <option value="" selected disabled>
               선택하시오
             </option>
