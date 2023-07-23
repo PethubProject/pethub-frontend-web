@@ -5,33 +5,34 @@ import BoardHeader from "../../components/Header/HeaderBoard.js";
 // import PetDummy from "../../dummy/PetDummy.js";
 import useApiHooks from "../../api/BaseApi";
 
-/*
- // 펫 상세 조회
-    @ValidToken
-    @AuthCheck(role = AuthCheck.Role.OWNER)
-    @GetMapping("/api/pet/{petId}")
-    public ResponseEntity<Object> getPet(@PathVariable Long petId) {
-        PetInfoResponseDto petInfoResponseDto = petService.findPetByPetId(petId);
-        return ResponseEntity.ok().body(ResponseDto.of("펫 조회에 성공하였습니다", petInfoResponseDto));
-    }
-
-*/
 
 function PetDetail() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
-  const [petContent, setPetContent] = useState({});
+  const [petContent, setPetContent] = useState({
+    image: null,
+    petName: "",
+    petAge: "",
+    // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
+    // animalGroup: "",
+    petBreed: "",
+    petGender: "",
+    petWeight: "",
+    disease: "",
+    petIntroduction: "",
+  });
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
-      console.log(resp);
-      if (resp.data.data === null) {
-        // nav(-1);
+      console.log(resp);    
+      if (resp.data === null) {
+        // alert("잘못된 접근입니다.")
+        // nav(`/petinfo/`)
         return;
       }
-      setPetContent(resp.data.data);
+      setPetContent(resp.data);
     });
   }, []);
 
@@ -53,11 +54,11 @@ function PetDetail() {
           {/* 추가수정 */}
           <div>펫 이름: {petContent.petName}</div>
           <div>펫 나이: {petContent.petAge}살</div>
-          <div>펫 종류: {petContent.animalGroup}</div>
-          <div>펫 분류: {petContent.detialAnimalGroup}</div>
-          <div>펫 품종: {petContent.breed}</div>
-          <div>펫 체중: {petContent.weight}kg</div>
+          <div>펫 성별: {petContent.petGender}</div>
+          <div>펫 품종: {petContent.petBreed}</div>
+          <div>펫 체중: {petContent.petWeight}kg</div>
           <div>펫 질병: {petContent.disease}</div>
+          <div>펫 소개: {petContent.petIntroduction}</div>
           {/* <div>작성일: {petContent.createdtime}</div> */}
           <div
             key={petContent.petId}
@@ -71,6 +72,9 @@ function PetDetail() {
             }}
           >
             <span>펫 정보 수정하기</span>
+          </div>
+          <div>
+            <span>삭제</span>
           </div>
         </div>
       </div>

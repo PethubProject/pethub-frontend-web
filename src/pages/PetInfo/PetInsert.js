@@ -6,28 +6,10 @@ import BoardHeader from "../../components/Header/HeaderBoard.js";
 import PetDummy from "../../dummy/PetDummy.js";
 import { isEmpty } from "../../components/Utils/Utils";
 import useApiHooks from "../../api/BaseApi";
+import BtnRegister from "../../components/Button/BtnRegister";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 
-/*
-// 펫 등록
-    @ValidToken
-    @AuthCheck(role = AuthCheck.Role.OWNER)
-    @PostMapping("/api/pet")
-    public ResponseEntity<Object> registerPet(@RequestBody PetRequestDto petRequestDto) {
-        long petId = petService.registerPet(UserContext.userData.get().getUserId(), petRequestDto);
-        return ResponseEntity.ok().body(ResponseDto.of("펫 등록에 성공하였습니다", Map.of("petId", petId)));
-    }
-*/
-
 function PetInsert() {
-  // const [image, setImage] = useState("");
-  // const [name, setName] = useState("");
-  // const [age, setAge] = useState("");
-  // const [breed, setBreed] = useState("");
-  // const [weight, setWeight] = useState("");
-  // const [disease, setDisease] = useState("");
-
-  // const [animalGroup, setAnimalGroup] = useState("");
   const nav = useNavigate();
   const { postApi, postApiWithFile } = useApiHooks();
 
@@ -36,7 +18,7 @@ function PetInsert() {
     image: null,
     petName: "",
     petAge: "",
-    // 추가돼야하는 코드
+    // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
     // animalGroup: "",
     petBreed: "",
     petGender: "",
@@ -45,7 +27,7 @@ function PetInsert() {
     petIntroduction: "",
   });
 
-  const handleSubmit = null;
+  
 
   const handleBreedChange = (event) =>
     setPetData((prev) => ({
@@ -53,17 +35,17 @@ function PetInsert() {
       petBreed: event.target.value,
     }));
 
-    const handleGenderChange = (event) =>
+  const handleGenderChange = (event) =>
     setPetData((prev) => ({
       ...prev,
       petGender: event.target.value,
     }));
 
-  const handleAnimalGroupChange = (event) =>
-    setPetData((prev) => ({
-      ...prev,
-      animalGroup: event.target.value,
-    }));
+  // const handleAnimalGroupChange = (event) =>
+  //   setPetData((prev) => ({
+  //     ...prev,
+  //     animalGroup: event.target.value,
+  //   }));
 
   const handleDiseaseChange = (event) =>
     setPetData((prev) => ({
@@ -71,11 +53,11 @@ function PetInsert() {
       disease: event.target.value,
     }));
 
-  const handleImageChange = (event) =>
-    setPetData((prev) => ({
-      ...prev,
-      image: event.target.files[0],
-    }));
+  // const handleImageChange = (event) =>
+  //   setPetData((prev) => ({
+  //     ...prev,
+  //     image: event.target.files[0],
+  //   }));
 
   // const uploadImage = (imageFile) => {
   //   return new Promise((resolve, reject) => {
@@ -132,7 +114,7 @@ function PetInsert() {
   }, []);
 
   const onRegist = useCallback(
-    (e) => {
+    () => {
       var ok = true;
       Object.keys(petData).map((k) => {
         const v = petData[k];
@@ -151,15 +133,16 @@ function PetInsert() {
       postApi({ url: "/api/pet", data: petData }).then((resp) => {
         console.log(resp);
         if (resp.status === 200) {
+          nav(`/petinfo/detail?detailID=${petData.petId}`)
           // 추가 수정
-          if (petData.image !== null) {
-            const formData = new FormData();
-            formData.append("photo", petData.image);
-            postApiWithFile({
-              url: `/api/pet/${resp.data.petId}/image`,
-              data: formData,
-            });
-          }
+          // if (petData.image !== null) {
+          //   const formData = new FormData();
+          //   formData.append("photo", petData.image);
+          //   postApiWithFile({
+          //     url: `/api/pet/${resp.data.petId}/image`,
+          //     data: formData,
+          //   });
+          // }
         }
       });
     },
@@ -190,11 +173,11 @@ function PetInsert() {
       <div id="insert_title">
         <h2>반려동물 정보 등록</h2>
       </div>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form id="pet_insert" className="pet_detail">
+        {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label>
+        </label> */}
         {/* 추후 수정 */}
         {/* {petData.image && (
           <img
@@ -230,7 +213,7 @@ function PetInsert() {
           살
         </label>
 
-{/* 나중에 이미지 클릭으로 바꾸기. */}
+        {/* 나중에 이미지 클릭으로 바꾸기. */}
         <label>
           반려동물 성별:
           <select className="petData" onChange={handleGenderChange}>
@@ -243,7 +226,8 @@ function PetInsert() {
           </select>
         </label>
 
-        <label>
+        {/* 우선 반려동물은 강아지로만 한정함. */}
+        {/* <label>
           반려동물 종류:
           <select className="animal_group" onChange={handleAnimalGroupChange}>
             <option value="" selected disabled>
@@ -252,7 +236,7 @@ function PetInsert() {
             <option value="강아지">강아지</option>
             <option value="고양이">고양이</option>
           </select>
-        </label>
+        </label> */}
 
         <label>
           반려동물 품종:
@@ -260,34 +244,32 @@ function PetInsert() {
             <option value="" selected hidden>
               선택하시오
             </option>
-            {petData.animalGroup === "강아지" && (
-              <optgroup label="소형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {petData.animalGroup === "강아지" && (
-              <optgroup label="중형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {petData.animalGroup === "강아지" && (
-              <optgroup label="대형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
-                  <option key={breed} value={breed}>
-                    {breed}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {petData.animalGroup === "고양이" && (
+
+            <optgroup label="소형견">
+              {PetDummy.DogBreeds.small.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
+            </optgroup>
+
+            <optgroup label="중형견">
+              {PetDummy.DogBreeds.small.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
+            </optgroup>
+
+            <optgroup label="대형견">
+              {PetDummy.DogBreeds.small.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
+            </optgroup>
+
+            {/* {petData.animalGroup === "고양이" && (
               <optgroup label="고양이 종">
                 {PetDummy.CatBreeds.고양이.map((breed) => (
                   <option key={breed} value={breed}>
@@ -295,7 +277,7 @@ function PetInsert() {
                   </option>
                 ))}
               </optgroup>
-            )}
+            )} */}
           </select>
         </label>
 
@@ -326,7 +308,7 @@ function PetInsert() {
             ))}
           </select>
         </label>
-  
+
         <label>
           내 반려동물 소개:
           <input
@@ -336,13 +318,12 @@ function PetInsert() {
             onChange={onFormChagne}
           />
         </label>
-        
-      </form>
-      <div className="board_update_btn">
-        <button className="insert_btn" onClick={onRegist}>
-          등록
-        </button>
+
+        <div className="btn-wrapper">
+        <BtnRegister onClick={onRegist}/>
       </div>
+      </form>
+      
     </div>
   );
 }

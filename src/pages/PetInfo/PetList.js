@@ -11,33 +11,15 @@ import useApiHooks from "../../api/BaseApi.js";
 // import PetDummy from "../../dummy/PetDummy.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 
-/*
-// backend code 
-// 펫 리스트 조회
-    // userId
-    @ValidToken
-    @AuthCheck(role = AuthCheck.Role.OWNER)
-    @GetMapping("/api/pet")
-    public ResponseEntity<Object> getPetList() {
-        List<PetListResponseDto> responseDto = petService.findPetListByUserId(UserContext.userData.get().getUserId());
-        return ResponseEntity.ok().body(ResponseDto.of("펫 리스트 조회에 성공하였습니다", responseDto));
-    }
-*/
-
 function PetList() {
   const user = useRecoilValue(UserState);
   const ctime = new Date();
   const nav = useNavigate();
   const { getApi } = useApiHooks();
-  // const [petList,setPetList] = useState({
-  //   petId:"",
-  //   petName:"",
-  //   petImage:null,
-  // });
   const [petList,setPetList] = useState([]);
   useEffect(() => {
-    getApi({ url: "/api/pet"}).then(r=>{
-        setPetList(r.data);
+    getApi({ url: `/api/pet`}).then(r=>{
+        setPetList(r.data.data);
     });
   }, []);
 
@@ -48,12 +30,12 @@ function PetList() {
         <div id="counsel-board" className="content flex-column">
           <div className="content scroll-hide board-list">
             <div className="list-col">
-              {petList.map((petList) => (
+              {petList.map((p) => (
                 <div
-                  key={petList.petId}
+                  key={p.petId}
                   className="list-item"
                   onClick={() => {
-                    nav(`/petinfo/detail?detailID=${petList.petId}`);
+                    nav(`/petinfo/detail?detailID=${p.petId}`);
                   }}
                 >
                   <div className="list-title">

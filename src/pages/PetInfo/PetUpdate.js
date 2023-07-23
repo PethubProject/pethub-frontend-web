@@ -10,31 +10,12 @@ import { isEmpty } from "../../components/Utils/Utils";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import useApiHooks from "../../api/BaseApi";
 
-/*
- // 펫 수정
-    @ValidToken
-    @AuthCheck(role = AuthCheck.Role.OWNER)
-    @PutMapping("/api/pet/{petId}")
-    public ResponseEntity<Object> updatePet(@PathVariable Long petId, @RequestBody PetRequestDto petRequestDto) {
-        petService.updatePet(petId, petRequestDto);
-        return ResponseEntity.ok().body(ResponseDto.of("펫 수정에 성공하였습니다"));
-    }
-*/
-
 function PetUpdate() {
   const user = useRecoilValue(UserState);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
   const [petData, setPetData] = useState({
-    // image: "1",
-    // name: "",
-    // age: "",
-    // breed: "",
-    // weight: "",
-    // disease: "",
-    // animalGroup: "",
-    // detialAnimalGroup: "",
     image: null,
     petName: "",
     petAge: "",
@@ -122,29 +103,23 @@ function PetUpdate() {
       petBreed: event.target.value,
     }));
 
-  const handleAnimalGroupChange = (event) =>
-    setPetData((prev) => ({
-      ...prev,
-      animalGroup: event.target.value,
-    }));
-
   const handleDiseaseChange = (event) =>
     setPetData((prev) => ({
       ...prev,
       disease: event.target.value,
     }));
-    
-    const handleGenderChange = (event) =>
+
+  const handleGenderChange = (event) =>
     setPetData((prev) => ({
       ...prev,
       petGender: event.target.value,
     }));
 
-  const handleImageChange = (event) =>
-    setPetData((prev) => ({
-      ...prev,
-      image: event.target.files[0],
-    }));
+  // const handleImageChange = (event) =>
+  //   setPetData((prev) => ({
+  //     ...prev,
+  //     image: event.target.files[0],
+  //   }));
 
   const onFormChagne = useCallback((e) => {
     const { name, value } = e.target;
@@ -208,8 +183,8 @@ function PetUpdate() {
           살
         </label>
 
-{/* 1. 아직 백엔드에 animal group 코드가 반영되지 않아 데이터 전달 불가. */}
-        <label>
+        {/* 추후 강아지 이외의 종류를 추가할 때 추가하면 되는 코드 */}
+        {/* <label>
           반려동물 종류:
           <select className="animal_group" onChange={handleAnimalGroupChange}>
             <option value="" selected={false} disabled hidden>
@@ -220,21 +195,50 @@ function PetUpdate() {
             </option>
             <option value="고양이">고양이</option>
           </select>
-        </label>
-{/* 1. 종료 */}
+        </label> */}
 
         <label>
           반려동물 품종:
-          <select className="animal_breed" onChange={handleBreedChange}>
+          <select onChange={handleBreedChange}>
             <option value="" selected disabled hidden>
               선택하시오
             </option>
-            {/* 추가 수정 */}
-            {PetDummy.DogBreeds.small.map((breed) => (
-              <option key={breed} value={breed}>
-                {breed}
-              </option>
-            ))}
+            {petData.animalGroup === "강아지" && (
+              <optgroup label="소형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {petData.animalGroup === "강아지" && (
+              <optgroup label="중형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {petData.animalGroup === "강아지" && (
+              <optgroup label="대형견">
+                {PetDummy.DogBreeds.small.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {/* {petData.animalGroup === "고양이" && (
+              <optgroup label="고양이 종">
+                {PetDummy.CatBreeds.고양이.map((breed) => (
+                  <option key={breed} value={breed}>
+                    {breed}
+                  </option>
+                ))}
+              </optgroup>
+            )} */}
           </select>
         </label>
 
@@ -292,7 +296,6 @@ function PetUpdate() {
             수정하기
           </button>
         </div>
-
       </form>
     </div>
   );

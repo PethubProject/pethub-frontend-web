@@ -33,20 +33,20 @@ const DogBreeds = {
   large: ["블러드하운드", "리트리버", "하운드", "셰퍼드"],
 };
 
-const CatBreeds = {
-  고양이: [
-    "아비시니안",
-    "먼치킨",
-    "러시안 블루",
-    "스코티시 폴드",
-    "봄베이",
-    "시암",
-    "메인 쿤",
-    "페르시안",
-    "빙골",
-    "샴",
-  ],
-};
+// const CatBreeds = {
+//   고양이: [
+//     "아비시니안",
+//     "먼치킨",
+//     "러시안 블루",
+//     "스코티시 폴드",
+//     "봄베이",
+//     "시암",
+//     "메인 쿤",
+//     "페르시안",
+//     "빙골",
+//     "샴",
+//   ],
+// };
 const Disease = {
   Disease: [
     "알수없음",
@@ -60,4 +60,4 @@ const Disease = {
   ],
 };
 
-export default { PetDummy, DogBreeds, CatBreeds, Disease };
+export default { PetDummy, DogBreeds, Disease };
