@@ -15,7 +15,7 @@ function PetInsert() {
 
   // 추가 수정부분
   const [petData, setPetData] = useState({
-    image: null,
+    petImage: null,
     petName: "",
     petAge: "",
     // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
@@ -127,7 +127,7 @@ function PetInsert() {
     if (!ok) {
       return false;
     }
-    postApi({ url: `/api/pet`, data: petData }).then((resp) => {
+    postApi({ url: "/api/pet", data: petData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
         nav(`/petinfo/detail?detailID=${petData.petId}`)
@@ -161,6 +161,7 @@ function PetInsert() {
   // };
 
   return (
+    <LayoutUserExist>
     <div id="main">
       <BoardHeader
         title="내 반려동물 정보 등록 페이지"
@@ -190,7 +191,7 @@ function PetInsert() {
         )} */}
 
         <div>
-          <label>반려동물 이름:</label>
+          <label>반려동물 이름: </label>
           <input
             className="petData_name"
             type="text"
@@ -239,7 +240,7 @@ function PetInsert() {
           </select>
         </label> */}
         <div>
-          <label>반려동물 품종:</label>
+          <label>반려동물 품종: </label>
           <select name="petBreed" onChange={handleBreedChange}>
             <option value="" selected hidden>
               선택하시오
@@ -281,7 +282,7 @@ function PetInsert() {
           </select>
         </div>
         <div>
-          <label>반려동물 무게:</label>
+          <label>반려동물 무게: </label>
           <input
             className="petData"
             type="number"
@@ -295,7 +296,7 @@ function PetInsert() {
         </div>
 
         <div>
-          <label>반려동물 질병:</label>
+          <label>반려동물 질병: </label>
           <select
             className="petData_disease"
             name="disease"
@@ -312,7 +313,7 @@ function PetInsert() {
           </select>
         </div>
         <div>
-          <label>내 반려동물 소개:</label>
+          <label>내 반려동물 소개: </label>
           <input
             className="petData"
             name="petIntroduction"
@@ -322,6 +323,7 @@ function PetInsert() {
         </div>
       </form>
     </div>
+    </LayoutUserExist>
   );
 }
 
