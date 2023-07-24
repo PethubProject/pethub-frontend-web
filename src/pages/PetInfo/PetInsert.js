@@ -172,7 +172,9 @@ function PetInsert() {
           </div>
         }
       />
-      <form id="pet_insert" className="pet_detail" >
+
+      <form id="pet_insert" className="pet_detail">
+        
         {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />

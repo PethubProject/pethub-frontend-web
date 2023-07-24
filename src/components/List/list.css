@@ -10,6 +10,9 @@
   cursor: pointer;
   border-bottom: 1px solid #eeeeee;
 }
+.list-col .list-item.chat {
+  width:100%;
+}
 
 .list-title {
   width: 100%;
@@ -53,12 +56,14 @@
   display:flex;
   flex-direction: column;
   justify-content: center;
+  width:50%;;
   gap:8px;
 }
 
 .list-item >div.chat-content > div.msg{
   font-size:14px;
   font-weight: 300;
+  word-break: break-all;
 }
 
 .list-item >div.chat-dt{

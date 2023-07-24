@@ -11,12 +11,15 @@ import ImgWrapper from "../../components/Wrapper/ImgWrapper";
 import { UserState } from "../../state/User";
 import "./chat.css";
 export default function ChatRoom() {
+
+  // ref 
   const ws = useRef();
   const contentRef = useRef();
   const textRef = useRef(null);
+  
   const location = useLocation();
   const [inputTop, setInputTop] = useState(0);
-
+  const [text,setText] = useState("")
   const [target, setTarget] = useState({
     name: "",
     nickName: "",
@@ -44,25 +47,31 @@ export default function ChatRoom() {
     scrollBottom();
   }, [target, inputTop, contentRef]);
 
+  // 웹소켓 통신
   useEffect(() => {
     ws.current = new WebSocket(`${process.env.REACT_APP_SOCKET_URL}/chat`);
+
+    // 1. opopen 
     ws.current.onopen = () => {
       ws.current.send(JSON.stringify({ type: "ENTER", userId: location.state.senderId }));
-
       // ws.current.send(JSON.stringify({type:"MESSAGE","chatId":uuid(),"senderId":user.userId,recipientId:location.state.targetId,content:"as11das",createdAt:new Date()}))
     };
+
     ws.current.onclose = (error) => {
       console.log("disconnect from ");
       console.log(error);
     };
+
     ws.current.onmessage = function (event) {
       const res = JSON.parse(event.data);
       setTarget((p) => ({ ...p, chatMessageList: [...p.chatMessageList, res] }));
     };
+
     ws.current.onerror = (error) => {
       console.log("connection error ");
       console.log(error);
     };
+
     return () => {
       ws.current.close();
     };
@@ -96,12 +105,12 @@ export default function ChatRoom() {
     }
     return () => {
       if (textRef?.current !== null) {
-        console.log(textRef);
         textRef.current.removeEventListener("keyup", tmOnSend);
       }
     };
   }, [textRef]);
   return (
+    // JSX 
     <LayoutUserExist>
       <div id="main">
         <HeaderChat
@@ -134,7 +143,7 @@ export default function ChatRoom() {
           <div id="chat-input-area">
             <input
               type="text"
-              // onChange={onSetText}
+              // onChange={e=>setText(e.target.value)}
               // value={text}
               // onKeyUp={(e) => {
               //   if (e.key === "Enter") {

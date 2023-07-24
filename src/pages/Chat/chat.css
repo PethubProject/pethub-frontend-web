@@ -45,6 +45,7 @@
   display: flex;
   align-items: center;
 }
+
 #btn-chat-send > div {
   cursor: pointer;
   text-align: center;
@@ -74,6 +75,14 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 300;
+  width:100%;
+  max-width: 240px;
+}
+.chat-item-content >p{
+  display: block;
+  width:100%;
+  white-space: break-spaces;
+  word-break: break-all;
 }
 .chat-me {
   align-self: flex-end;

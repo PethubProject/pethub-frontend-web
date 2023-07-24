@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
@@ -11,11 +11,26 @@ import useApiHooks from "../../api/BaseApi.js";
 // import PetDummy from "../../dummy/PetDummy.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import { isEmpty } from "../../components/Utils/Utils.js";
+import {Chat} from "../../state/Chatting.js"
 
 function PetList() {
+  // const [chat,setChat] = useRecoilState(CC.Chat);
+  // const chat = useRecoilValue(CC.Chat)
+  // const setChat = useSetRecoilState(CC.Chat);
+  // const resetChat = useResetRecoilState(CC.Chat)
   const user = useRecoilValue(UserState);
   const ctime = new Date();
   const nav = useNavigate();
+  // 구조분해
+  /**
+   *  const a = {
+   *  name:"",
+   *  age:12.
+   * }
+   * 
+   * const c = a.age;
+   * const {age} = a/
+   */
   const { getApi } = useApiHooks();
   const [petList,setPetList] = useState([]);
 
