@@ -26,13 +26,14 @@ function PetDetail() {
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
-      console.log(resp);    
-      if (resp.data === null) {
+      console.log(resp);
+
+      if (resp.data.data === null) {
         // alert("잘못된 접근입니다.")
         // nav(`/petinfo/`)
         return;
       }
-      setPetContent(resp.data);
+      setPetContent(resp.data.data);
     });
   }, []);
 

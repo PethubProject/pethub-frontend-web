@@ -32,7 +32,6 @@ export default function CounselList() {
           data = resp.data.data;
         }
         const { content, pageable } = data;
-        console.log(content);
         setTotalCnt(data.totalElements);
         if (content !== null && content.length > 0) {
           setBoardList((p) => [...p, ...content]);
