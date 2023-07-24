@@ -1,134 +1,69 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import HeaderChat from "../../components/Header/HeaderChat";
-import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useEffect, useState } from "react";
+import useApiHooks from "../../api/BaseApi";
+import BoardHeader from "../../components/Header/HeaderBoard";
+import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import "./chat.css";
-import { useEffect, useRef, useState } from "react";
+import { UserState } from "../../state/User";
+import { useRecoilValue } from "recoil";
+import BtnFloat from "../../components/Button/BtnFloat";
+import { useNavigate } from "react-router-dom";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
+import ImgWrapper from "../../components/Wrapper/ImgWrapper";
 export default function Chat() {
-  const contentRef = useRef();
-  const [inputTop, setInputTop] = useState(0);
-  const [text, setText] = useState("");
-  const [chatList, setChatList] = useState([
-    {
-      memberId: "user1",
-      content:
-        "메세지 이유1&&메세지 이유1&&메세지 이유1\n메세지 이유1\n메세지 이유1\n메세지 이유1",
-      created_at: "2023-04-04",
-    },
-    { memberId: "user3", content: "메세지 이유2", created_at: "2023-04-04" },
-    { memberId: "user1", content: "메세지 이유3", created_at: "2023-04-04" },
-    { memberId: "user3", content: "메세지 이유4", created_at: "2023-04-04" },
-    { memberId: "user1", content: "메세지 이유5", created_at: "2023-04-04" },
-    { memberId: "user1", content: "메세지 이유6", created_at: "2023-04-04" },
-    { memberId: "user3", content: "메세지 이유7", created_at: "2023-04-04" },
-    { memberId: "user1", content: "메세지 이유8", created_at: "2023-04-04" },
-  ]);
-  const me = "user3";
-  const onSendHandler = (text) => {
-    if (text.replace(/[\s]+/gi, "").length === 0) {
-      alert("메세지를 입력해 주세요.");
-      return;
-    }
-    setChatList((prev) => [
-      ...prev,
-      { memberId: "user3", content: text, created_at: "20223-04-04" },
-    ]);
-    setText("");
-  };
-  const scrollBottom = () => {
-    contentRef.current.scrollTop = contentRef.current.scrollHeight;
-  };
-
+  const user = useRecoilValue(UserState);
+  const navigate = useNavigate();
+  const [chatRoomList, setChatRoomList] = useState([]);
+  const { getApi } = useApiHooks();
   useEffect(() => {
-    scrollBottom();
-  }, [chatList, inputTop]);
+    getApi({ url: "/api/chat-room/list" }).then((resp) => {
+      const { data } = resp.data;
+      if (Array.isArray(data)) {
 
-  useEffect(() => {
-    // 마운트 할때
-    const resize = (e) => {
-      setInputTop(Math.random());
-    };
-    window.addEventListener("resize", resize);
+        setChatRoomList(data);
+      }
+    });
 
-    // 마운트 해제 될때
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
+
   }, []);
-
+  const goChatRoom=useCallback((chatRoomId,targetId)=>{
+    navigate("/chat/room",{state:{chatRoomId:chatRoomId,targetId:targetId,senderId:user.userId}})
+  },[])
   return (
-    <div id="main">
-      <HeaderChat
-        title={
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <div className="chat-item-user">
-              {"user1".substring(0, 1)}
-              {"user1".substring(4, 5)}
-            </div>
-            user1
-          </div>
-        }
-      />
-      <div
-        className="content pb20"
-        ref={contentRef}
-        onResize={(e) => setInputTop("resized")}
-      >
-        <div id="chat-list">
-          {chatList.map((d) => {
-            return (
-              <div
-                className={
-                  me === d.memberId
-                    ? "chat-item chat-me"
-                    : "chat-item chat-other"
-                }
-                key={Math.random()}
-              >
-                <div className="chat-item-user">
-                  {d.memberId.substring(0, 1)}
-                  {d.memberId.substring(4, 5)}
+    <LayoutUserExist>
+      <div id="main">
+        <BoardHeader title="상담 채팅" />
+        <div className="content">
+          <div className="list-col">
+            {chatRoomList.map(c=>{
+              return <div className="list-item v-exp" onClick={_=>{
+                goChatRoom(c.chatRoomId,c.partnerId);
+              }}>
+                <div><ImgWrapper src={process.env.REACT_APP_API_URL + c.userImage} width={"40px"} height={"40px"}/></div>
+                <div className="chat-content">
+                  <div>{c.name}</div>
+                  <div className="msg">{c.lastMessage}</div>
                 </div>
-                <div className="chat-item-content">
-                  <p>{d.content}</p>
+                <div className="chat-dt">
+                  {(new Date()).format('yyyy-MM-dd')===(new Date(c.lastMessageTime)).format('yyyy-MM-dd')?(new Date(c.lastMessageTime)).format('a/p HH:mm:ss'):(new Date(c.lastMessageTime)).format('yyyy-MM-dd HH:mm:ss')}
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-      <div id="chat-input-wrap">
-        <div id="chat-input-area">
-          <input
-            type="text"
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-            value={text}
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                onSendHandler(text);
-              }
-            }}
-            placeholder="메세지를 입력해주세요."
-          />
-          <div id="chat-file-area">
-            <label className="pointer" htmlFor="file-upload">
-              <FontAwesomeIcon icon={faPaperclip} />
-            </label>
-            <input type="file" id="file-upload" style={{ display: "none" }} />
+            })}
+
           </div>
+          {user.role === "OWNER" && (
+            <BtnFloat
+              onClick={() => {
+                navigate("/chat/create");
+              }}
+              icon={<FontAwesomeIcon icon={faComment} />}
+            />
+          )}
+
         </div>
-        <div id="btn-chat-send">
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              onSendHandler(text);
-            }}
-          >
-            전송
-          </div>
-        </div>
+        <BottomTabNavigation/>
       </div>
-    </div>
+    </LayoutUserExist>
   );
 }

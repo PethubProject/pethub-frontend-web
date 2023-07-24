@@ -26,7 +26,6 @@ const checkSignIn = (setSelf) => {
   api
     .get("/api/user/info", config)
     .then((resp) => {
-      console.log(resp.data)
       setSelf((p) => ({
         ...p,
         ...resp.data,
