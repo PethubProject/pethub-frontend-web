@@ -1,7 +1,7 @@
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./button.css";
-export default function BtnFloat({ onClick }) {
+export default function BtnFloat({ onClick,icon }) {
   return (
     <div
       className="btn-float"
@@ -9,7 +9,7 @@ export default function BtnFloat({ onClick }) {
         onClick(e);
       }}
     >
-      <FontAwesomeIcon icon={faPen} />
+      {icon?icon:<FontAwesomeIcon icon={faPen} />}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import "./App.css";
 import Camera from "./pages/Camera/Camera";
 import CameraDetail from "./pages/Camera/CameraDetail";
 import CameraSelect from "./pages/Camera/CameraSelect";
-import Chat from "./pages/Chat/Chat";
 import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
 import CounselContent from "./pages/CounselBoard/CounselContent";
@@ -30,6 +29,9 @@ import VetInfo from "./pages/VetInfo/VetInfo";
 import Example from "./pages/Example/Example";
 import KakaoAddress from "./pages/Example/KakaoAddress";
 import TouchGesture from "./pages/Example/TouchGesture";
+import Chat from "./pages/Chat/Chat";
+import ChatRoomCreate from "./pages/Chat/ChatRoomCreate";
+import ChatRoom from "./pages/Chat/ChatRoom";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -83,7 +85,11 @@ function App() {
           <Route path="/ai/result" element={<CameraDetail />} />
 
           {/* chat */}
-          <Route path="/chat" element={<Chat />} />
+          <Route>
+            <Route path="chat" index element={<Chat />} />
+            <Route path="chat/create" index element={<ChatRoomCreate />} />
+            <Route path="chat/room" index element={<ChatRoom />} />
+          </Route>
 
           {/* Test */}
 

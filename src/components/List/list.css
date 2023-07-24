@@ -49,6 +49,25 @@
   background-color: #d9d9d9;
 }
 
+.list-item >div.chat-content{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:8px;
+}
+
+.list-item >div.chat-content > div.msg{
+  font-size:14px;
+  font-weight: 300;
+}
+
+.list-item >div.chat-dt{
+  margin-left: auto;
+  font-size:10px;
+  font-weight: 300;
+
+}
+
 /* vet */
 .vet-list-item {
   display: flex;
@@ -84,6 +103,14 @@
 
 .list-item.v-exp > div {
   padding: 16px;
+}
+.list-item.v-exp > div>img {
+  max-width:40px;
+  max-height:40px;
+}
+.list-item.v-exp > div.p0 {
+  height:100%;
+  padding: 0;
 }
 .v-exp:first-child::before {
   content: "";

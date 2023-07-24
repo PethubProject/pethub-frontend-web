@@ -12,24 +12,36 @@ export default function MenuList() {
     <div className="list-col">
       <UserWrapper
         isUser={
-          <div
-            className="list-item v-exp"
-            onClick={() => {
-              navigate(
-                validUserRole(user, {
-                  owner: (_) => "/userinfo",
-                  vet: (_) => "/vetinfo",
-                })
-              );
-            }}
-          >
-            <div>
-              {validUserRole(user, {
-                owner: (_) => "내 정보",
-                vet: (_) => "수의사 정보",
-              })}
+          <>
+            <div
+              className="list-item v-exp"
+              onClick={() => {
+                navigate(
+                  "/userinfo"
+                  // validUserRole(user, {
+                  //   owner: (_) => "/userinfo",
+                  //   vet: (_) => "/vetinfo",
+                  // })
+                );
+              }}
+            >
+              <div>내 정보</div>
             </div>
-          </div>
+            {
+             user.role==="VET"&&
+             <div
+              className="list-item v-exp"
+              onClick={() => {
+                navigate(
+                  "/vetinfo"
+             
+                );
+              }}
+            >
+              <div>수의사 정보</div>
+            </div>
+            }
+          </>
         }
       />
       {/* <div
