@@ -23,7 +23,7 @@ function PetDetail() {
   });
   const [searchParams, setSearchParams] = useSearchParams();
 
-  //해당 유저의 펫이 아니더라도 현재 링크로 접속하면 접속이 가능함. 해결해야함. 물론 리스트에는 안나옴.
+  //1. 해당 유저의 펫이 아니더라도 현재 링크로 접속하면 접속이 가능함. 해결해야함. 물론 리스트에는 안나옴.
 
   useEffect(() => {
     const petId = searchParams.get("detailID");
@@ -64,7 +64,7 @@ function PetDetail() {
             <div>펫 품종: {petContent.petBreed}</div>
             <div>펫 체중: {petContent.petWeight}kg</div>
             <div>펫 소개: {petContent.petIntroduction}</div>
-            {/* 작성시간을 부여하기 */}
+            {/* 2. 작성시간을 부여하기 */}
             {/* <div>작성일: {petContent.createdtime}</div> */}
             <div
               key={petContent.petId}
@@ -75,7 +75,7 @@ function PetDetail() {
             >
               수정하기
             </div>
-            {/* 삭제버튼 이쁘게 만들기 */}
+            {/* 3. 삭제버튼 이쁘게 만들기 */}
             <button
               className="btn_delete"
               onClick={() => {

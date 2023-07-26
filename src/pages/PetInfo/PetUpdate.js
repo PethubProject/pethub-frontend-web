@@ -61,7 +61,7 @@ function PetUpdate() {
       petGender: event.target.value,
     }));
 
-    // 이미지 추가시킬 준비
+    // 1. 이미지 추가시킬 준비
 
   // const handleImageChange = (event) =>
   //   setPetData((prev) => ({
@@ -99,7 +99,7 @@ function PetUpdate() {
     });
   }, []);
 
-  //수정 취소시 알람, 수정 취소
+  //2. 수정 취소시 알람, 수정 취소
   return (
     <LayoutUserExist>
     <div id="main">

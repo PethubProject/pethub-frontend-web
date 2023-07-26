@@ -61,16 +61,16 @@ function PetList() {
                             defaultImg={defaultImg}
                           />
                         </div>
-                        {/* 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
+                        {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
                         <div>{p.petName}</div>
                         <div style={{ display: "flex", width: "100%" }}>
                           <div className="list-reg-user"></div>
-                          {/* 등록된 기준으로 시간이 변하지 않도록 해보기 */}
+                          {/* 2. 등록된 기준으로 시간이 변하지 않도록 해보기 */}
                           <div className="list-reg-dt">
                             등록일: {ctime.toISOString()}
                           </div>
                           <div>
-                            {/* 삭제버튼을 fontawsome을 통해 이미지로 바꾸기 */}
+                            {/* 3. 삭제버튼을 fontawsome을 통해 이미지로 바꾸기 */}
                             <button
                               className="btn_delete"
                               onClick={() => {
