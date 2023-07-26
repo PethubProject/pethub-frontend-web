@@ -101,7 +101,8 @@ function PetList() {
                                   }).then((resp) => {
                                     console.log(resp);
                                     if (resp.status === 200) {
-                                      // nav(-1);
+                                      console.log(resp)
+                                      setPetList(pets=>pets.filter(pet=>pet.petId!==p.petId))
                                     }
                                   });
                                 }
