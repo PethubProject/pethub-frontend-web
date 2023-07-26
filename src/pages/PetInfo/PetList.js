@@ -10,7 +10,7 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import useApiHooks from "../../api/BaseApi.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import { isEmpty } from "../../components/Utils/Utils.js";
-import {Chat} from "../../state/Chatting.js"
+import { Chat } from "../../state/Chatting.js";
 
 function PetList() {
   // const [chat,setChat] = useRecoilState(CC.Chat);
@@ -26,7 +26,7 @@ function PetList() {
    *  name:"",
    *  age:12.
    * }
-   * 
+   *
    * const c = a.age;
    * const {age} = a/
    */
@@ -34,7 +34,6 @@ function PetList() {
   const { deleteApi } = useApiHooks();
   const [petList, setPetList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  
 
   useEffect(() => {
     getApi({ url: `/api/pet` }).then((resp) => {
@@ -94,53 +93,24 @@ function PetList() {
                             <button
                               className="btn_delete"
                               onClick={() => {
-                                if (window.confirm("정말 삭제하시겠습니까?")) {
+                                if (
+                                  window.confirm(
+                                    p.petName +" 의 정보를 삭제하시겠습니까?"
+                                  )
+                                ) {
                                   deleteApi({
                                     url: `/api/pet/${p.petId}`,
                                   }).then((resp) => {
                                     console.log(resp);
                                     if (resp.status === 200) {
                                       // 삭제 -> 목록에서 삭제된 아이템을 빼준다.
-                                      // petList = list => element 1개 제거를 한다. 
-                                      /**
-                                       * 목록을 표시하는 페이지에서 아이템을 삭제시킬때 쓰이는 로직 
-                                       * [
-                                       *  {
-                                       *    petId:...
-                                       *  },
-                                       *  {
-                                       *    petId:...
-                                       *  },
-                                       * ]
-                                       * 
-                                       * [1,2,3,4,5].filter(element=>element !=1)
-                                       * --> [2,3,4,5]
-                                       * 
-                                       * setPetList(이전상태값=>이전상태값:list.filter(pet=>pet.petId!==p.petId)))
-                                       * 
-                                       * 
-                                       * nav(-1) => nav("/petList")
-                                       * 
-                                       * nav("/petInfo")
-                                       * 
-                                       * window.location.reload();
-                                       * 
-                                       * li = [1,2,3,4]
-                                       * li.append(5)
-                                       * [1,2,3,4,5]
-                                       * 
-                                       * 리스트 추가 , 확인, 삭제
-                                       * 
-                                       * var a = []
-                                       * 추가 하고 싶다
-                                       * a = [...a,추가하고싶은요소]
-                                       * 
-                                       * 삭제
-                                       * a = a.filter(item=>(item!==삭제하고싶은요소))
-                                       * 
-                                       * 
-                                       */
-                                      setPetList(pets=>pets.filter(pet=>pet.petId!==p.petId))
+                                      // petList = list => element 1개 제거를 한다.
+                                      //목록을 표시하는 페이지에서 아이템을 삭제시킬때 쓰이는 로직
+                                      setPetList((pets) =>
+                                        pets.filter(
+                                          (pet) => pet.petId !== p.petId
+                                        )
+                                      );
                                     }
                                   });
                                 } else {
@@ -149,9 +119,8 @@ function PetList() {
                             >
                               삭제
                             </button>
-                          </div>                          
+                          </div>
                         </div>
-                        
                       </div>
                     </div>
                   );
