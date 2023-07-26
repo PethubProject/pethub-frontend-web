@@ -125,6 +125,20 @@ function PetList() {
                                        * 
                                        * window.location.reload();
                                        * 
+                                       * li = [1,2,3,4]
+                                       * li.append(5)
+                                       * [1,2,3,4,5]
+                                       * 
+                                       * 리스트 추가 , 확인, 삭제
+                                       * 
+                                       * var a = []
+                                       * 추가 하고 싶다
+                                       * a = [...a,추가하고싶은요소]
+                                       * 
+                                       * 삭제
+                                       * a = a.filter(item=>(item!==삭제하고싶은요소))
+                                       * 
+                                       * 
                                        */
                                       setPetList(pets=>pets.filter(pet=>pet.petId!==p.petId))
                                     }
