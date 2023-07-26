@@ -108,8 +108,19 @@ function PetInsert() {
     postApi({ url: "/api/pet", data: petData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
-        nav(`/petinfo`)
-        // nav(`/petinfo/detail?detailID=${petData.petId}`);//petId가 undefined로 정의되는 이유?-> 아마 등록하는 과정에서 petId를 부여받기 때문에?
+        // nav(`/petinfo`)
+        /**
+         * 
+         * 자바스크립트 
+         * console.log(변수)
+         * typeof 변수 
+         * -> undefined or null or 값이 있거나 
+         * var 변수;
+         * var 변수도 선언이 안되어있거나, key가 없다. 
+         * 
+         */
+        nav(`/petinfo/detail?detailID=${resp.data.data.petId}`);//petId가 undefined로 정의되는 이유?-> 아마 등록하는 과정에서 petId를 부여받기 때문에?
+        // petData.petId 가 아니라 resp.data.data.petId
         // 추가 수정
         // if (petData.image !== null) {
         //   const formData = new FormData();
