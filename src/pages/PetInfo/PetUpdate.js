@@ -61,6 +61,8 @@ function PetUpdate() {
       petGender: event.target.value,
     }));
 
+    // 이미지 추가시킬 준비
+
   // const handleImageChange = (event) =>
   //   setPetData((prev) => ({
   //     ...prev,
@@ -193,7 +195,6 @@ function PetUpdate() {
           </select>
         </label>
 
-        {/* 나중에 이미지 클릭으로 바꾸기. */}
         <label>
           반려동물 성별:
           <select className="petData" onChange={handleGenderChange}>
@@ -218,19 +219,6 @@ function PetUpdate() {
           />
           kg
         </label>
-        {/* <label>
-          반려동물 질병:
-          <select className="disease" onChange={handleDiseaseChange}>
-            <option value="" selected disabled hidden>
-              선택하시오
-            </option>
-            {PetDummy.Disease.Disease.map((dis) => (
-              <option key={dis} value={dis}>
-                {dis}
-              </option>
-            ))}
-          </select>
-        </label> */}
 
         <label>
           내 반려동물 소개:

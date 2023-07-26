@@ -13,23 +13,11 @@ import { isEmpty } from "../../components/Utils/Utils.js";
 import { Chat } from "../../state/Chatting.js";
 
 function PetList() {
-  // const [chat,setChat] = useRecoilState(CC.Chat);
-  // const chat = useRecoilValue(CC.Chat)
-  // const setChat = useSetRecoilState(CC.Chat);
-  // const resetChat = useResetRecoilState(CC.Chat)
+  
   const user = useRecoilValue(UserState);
   const ctime = new Date();
   const nav = useNavigate();
-  // 구조분해
-  /**
-   *  const a = {
-   *  name:"",
-   *  age:12.
-   * }
-   *
-   * const c = a.age;
-   * const {age} = a/
-   */
+
   const { getApi } = useApiHooks();
   const { deleteApi } = useApiHooks();
   const [petList, setPetList] = useState([]);
@@ -44,17 +32,8 @@ function PetList() {
     });
   }, []);
 
-  // const onDel = useCallback(() => {
-  //   deleteApi({ url: `/api/pet/${petId}` }).then((resp) => {
-  //     console.log(resp);
-  //     if (resp.status === 200) {
-  //       nav(-1);
-  //     }
-  //   });
-  // }, []);
-
   return (
-    // 삭제 버튼도 추가하여 리스트창에서도 삭제 가능하도록 구현해보기.
+    
     <LayoutUserExist>
       <div id="main">
         <BoardHeader title="펫 리스트" />
@@ -86,10 +65,12 @@ function PetList() {
                         <div>{p.petName}</div>
                         <div style={{ display: "flex", width: "100%" }}>
                           <div className="list-reg-user"></div>
+                          {/* 등록된 기준으로 시간이 변하지 않도록 해보기 */}
                           <div className="list-reg-dt">
                             등록일: {ctime.toISOString()}
                           </div>
                           <div>
+                            {/* 삭제버튼을 fontawsome을 통해 이미지로 바꾸기 */}
                             <button
                               className="btn_delete"
                               onClick={() => {

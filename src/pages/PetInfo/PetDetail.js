@@ -23,12 +23,14 @@ function PetDetail() {
   });
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //해당 유저의 펫이 아니더라도 현재 링크로 접속하면 접속이 가능함. 해결해야함. 물론 리스트에는 안나옴.
+
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
-      if (resp.data.data === null) {
-        // alert("잘못된 접근입니다.")
-        // nav(`/petinfo/`)
+      if (resp.data.data === undefined) {
+        alert("잘못된 접근입니다.")
+        nav(`/petinfo/`)
         return;
       }
       setPetContent(resp.data.data);
@@ -41,20 +43,11 @@ function PetDetail() {
       console.log(resp);
       if (resp.status === 200) {
         nav(`/petinfo`);
-        // nav(-1)-> 만약 이전에 다른 행위(작성, 등등)을 했을 경우 오류가 발생할 가능성이 있음.
-        //그렇다고 (nav`/petinfo' 를 하면 detail페이지는 문제 없으나, 리스트에 있는 삭제버튼을 누를 시
-        // 새로고침이 안되어 사용자가 새로고침을 누르지 않는 이상 계속 해당 게시물이 없어지지 않는 것 처럼 보임)
       }
     });
   }, []);
 
-  // const PetDummys = PetDummy.PetDummy.find(
-  //   (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
-  // );
-
-  // if (!PetDummy) {
-  //   return <h2>해당 펫 정보는 존재하지 않거나 삭제됐습니다.</h2>;
-  // }
+  
 
   return (
     <LayoutUserExist>
@@ -71,20 +64,18 @@ function PetDetail() {
             <div>펫 품종: {petContent.petBreed}</div>
             <div>펫 체중: {petContent.petWeight}kg</div>
             <div>펫 소개: {petContent.petIntroduction}</div>
+            {/* 작성시간을 부여하기 */}
             {/* <div>작성일: {petContent.createdtime}</div> */}
             <div
               key={petContent.petId}
               className="update_btn"
               onClick={() => {
                 nav(`/petinfo/update?detailID=${petContent.petId}`);
-                // if (petContent.petId) {
-                // } else {
-                //   alert("asdasda");
-                // }
               }}
             >
               수정하기
             </div>
+            {/* 삭제버튼 이쁘게 만들기 */}
             <button
               className="btn_delete"
               onClick={() => {
