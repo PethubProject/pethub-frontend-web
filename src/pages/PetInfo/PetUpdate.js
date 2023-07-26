@@ -25,56 +25,8 @@ function PetUpdate() {
     petBreed: "",
     petGender: "",
     petWeight: "",
-    disease: "",
     petIntroduction: "",
   });
-
-  // const [name, setName] = useState("");
-  // const [age, setAge] = useState("");
-  // const [breed, setBreed] = useState("");
-  // const [weight, setWeight] = useState("");
-  // const [disease, setDisease] = useState("");
-  // const [searchparams, setsearchparams] = useSearchParams();
-  // const [animalGroup, setAnimalGroup] = useState("");
-  // const [detialAnimalGroup,setDetailAnimalGroup]=useState([]);
-  //   useEffect(()=>{
-  //    if(animalGroup==="강아지"){
-  //     setDetailAnimalGroup([...PetDummy.DogBreeds.small,...PetDummy.DogBreeds.medium,...PetDummy.DogBreeds.large])
-  //    }
-  //    else if(animalGroup==="고양이"){
-  //     setDetailAnimalGroup(PetDummy.CatBreeds.고양이)
-  // } else{
-  //     setDetailAnimalGroup([])
-  //    }
-  //   },[animalGroup])
-
-  // const PetDummys = PetDummy.PetDummy.find(
-  //   (PetDummy) => PetDummy.id === parseInt(searchparams.get("detailID"))
-  // );
-
-  // const handleNameChange = (event) => {
-  //   setName(event.target.value);
-  // };
-
-  // const handleAgeChange = (event) => {
-  //   setAge(event.target.value);
-  // };
-
-  // const handleBreedChange = (event) => {
-  //   setBreed(event.target.value);
-  // };
-  // const handleWeightChange = (event) => {
-  //   setWeight(event.target.value);
-  // };
-
-  // const handleDiseaseChange = (event) => {
-  //   setDisease(event.target.value);
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  // };
-
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
@@ -101,11 +53,7 @@ function PetUpdate() {
       petBreed: event.target.value,
     }));
 
-  const handleDiseaseChange = (event) =>
-    setPetData((prev) => ({
-      ...prev,
-      disease: event.target.value,
-    }));
+
 
   const handleGenderChange = (event) =>
     setPetData((prev) => ({
@@ -149,7 +97,9 @@ function PetUpdate() {
     });
   }, []);
 
+  //수정 취소시 알람, 수정 취소
   return (
+    <LayoutUserExist>
     <div id="main">
       <BoardHeader
         title="내 반려동물 정보 등록 페이지"
@@ -268,7 +218,7 @@ function PetUpdate() {
           />
           kg
         </label>
-        <label>
+        {/* <label>
           반려동물 질병:
           <select className="disease" onChange={handleDiseaseChange}>
             <option value="" selected disabled hidden>
@@ -280,7 +230,7 @@ function PetUpdate() {
               </option>
             ))}
           </select>
-        </label>
+        </label> */}
 
         <label>
           내 반려동물 소개:
@@ -293,6 +243,7 @@ function PetUpdate() {
         </label>
       </form>
     </div>
+    </LayoutUserExist>
   );
 }
 
