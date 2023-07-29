@@ -38,8 +38,7 @@ function PetInsert() {
       petGender: event.target.value,
     }));
 
-    // 1. 이미지 추가
-
+  // 1. 이미지 추가
 
   // const handleImageChange = (event) =>
   //   setPetData((prev) => ({
@@ -232,7 +231,7 @@ function PetInsert() {
               </optgroup>
 
               <optgroup label="중형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
+                {PetDummy.DogBreeds.medium.map((breed) => (
                   <option key={breed} value={breed}>
                     {breed}
                   </option>
@@ -240,7 +239,7 @@ function PetInsert() {
               </optgroup>
 
               <optgroup label="대형견">
-                {PetDummy.DogBreeds.small.map((breed) => (
+                {PetDummy.DogBreeds.large.map((breed) => (
                   <option key={breed} value={breed}>
                     {breed}
                   </option>

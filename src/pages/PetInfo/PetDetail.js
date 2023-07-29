@@ -5,6 +5,8 @@ import BoardHeader from "../../components/Header/HeaderBoard.js";
 // import PetDummy from "../../dummy/PetDummy.js";
 import useApiHooks from "../../api/BaseApi";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function PetDetail() {
   const nav = useNavigate();
@@ -52,31 +54,28 @@ function PetDetail() {
   return (
     <LayoutUserExist>
       <div id="main">
-        <div id="counsel_header">
+        <div id="pet_header">
           <BoardHeader title="내 반려동물 상세정보 페이지" />
         </div>
-        <div id="counsel_content">
-          <div className="box">
+        <div id="pet_content">
+          <div className="pet-item">
             {/* 추가수정 */}
-            <div>펫 이름: {petContent.petName}</div>
-            <div>펫 나이: {petContent.petAge}살</div>
-            <div>펫 성별: {petContent.petGender}</div>
-            <div>펫 품종: {petContent.petBreed}</div>
-            <div>펫 체중: {petContent.petWeight}kg</div>
-            <div>펫 소개: {petContent.petIntroduction}</div>
-            {/* 2. 작성시간을 부여하기 */}
-            {/* <div>작성일: {petContent.createdtime}</div> */}
+            <div className="pet-item-name">펫 이름: {petContent.petName}</div>
+            <div className="pet-item-age">펫 나이: {petContent.petAge}살</div>
+            <div className="pet-item-gender">펫 성별: {petContent.petGender}</div>
+            <div className="pet-item-breed">펫 품종: {petContent.petBreed}</div>
+            <div className="pet-item-weght">펫 체중: {petContent.petWeight}kg</div>
+            <div className="pet-item-intro">펫 소개: {petContent.petIntroduction}</div>
             <div
               key={petContent.petId}
-              className="update_btn"
+              className="btn_update"
               onClick={() => {
                 nav(`/petinfo/update?detailID=${petContent.petId}`);
               }}
             >
               수정하기
             </div>
-            {/* 3. 삭제버튼 이쁘게 만들기 */}
-            <button
+            <div
               className="btn_delete"
               onClick={() => {
                 if (window.confirm(petContent.petName+"의 정보를 삭제하시겠습니까?")) {
@@ -85,8 +84,8 @@ function PetDetail() {
                 }
               }}
             >
-              삭제
-            </button>
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
           </div>
         </div>
         <BottomTabNavigation />

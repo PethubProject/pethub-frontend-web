@@ -11,11 +11,12 @@ import useApiHooks from "../../api/BaseApi.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import { isEmpty } from "../../components/Utils/Utils.js";
 import { Chat } from "../../state/Chatting.js";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function PetList() {
   
   const user = useRecoilValue(UserState);
-  const ctime = new Date();
   const nav = useNavigate();
 
   const { getApi } = useApiHooks();
@@ -47,7 +48,8 @@ function PetList() {
                     <div>
                       <div key={p.petId} className="list-item">
                         <div
-                          className="list-title"
+                        style={{marginTop:10,marginBottom:10}}
+                          className="list-petImage"
                           onClick={() => {
                             nav(`/petinfo/detail?detailID=${p.petId}`);
                           }}
@@ -62,17 +64,19 @@ function PetList() {
                           />
                         </div>
                         {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
-                        <div>{p.petName}</div>
-                        <div style={{ display: "flex", width: "100%" }}>
-                          <div className="list-reg-user"></div>
-                          {/* 2. 등록된 기준으로 시간이 변하지 않도록 해보기 */}
+                        <div className="petName" style={{marginTop:10,marginBottom:10,marginLeft: 5,fontSize: 20,float:"left"}}>{p.petName}</div>
+                        <div>
+                          {/* style={{ display: "flex", width: "100%" }} */}
+                          {/* <div className="list-reg-user"></div> */}
+                          {/* 2. 등록된 기준으로 시간이 변하지 않도록 해보기-> 백엔드 코드에 작성일 변수가 없는 관계로 제외
                           <div className="list-reg-dt">
                             등록일: {ctime.toISOString()}
-                          </div>
+                          </div> */}
                           <div>
-                            {/* 3. 삭제버튼을 fontawsome을 통해 이미지로 바꾸기 */}
-                            <button
-                              className="btn_delete"
+                            <div
+                              className="trash"
+                              style={{marginTop:10,marginBottom:10,marginLeft: 10,float:"right",fontSize: 20}}
+                              // 맨 우측에 두고 싶은데 float이 적용이 안됨. 위에 클래스 선택자 안에 들어가 있는 거라 그런가?
                               onClick={() => {
                                 if (
                                   window.confirm(
@@ -98,8 +102,8 @@ function PetList() {
                                 }
                               }}
                             >
-                              삭제
-                            </button>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </div>
                           </div>
                         </div>
                       </div>
