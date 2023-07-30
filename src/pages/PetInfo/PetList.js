@@ -15,7 +15,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function PetList() {
-  
   const user = useRecoilValue(UserState);
   const nav = useNavigate();
 
@@ -34,7 +33,6 @@ function PetList() {
   }, []);
 
   return (
-    
     <LayoutUserExist>
       <div id="main">
         <BoardHeader title="펫 리스트" />
@@ -48,7 +46,7 @@ function PetList() {
                     <div>
                       <div key={p.petId} className="list-item">
                         <div
-                        style={{marginTop:10,marginBottom:10}}
+                          style={{ marginTop: 10, marginBottom: 10 }}
                           className="list-petImage"
                           onClick={() => {
                             nav(`/petinfo/detail?detailID=${p.petId}`);
@@ -64,7 +62,20 @@ function PetList() {
                           />
                         </div>
                         {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
-                        <div className="petName" style={{marginTop:10,marginBottom:10,marginLeft: 5,fontSize: 20,float:"left", }}>{p.petName}</div>
+                        <div
+                          className="petName"
+                          style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                            marginLeft: 5,
+                            fontSize: 20,
+                          }}
+                          onClick={() => {
+                            nav(`/petinfo/detail?detailID=${p.petId}`);
+                          }}
+                        >
+                          {p.petName}
+                        </div>
                         <div>
                           {/* style={{ display: "flex", width: "100%" }} */}
                           {/* <div className="list-reg-user"></div> */}
@@ -75,12 +86,18 @@ function PetList() {
                           <div>
                             <div
                               className="trash"
-                              style={{marginTop:10,marginBottom:10,marginLeft: 10,float:"right",fontSize: 20}}
+                              style={{
+                                marginTop: 10,
+                                marginBottom: 10,
+                                marginLeft: 10,
+                                float: "right",
+                                fontSize: 20,
+                              }}
                               // 맨 우측에 두고 싶은데 float이 적용이 안됨. 위에 클래스 선택자 안에 들어가 있는 거라 그런가?
                               onClick={() => {
                                 if (
                                   window.confirm(
-                                    p.petName +" 의 정보를 삭제하시겠습니까?"
+                                    p.petName + " 의 정보를 삭제하시겠습니까?"
                                   )
                                 ) {
                                   deleteApi({
