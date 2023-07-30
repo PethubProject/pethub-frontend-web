@@ -5,18 +5,22 @@ import BoardHeader from "../../components/Header/HeaderBoard";
 import { useEffect, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import "./telehealth.css";
+
+import VetList from "../../components/List/VetList";
+
+
 export default function TeleHealth() {
   const nav = useNavigate();
   const { getApi } = useApiHooks();
 
-  const [data, setData] = useState([]);
+  const [vets, setVets] = useState([]);
 
   // const [상태값 변수명, 상태값 변경 함수명] = useState(초기값);
 
   useEffect(() => {
     const data_load = async () => {
-      var resp = await getApi({ url: "/api/vet/vets/1" });
-      setData(resp.data.content);
+      var resp = await getApi({ url: "/api/vet/vets/0" });
+      setVets(resp.data.content);
     };
     data_load();
   }, []);
@@ -29,11 +33,11 @@ export default function TeleHealth() {
   // async await ;
 
   //
-  const DataList = () => {
-    return data.map((d) => {
-      return <div key={Math.random()}></div>;
-    });
-  };
+  // const DataList = () => {
+  //   return data.map((d) => {
+  //     return <div key={Math.random()}></div>;
+  //   });
+  // };
   /**
    *
    * 파이썬 -> 리스트,딕션너리,튜플 -> 모두가 class
@@ -55,7 +59,7 @@ export default function TeleHealth() {
     <div id="main">
       <BoardHeader title="비대면 진료" />
       <div className="content flex-column"></div>
-      <DataList />
+      <VetList items={vets}/>
     </div>
   );
 }
