@@ -64,7 +64,7 @@ function PetList() {
                           />
                         </div>
                         {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
-                        <div className="petName" style={{marginTop:10,marginBottom:10,marginLeft: 5,fontSize: 20,float:"left"}}>{p.petName}</div>
+                        <div className="petName" style={{marginTop:10,marginBottom:10,marginLeft: 5,fontSize: 20,float:"left", }}>{p.petName}</div>
                         <div>
                           {/* style={{ display: "flex", width: "100%" }} */}
                           {/* <div className="list-reg-user"></div> */}

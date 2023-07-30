@@ -18,7 +18,7 @@ function PetUpdate() {
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
   const [petData, setPetData] = useState({
-    petId: "",
+    petId:"",
     image: null,
     petName: "",
     petAge: "",
@@ -77,21 +77,23 @@ function PetUpdate() {
 
   // 내용이 다 차있는데 포커스가 잡힘. 이유가 뭐지?
   const onUpdate = useCallback(() => {
-    var ok = true;
-    Object.keys(petData).map((k) => {
-      const v = petData[k];
-      if (isEmpty(v)) {
-        const target = document.querySelector(`[name="${k}"]`);
-        if (!isEmpty(target)) {
-          target.focus();
-          ok = false;
-        }
-        return false;
-      }
-    });
-    if (!ok) {
-      return false;
-    }
+    // var ok = true;
+    // Object.keys(petData).map((k) => {
+    //   const v = petData[k];
+    //   if (isEmpty(v)) {
+    //     const target = document.querySelector(`[name="${k}"]`);
+    //     if (!isEmpty(target)) {
+    //       target.focus();
+    //       ok = false;
+    //     }
+    //     return false;
+    //   }
+    // });
+    // if (!ok) {
+    //   return false;
+    // }
+    //data:petData를 지운 상태에서 데이터를 입력하고 다시 data:petData를 복구 시킨뒤 업데이트 버튼을 누르면 
+    //업데이트가 됨..
     putApi({ url: `/api/pet/${petData.petId}`, data: petData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
@@ -106,7 +108,7 @@ function PetUpdate() {
     <LayoutUserExist>
       <div id="main">
         <BoardHeader
-          title="내 반려동물 정보 등록 페이지"
+          title="내 반려동물 정보 수정 페이지"
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
@@ -114,7 +116,7 @@ function PetUpdate() {
             </div>
           }
         />
-        <form id="pet_insert" className="pet_detail">
+        <form id="pet_update" className="pet_detail">
           {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -157,9 +159,8 @@ function PetUpdate() {
           <div>
             <label>반려동물 성별:</label>
             <select
-              className="petData_gender"
               name="petGender"
-              defaultValue={petData.petGender}
+              defaultChecked={petData.petGender}
               onChange={handleGenderChange}
             >
               <option value="" disabled>
