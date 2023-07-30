@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import EllipsisVertical from "../../components/Button/EllipsisVertical";
-import BoardHeader from "../../components/Header/HeaderBoard";
-import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import { useSearchParams } from "react-router-dom";
 import useApiHooks from "../../api/BaseApi";
-import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
-import { UserState } from "../../state/User";
-import { contains } from "../../components/Utils/Utils";
-import { dateToDiffStr } from "../../components/Utils/DateTime";
-export default function FreeBoardContent() {
+import { useEffect } from "react";
+export default function TeleHealthContent() {
+  const [searchParams,setSearchParams] = useSearchParams();
+  
   const { getApi } = useApiHooks();
-
-  return <div>수의사 상세보기</div>;
+  //"api/vet/{vetId}"
+  useEffect(()=>{
+    getApi({url:`api/vet/${searchParams.get("userId")}`}).then(resp=>console.log(resp))
+  },[])
+  return <div id="main"><div className="content">
+    수의사 상세보기</div></div>;
 }

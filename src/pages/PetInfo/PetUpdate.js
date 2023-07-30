@@ -94,6 +94,10 @@ function PetUpdate() {
     // }
     //data:petData를 지운 상태에서 데이터를 입력하고 다시 data:petData를 복구 시킨뒤 업데이트 버튼을 누르면 
     //업데이트가 됨..
+
+    // function 함수(인자값!){}
+    //  useCallback((상태값A)=>{},[상태값!!!!])
+
     putApi({ url: `/api/pet/${petData.petId}`, data: petData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
@@ -102,7 +106,11 @@ function PetUpdate() {
         });
       }
     });
-  }, []);
+  }, [petData]);
+
+
+
+
 
   return (
     <LayoutUserExist>

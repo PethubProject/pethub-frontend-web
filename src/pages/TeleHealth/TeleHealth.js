@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import "./telehealth.css";
 
-import VetList from "../../components/List/VetList";
+import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
+import BtnFloat from "../../components/Button/BtnFloat";
 
 
 export default function TeleHealth() {
@@ -19,8 +20,12 @@ export default function TeleHealth() {
 
   useEffect(() => {
     const data_load = async () => {
+
       var resp = await getApi({ url: "/api/vet/vets/0" });
-      setVets(resp.data.content);
+      console.log(resp)
+      if (resp.data.content.length > 0) {
+        setVets(resp.data.content);
+      }
     };
     data_load();
   }, []);
@@ -57,9 +62,62 @@ export default function TeleHealth() {
 
   return (
     <div id="main">
-      <BoardHeader title="비대면 진료" />
-      <div className="content flex-column"></div>
-      <VetList items={vets}/>
+      <BoardHeader title={"비대면 진료"} />
+      <div className="content">
+        {console.log(vets)}
+        {vets.length > 0 ? vets.map(v => {
+          return <div key={Math.random()} onClick={()=>{
+            nav(`/telehealth/content?userId=${v.userId}`)
+          }}>
+            <div><img src={process.env.REACT_APP_API_URL + v.vetImage} /></div>
+            <div>{v.name}</div>
+          </div>
+        }) : null}
+        <BtnFloat
+          onClick={() => {
+            nav("/telehealth/insert");
+          }}
+        />
+      </div>
+      <BottomTabNavigation />
     </div>
   );
 }
+
+/**
+ * 
+ *   CRUD  
+ *   목록조회
+ *   상세보기
+ *   등록
+ *   수정
+ *   삭제
+ *    
+ * 
+ *   
+ *   목록 조회 
+ *   상세보기
+ *   수정
+ *   삭제
+ *   
+ *   ~~~~ 등록
+ * 
+ *  태그를 그리는 것보다.  
+ *  useEffect(()=>{
+ *  getApi(~~~).then(!!!!!!!)
+ * },[])
+ * 
+ *  상세보기 
+ *  데이터를 가져온다 -> 그린다. 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */

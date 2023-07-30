@@ -32,6 +32,8 @@ import TouchGesture from "./pages/Example/TouchGesture";
 import Chat from "./pages/Chat/Chat";
 import ChatRoomCreate from "./pages/Chat/ChatRoomCreate";
 import ChatRoom from "./pages/Chat/ChatRoom";
+import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
+import TeleHealthContent from "./pages/TeleHealth/TeleHealthContent";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -55,6 +57,8 @@ function App() {
 
           {/* TeleHealth */}
           <Route path="/telehealth" element={<TeleHealth />} />
+          <Route path="/telehealth/insert" element={<TeleHealthInsert />} />
+          <Route path="/telehealth/content" element={<TeleHealthContent />} />
 
           {/* more */}
           <Route path="/more" element={<More />} />
