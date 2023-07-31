@@ -64,13 +64,36 @@
   font-size:14px;
   font-weight: 300;
   word-break: break-all;
+  white-space: nowrap;
+  max-height:14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 249px;
 }
 
 .list-item >div.chat-dt{
   margin-left: auto;
   font-size:10px;
   font-weight: 300;
-
+  display: flex;
+  align-items: center;
+}
+.list-item >div.chat-badge{
+  margin-left: auto;
+  font-size:10px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.list-item >div.chat-badge>span{
+  width:18px;
+  height:18px;
+  border-radius: 50%;
+  background-color: rgb(235, 76, 76);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
 }
 
 /* vet */

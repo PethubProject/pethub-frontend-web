@@ -70,12 +70,10 @@
 }
 
 .chat-item-content {
-  flex-grow: 1;
   padding: 8px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 300;
-  width:100%;
   max-width: 240px;
 }
 .chat-item-content >p{
@@ -86,6 +84,7 @@
 }
 .chat-me {
   align-self: flex-end;
+  justify-content: flex-end;
 }
 .chat-me > .chat-item-user {
   order: 2;
