@@ -18,7 +18,7 @@ function PetUpdate() {
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
   const [petData, setPetData] = useState({
-    petId:"",
+    petId: "",
     image: null,
     petName: "",
     petAge: "",
@@ -77,23 +77,23 @@ function PetUpdate() {
 
   // 내용이 다 차있는데 포커스가 잡힘. 이유가 뭐지?
   const onUpdate = useCallback(() => {
-    // var ok = true;
-    // Object.keys(petData).map((k) => {
-    //   const v = petData[k];
-    //   if (isEmpty(v)) {
-    //     const target = document.querySelector(`[name="${k}"]`);
-    //     if (!isEmpty(target)) {
-    //       target.focus();
-    //       ok = false;
-    //     }
-    //     return false;
-    //   }
-    // });
-    // if (!ok) {
-    //   return false;
-    // }
-    //data:petData를 지운 상태에서 데이터를 입력하고 다시 data:petData를 복구 시킨뒤 업데이트 버튼을 누르면 
-    //업데이트가 됨..
+    var ok = true;
+    Object.keys(petData).map((k) => {
+      const v = petData[k];
+      if (isEmpty(v)) {
+        const target = document.querySelector(`[name="${k}"]`);
+        if (!isEmpty(target)) {
+          target.focus();
+          ok = false;
+        }
+        return false;
+      }
+    });
+    if (!ok) {
+      return false;
+    }
+    //data:petData를 지운 상태에서 데이터를 입력하고 다시
+    //data:petData를 복구 시킨뒤 업데이트 버튼을 누르면 업데이트가 됨..
 
     // function 함수(인자값!){}
     //  useCallback((상태값A)=>{},[상태값!!!!])
@@ -108,10 +108,6 @@ function PetUpdate() {
     });
   }, [petData]);
 
-
-
-
-
   return (
     <LayoutUserExist>
       <div id="main">
@@ -124,7 +120,7 @@ function PetUpdate() {
             </div>
           }
         />
-        <form id="pet_update" className="pet_detail">
+        <form id="pet_update" className="petupdate-detail">
           {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -142,7 +138,7 @@ function PetUpdate() {
           <div>
             <label>반려동물 이름: </label>
             <input
-              className="petData_name"
+              className="petData-input"
               type="text"
               placeholder="이름"
               name="petName"
@@ -153,7 +149,7 @@ function PetUpdate() {
           <div>
             <label>반려동물 나이:</label>
             <input
-              className="petData_age"
+              className="petData-input"
               value={petData.petAge}
               name="petAge"
               type="number"
@@ -167,6 +163,7 @@ function PetUpdate() {
           <div>
             <label>반려동물 성별:</label>
             <select
+              className="petData-input"
               name="petGender"
               defaultChecked={petData.petGender}
               onChange={handleGenderChange}
@@ -194,6 +191,7 @@ function PetUpdate() {
           <div>
             <label>반려동물 품종: </label>
             <select
+              className="petData-input"
               name="petBreed"
               defaultChecked={petData.petBreed}
               onChange={handleBreedChange}
@@ -240,7 +238,7 @@ function PetUpdate() {
           <div>
             <label>반려동물 무게: </label>
             <input
-              className="petData"
+              className="petData-input"
               type="number"
               min="0"
               placeholder="0.5kg"
@@ -254,7 +252,7 @@ function PetUpdate() {
           <div>
             <label>내 반려동물 소개: </label>
             <input
-              className="petData"
+              className="petData-input"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}

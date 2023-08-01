@@ -58,3 +58,11 @@ transition: all 0.2s linear;
     font-size:30px;
     transition-duration: 0.2s;
 }
+
+.petupdate-detail div{
+    margin: 10px 10px 10px 10px;
+}
+
+.petData-input{
+    margin: 0 5px 0 10px
+}
