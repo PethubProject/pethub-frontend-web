@@ -7,6 +7,7 @@ import useApiHooks from "../../api/BaseApi";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./PetInfo.css";
 
 function PetDetail() {
   const nav = useNavigate();
@@ -31,8 +32,8 @@ function PetDetail() {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
       if (resp.data.data === undefined) {
-        alert("잘못된 접근입니다.")
-        nav(`/petinfo/`)
+        alert("잘못된 접근입니다.");
+        nav(`/petinfo/`);
         return;
       }
       setPetContent(resp.data.data);
@@ -49,26 +50,33 @@ function PetDetail() {
     });
   }, []);
 
-  
-
   return (
     <LayoutUserExist>
       <div id="main">
-        <div id="pet_header">
-          <BoardHeader title="내 반려동물 상세정보 페이지" />
-        </div>
-        <div id="pet_content">
-          <div className="pet-item">
-            {/* 추가수정 */}
-            <div className="pet-item-name">펫 이름: {petContent.petName}</div>
-            <div className="pet-item-age">펫 나이: {petContent.petAge}살</div>
-            <div className="pet-item-gender">펫 성별: {petContent.petGender}</div>
-            <div className="pet-item-breed">펫 품종: {petContent.petBreed}</div>
-            <div className="pet-item-weght">펫 체중: {petContent.petWeight}kg</div>
-            <div className="pet-item-intro">펫 소개: {petContent.petIntroduction}</div>
+        <BoardHeader title="내 반려동물 상세정보 페이지" />
+        <div id="petinfo-detail" className="content flex-column">
+          <div className="content scroll-hide board-list">
+            <div className="petinfo-detail-content">
+              {/* 추가수정 */}
+              <div className="pet-item-name">펫 이름: {petContent.petName}</div>
+              <div className="pet-item-age">펫 나이: {petContent.petAge}살</div>
+              <div className="pet-item-gender">
+                펫 성별: {petContent.petGender}
+              </div>
+              <div className="pet-item-breed">
+                펫 품종: {petContent.petBreed}
+              </div>
+              <div className="pet-item-weght">
+                펫 체중: {petContent.petWeight}kg
+              </div>
+              <div className="pet-item-intro">
+                펫 소개: {petContent.petIntroduction}
+              </div>
+            </div>
+
             <div
               key={petContent.petId}
-              className="btn_update"
+              className="petinfo-btn-update"
               onClick={() => {
                 nav(`/petinfo/update?detailID=${petContent.petId}`);
               }}
@@ -76,10 +84,14 @@ function PetDetail() {
               수정하기
             </div>
             <div
-              className="btn_delete"
+              className="petinfo-btn-delete"
               onClick={() => {
-                if (window.confirm(petContent.petName+"의 정보를 삭제하시겠습니까?")) {
-                  onDel()
+                if (
+                  window.confirm(
+                    petContent.petName + "의 정보를 삭제하시겠습니까?"
+                  )
+                ) {
+                  onDel();
                 } else {
                 }
               }}

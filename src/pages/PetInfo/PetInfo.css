@@ -1,0 +1,60 @@
+/* scroll bar */
+.scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+.list-col {
+display: flex;
+flex-direction: column;
+margin: 0 0 100px 0;
+} 
+  
+.list-col .petinfo-list-item {
+display: flex;
+flex-wrap: wrap;
+cursor: pointer;
+border-bottom: 1px solid #eeeeee;
+}
+.petinfo-list-item:hover {
+/* background-color: #d9d9d9; */
+background-color: #E0F2F7;
+}
+
+.list-col .petinfo-list-petImage {
+margin: 10px 10px 10px 10px ;
+transition: all 0.2s linear;
+}
+
+.petinfo-list-petImage:hover{
+    transform: scale(1.5);
+}
+
+.list-col .petinfo-list-petName{
+    font-size:20px;
+    margin: 10px 10px 10px 10px ;
+}
+.petinfo-list-petName:hover{
+    text-decoration:underline;
+}
+
+
+.petinfo-detail-content div{
+    border-radius: 10px;
+    border: 10px solid #E0F2F7;
+    margin: 10px 10px 40px 10px ;
+    font-size:20px;
+}
+
+.petinfo-btn-update, .petinfo-btn-delete{
+    margin: 20px 10px 20px 10px;
+    font-size:20px;
+}
+
+.petinfo-btn-update:hover{
+    text-decoration:underline;
+}
+
+.petinfo-btn-delete:hover{
+    font-size:30px;
+    transition-duration: 0.2s;
+}
