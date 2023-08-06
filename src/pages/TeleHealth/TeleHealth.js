@@ -66,7 +66,7 @@ export default function TeleHealth() {
       <div className="content">
         {console.log(vets)}
         {vets.length > 0 ? vets.map(v => {
-          return <div key={Math.random()} onClick={()=>{
+          return <div key={Math.random()} onClick={() => {
             nav(`/telehealth/content?userId=${v.userId}`)
           }}>
             <div><img src={process.env.REACT_APP_API_URL + v.vetImage} /></div>
