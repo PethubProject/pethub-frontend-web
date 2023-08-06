@@ -32,7 +32,7 @@ import TeleHealth from "./pages/TeleHealth/TeleHealth";
 import TeleHealthContent from "./pages/TeleHealth/TeleHealthContent";
 import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
 import UserInfo from "./pages/UserInfo/UserInfo";
-import VetInfo from "./pages/VetInfo/VetInfo";
+import VetInfoUpdate from "./pages/VetInfo/VetInfoUpdate";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -52,7 +52,7 @@ function App() {
           {/* UserInfo */}
           <Route path="/userinfo" element={<UserInfo />} />
           {/* VetInfo */}
-          <Route path="/vetinfo" element={<VetInfo />} />
+          <Route path="/vet/info/update" element={<VetInfoUpdate />} />
 
           {/* TeleHealth */}
           <Route path="/telehealth" element={<TeleHealth />} />

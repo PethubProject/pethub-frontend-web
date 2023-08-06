@@ -33,7 +33,7 @@ export default function MenuList() {
               className="list-item v-exp"
               onClick={() => {
                 navigate(
-                  "/vetinfo"
+                  "/vet/info/update"
              
                 );
               }}
