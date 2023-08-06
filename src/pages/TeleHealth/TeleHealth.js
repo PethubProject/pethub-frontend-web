@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import BoardHeader from "../../components/Header/HeaderBoard";
+import ImgWrapper from "../../components/Wrapper/ImgWrapper";
 
 // css
 import { useEffect, useState } from "react";
@@ -8,7 +9,6 @@ import "./telehealth.css";
 
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import BtnFloat from "../../components/Button/BtnFloat";
-
 
 export default function TeleHealth() {
   const nav = useNavigate();
@@ -20,9 +20,8 @@ export default function TeleHealth() {
 
   useEffect(() => {
     const data_load = async () => {
-
       var resp = await getApi({ url: "/api/vet/vets/0" });
-      console.log(resp)
+      console.log(resp);
       if (resp.data.content.length > 0) {
         setVets(resp.data.content);
       }
@@ -65,14 +64,35 @@ export default function TeleHealth() {
       <BoardHeader title={"비대면 진료"} />
       <div className="content">
         {console.log(vets)}
-        {vets.length > 0 ? vets.map(v => {
-          return <div key={Math.random()} onClick={() => {
-            nav(`/telehealth/content?userId=${v.userId}`)
-          }}>
-            <div><img src={process.env.REACT_APP_API_URL + v.vetImage} /></div>
-            <div>{v.name}</div>
-          </div>
-        }) : null}
+
+        <div className="list-col">
+          {vets.length > 0
+            ? vets.map((v) => {
+                return (
+                  <div
+                    className="list-item v-exp"
+                    key={Math.random()}
+                    onClick={() => {
+                      nav(`/telehealth/content?userId=${v.userId}`);
+                    }}
+                  >
+                    <div className="p0">
+                      <ImgWrapper
+                        src={process.env.REACT_APP_API_URL + v.vetImage}
+                        width={"40px"}
+                        height={"40px"}
+                      />
+                    </div>
+
+                    <div className="chat-content">
+                      <div>{v.name}</div>
+                      <div>{v.rating}</div>
+                    </div>
+                  </div>
+                );
+              })
+            : null}
+        </div>
         <BtnFloat
           onClick={() => {
             nav("/telehealth/insert");
@@ -85,39 +105,39 @@ export default function TeleHealth() {
 }
 
 /**
- * 
- *   CRUD  
+ *
+ *   CRUD
  *   목록조회
  *   상세보기
  *   등록
  *   수정
  *   삭제
- *    
- * 
- *   
- *   목록 조회 
+ *
+ *
+ *
+ *   목록 조회
  *   상세보기
  *   수정
  *   삭제
- *   
+ *
  *   ~~~~ 등록
- * 
- *  태그를 그리는 것보다.  
+ *
+ *  태그를 그리는 것보다.
  *  useEffect(()=>{
  *  getApi(~~~).then(!!!!!!!)
  * },[])
- * 
- *  상세보기 
- *  데이터를 가져온다 -> 그린다. 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *  상세보기
+ *  데이터를 가져온다 -> 그린다.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
