@@ -1,69 +1,155 @@
-/* scroll bar */
-.scroll-hide::-webkit-scrollbar {
-    display: none;
-  }
+/* petList.js */
 
-.list-col {
-display: flex;
-flex-direction: column;
-margin: 0 0 100px 0;
-} 
-  
-.list-col .petinfo-list-item {
-display: flex;
-flex-wrap: wrap;
-cursor: pointer;
-border-bottom: 1px solid #eeeeee;
-}
-.petinfo-list-item:hover {
-/* background-color: #d9d9d9; */
-background-color: #CEF6CE;
-}
-
-.list-col .petinfo-list-petImage {
-margin: 10px 10px 10px 10px ;
-transition: all 0.2s linear;
-}
-
+/* 
 .petinfo-list-petImage:hover{
     transform: scale(1.5);
+} */
+
+.petinfo-list-petImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.list-col .petinfo-list-petName{
-    font-size:20px;
-    margin: 10px 10px 10px 10px ;
-}
-.petinfo-list-petName:hover{
-    text-decoration:underline;
+.petinfo-list-petName:hover {
+  text-decoration: underline;
 }
 
-
-.petinfo-detail-content div{
-    border-radius: 10px;
-    padding: 10px 10px 10px 10px;
-    border: 2px solid #3eebad;
-    margin: 10px 10px 40px 10px ;
-    font-size:20px;
+.petinfo-list-item {
+  display: inline-block;
+  margin: 8px 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
+  width: calc(50% - 34px);
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
-.petinfo-btn-update, .petinfo-btn-delete{
-    margin: 20px 10px 20px 10px;
-    font-size:20px;
+.petinfo-list-item:hover {
+  /* background-color: #d9d9d9; */
+  background-color: #cef6ce;
 }
 
-.petinfo-btn-update:hover{
-    text-decoration:underline;
+/* petDetail.js */
+
+.pet-item-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
-.petinfo-btn-delete:hover{
-    font-size:30px;
-    transition-duration: 0.2s;
+.pet-item-name {
+  text-align: center;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.petupdate-detail div{
-    margin: 10px 10px 10px 10px;
+.pet-detail-wrap {
+  display: flex;
+  flex-grow: 0;
+  justify-content:center; 
+  margin: 5px;
+  border-bottom: 2px solid #d8d8d8;
+  text-align: center;
+}
+.pet-item-age {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #d8d8d8;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
 }
 
-.petData-input{
-    margin: 0 5px 0 10px
+.pet-item-gender {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #d8d8d8;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.pet-item-breed {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #d8d8d8;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.pet-item-weight {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #d8d8d8;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.pet-intro{
+  margin:10px;
+  font-weight: bold;
+  color:#A4A4A4;
+}
+.pet-item-intro{
+  margin: 10px;
+
+}
+/* petDetail */
+
+.petinfo-btn-update {
+  display: inline-block;
+  width: calc(50% - (44px));
+  text-align: center;
+  background-color: #5858fa;
+  margin: 10px 10px 10px 10px;
+  border: 2px solid #0000ff;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.petinfo-btn-update:hover {
+  background-color: #2e2efe;
+  font-size: 30px;
+  transition-duration: 0.2s;
+}
+
+.petinfo-btn-delete {
+  display: inline-block;
+  width: calc(50% - (44px));
+  text-align: center;
+  background-color: #fa5858;
+  margin: 10px 10px 10px 10px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.petinfo-btn-delete:hover {
+  background-color: #df0101;
+  font-size: 30px;
+  transition-duration: 0.2s;
+}
+
+.petupdate-detail div {
+  margin: 10px 10px 10px 10px;
+}
+
+/* petInsert.js */
+
+
+
+/* petUpdate.js */
+
+.petData-input {
+  margin: 0 5px 0 10px;
 }

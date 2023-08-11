@@ -116,7 +116,16 @@ function PetUpdate() {
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
-              <BtnUpdate onClick={onUpdate} />
+              <BtnUpdate onClick={()=>{
+                  if (
+                    window.confirm(
+                      petData.petName + "의 정보를 수정하시겠습니까?"
+                    )
+                  ) {
+                    onUpdate();
+                  } else {
+                  }
+                } }/>
             </div>
           }
         />
