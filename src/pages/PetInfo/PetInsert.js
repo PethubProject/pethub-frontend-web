@@ -166,7 +166,7 @@ function PetInsert() {
           <div className="insert_title">이름</div>
           <div>
             <input
-              className="petData_name"
+              className="petData-input"
               type="text"
               placeholder="이름"
               name="petName"
@@ -177,7 +177,7 @@ function PetInsert() {
           <div className="insert_title">나이</div>
           <div>
             <input
-              className="petData_age"
+              className="petData-input"
               value={petData.petAge}
               name="petAge"
               type="number"
@@ -185,13 +185,12 @@ function PetInsert() {
               placeholder="1살미만일 경우 0살"
               onChange={onFormChange}
             />
-            살
           </div>
 
           <div className="insert_title">성별</div>
           <div>
             <select
-              className="petData_gender"
+              className="petData-input"
               name="petGender"
               onChange={handleGenderChange}
             >
@@ -217,7 +216,7 @@ function PetInsert() {
         </label> */}
           <div className="insert_title">품종</div>
           <div>
-            <select name="petBreed" onChange={handleBreedChange}>
+            <select className="petData-input" name="petBreed" onChange={handleBreedChange}>
               <option value="" selected hidden>
                 선택하시오
               </option>
@@ -260,7 +259,7 @@ function PetInsert() {
           <div className="insert_title">무게</div>
           <div>
             <input
-              className="petData"
+              className="petData-input"
               type="number"
               min="0"
               placeholder="0.5kg"
@@ -268,13 +267,12 @@ function PetInsert() {
               value={petData.petWeight}
               onChange={onFormChange}
             />
-            kg
           </div>
 
           <div className="insert_title">소개</div>
           <div>
             <input
-              className="petData"
+              className="petData-input"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}

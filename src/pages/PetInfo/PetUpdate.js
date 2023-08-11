@@ -116,7 +116,8 @@ function PetUpdate() {
           right={
             <div className="btn-wrapper">
               {/* <button className="btn">임시저장</button> */}
-              <BtnUpdate onClick={()=>{
+              <BtnUpdate
+                onClick={() => {
                   if (
                     window.confirm(
                       petData.petName + "의 정보를 수정하시겠습니까?"
@@ -125,7 +126,8 @@ function PetUpdate() {
                     onUpdate();
                   } else {
                   }
-                } }/>
+                }}
+              />
             </div>
           }
         />
@@ -144,8 +146,8 @@ function PetUpdate() {
           />
         )} */}
 
+          <div className="insert_title">이름</div>
           <div>
-            <label>반려동물 이름: </label>
             <input
               className="petData-input"
               type="text"
@@ -155,8 +157,8 @@ function PetUpdate() {
               onChange={onFormChange}
             />
           </div>
+          <div className="insert_title">나이</div>
           <div>
-            <label>반려동물 나이:</label>
             <input
               className="petData-input"
               value={petData.petAge}
@@ -166,11 +168,10 @@ function PetUpdate() {
               placeholder="1살미만일 경우 0살"
               onChange={onFormChange}
             />
-            살
           </div>
 
+          <div className="insert_title">성별</div>
           <div>
-            <label>반려동물 성별:</label>
             <select
               className="petData-input"
               name="petGender"
@@ -197,8 +198,8 @@ function PetUpdate() {
             <option value="고양이">고양이</option>
           </select>
         </label> */}
+          <div className="insert_title">품종</div>
           <div>
-            <label>반려동물 품종: </label>
             <select
               className="petData-input"
               name="petBreed"
@@ -244,8 +245,8 @@ function PetUpdate() {
             )} */}
             </select>
           </div>
+          <div className="insert_title">무게</div>
           <div>
-            <label>반려동물 무게: </label>
             <input
               className="petData-input"
               type="number"
@@ -255,11 +256,10 @@ function PetUpdate() {
               value={petData.petWeight}
               onChange={onFormChange}
             />
-            kg
           </div>
 
+          <div className="insert_title">소개</div>
           <div>
-            <label>내 반려동물 소개: </label>
             <input
               className="petData-input"
               name="petIntroduction"
