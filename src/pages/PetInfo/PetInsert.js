@@ -142,7 +142,7 @@ function PetInsert() {
           title="내 반려동물 정보 등록 페이지"
           right={
             <div className="btn-wrapper">
-              {/* <button className="btn">임시저장</button> */}
+
 
               <BtnRegister onClick={onRegist} />
             </div>
