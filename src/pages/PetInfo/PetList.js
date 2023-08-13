@@ -28,26 +28,24 @@ function PetList() {
     <LayoutUserExist>
       <div id="main">
         <BoardHeader title="펫 리스트" />
-        <div id="petinfo-board" className="content flex-column">
-          <div className="content scroll-hide board-list">
-            <div className="list-col">
+        <div id="petinfo-board" className="content">
+          <div>
+            <div className="petinfo-list-wrap">
               {!isEmpty(petList) > 0 &&
                 petList.map((p) => {
                   console.log(p);
                   return (
-                    <div>
-                      <div
-                        key={p.petId}
-                        className="petinfo-list-item"
+                    <div
+                    key={p.petId}
+                    className="petinfo-list-item">
+                      <div   
+                        className="petinfo-list-toDetail"
                         onClick={() => {
                           nav(`/petinfo/detail?detailID=${p.petId}`);
                         }}
                       >
                         
-                        <div
-                          // style={{ marginTop: 10, marginBottom: 10 }}
-                          className="petinfo-list-petImage"
-                        >
+                        <div className="petinfo-list-petImage">
                           <ImgWrapper
                             src={process.env.REACT_APP_API_URL + p.petImage}
                             alt={"내 펫 이미지"}
@@ -56,6 +54,7 @@ function PetList() {
                             borderRadius="50%"
                             defaultImg={defaultImg}
                           />
+
                         </div>
                         {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
                         <div
@@ -64,7 +63,7 @@ function PetList() {
                           {p.petName}
                         </div>
                       </div>
-                    </div>
+                      </div>
                   );
                 })}
             </div>
