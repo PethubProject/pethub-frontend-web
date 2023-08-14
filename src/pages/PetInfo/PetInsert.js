@@ -142,7 +142,7 @@ function PetInsert() {
           title="내 반려동물 정보 등록 페이지"
           right={
             <div className="btn-wrapper">
-              {/* <button className="btn">임시저장</button> */}
+
 
               <BtnRegister onClick={onRegist} />
             </div>
@@ -163,10 +163,10 @@ function PetInsert() {
           />
         )} */}
 
+          <div className="insert_title">이름</div>
           <div>
-            <label>반려동물 이름: </label>
             <input
-              className="petData_name"
+              className="petData-input"
               type="text"
               placeholder="이름"
               name="petName"
@@ -174,10 +174,10 @@ function PetInsert() {
               onChange={onFormChange}
             />
           </div>
+          <div className="insert_title">나이</div>
           <div>
-            <label>반려동물 나이:</label>
             <input
-              className="petData_age"
+              className="petData-input"
               value={petData.petAge}
               name="petAge"
               type="number"
@@ -185,13 +185,12 @@ function PetInsert() {
               placeholder="1살미만일 경우 0살"
               onChange={onFormChange}
             />
-            살
           </div>
 
+          <div className="insert_title">성별</div>
           <div>
-            <label>반려동물 성별:</label>
             <select
-              className="petData_gender"
+              className="petData-input"
               name="petGender"
               onChange={handleGenderChange}
             >
@@ -215,9 +214,9 @@ function PetInsert() {
             <option value="고양이">고양이</option>
           </select>
         </label> */}
+          <div className="insert_title">품종</div>
           <div>
-            <label>반려동물 품종: </label>
-            <select name="petBreed" onChange={handleBreedChange}>
+            <select className="petData-input" name="petBreed" onChange={handleBreedChange}>
               <option value="" selected hidden>
                 선택하시오
               </option>
@@ -257,10 +256,10 @@ function PetInsert() {
             )} */}
             </select>
           </div>
+          <div className="insert_title">무게</div>
           <div>
-            <label>반려동물 무게: </label>
             <input
-              className="petData"
+              className="petData-input"
               type="number"
               min="0"
               placeholder="0.5kg"
@@ -268,13 +267,12 @@ function PetInsert() {
               value={petData.petWeight}
               onChange={onFormChange}
             />
-            kg
           </div>
 
+          <div className="insert_title">소개</div>
           <div>
-            <label>내 반려동물 소개: </label>
             <input
-              className="petData"
+              className="petData-input"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}
