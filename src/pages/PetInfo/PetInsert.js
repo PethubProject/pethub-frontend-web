@@ -148,7 +148,7 @@ function PetInsert() {
             </div>
           }
         />
-        <form id="pet_insert" className="pet_detail">
+        <div id="pet_insert" className="petinsert-detail">
           {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -271,14 +271,14 @@ function PetInsert() {
 
           <div className="insert_title">소개</div>
           <div>
-            <input
+            <textarea
               className="petData-input"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}
             />
           </div>
-        </form>
+        </div>
       </div>
     </LayoutUserExist>
   );

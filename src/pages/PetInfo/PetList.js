@@ -49,8 +49,8 @@ function PetList() {
                           <ImgWrapper
                             src={process.env.REACT_APP_API_URL + p.petImage}
                             alt={"내 펫 이미지"}
-                            width="30px"
-                            height="30px"
+                            width="50%"
+                            height="50%"
                             borderRadius="50%"
                             defaultImg={defaultImg}
                           />

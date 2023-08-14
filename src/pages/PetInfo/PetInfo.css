@@ -9,10 +9,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0px 0px 0px;
 }
 
-.petinfo-list-petName:hover {
-  text-decoration: underline;
+.petinfo-list-petName{
+  margin: 10px 0px 0 0px;
+
 }
 
 .petinfo-list-item {
@@ -52,6 +54,7 @@
   flex-grow: 0;
   justify-content:center; 
   margin: 5px;
+  width: calc(100% - 10px);
   border-bottom: 2px solid #d8d8d8;
   text-align: center;
 }
@@ -59,7 +62,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 20px;
+  font-size: 15px;
   margin: 10px;
   padding: 10px;
 }
@@ -68,7 +71,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 20px;
+  font-size: 15px;
   margin: 10px;
   padding: 10px;
 }
@@ -77,7 +80,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 20px;
+  font-size: 15px;
   margin: 10px;
   padding: 10px;
 }
@@ -86,7 +89,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 20px;
+  font-size: 15px;
   margin: 10px;
   padding: 10px;
 }
@@ -115,11 +118,11 @@
   padding: 10px;
 }
 
-.petinfo-btn-update:hover {
+/* .petinfo-btn-update:hover {
   background-color: #2e2efe;
   font-size: 30px;
   transition-duration: 0.2s;
-}
+} */
 
 .petinfo-btn-delete {
   display: inline-block;
@@ -134,13 +137,16 @@
   padding: 10px;
 }
 
-.petinfo-btn-delete:hover {
+/* .petinfo-btn-delete:hover {
   background-color: #df0101;
   font-size: 30px;
   transition-duration: 0.2s;
-}
+} */
+
+
 
 .petupdate-detail div {
+  gap: 10px;
   margin: 10px 10px 10px 10px;
 }
 
@@ -149,7 +155,7 @@
 .insert_title{
   font-weight:bold;
   font-size: 15px;
-  margin:0px 0px 0px 0px;
+  margin:0px 0px 0px 5px;
 }
 
 
@@ -159,10 +165,39 @@
   width: calc(100% - 12px);
   font-size:20px;
   padding:5px;
-  margin:0px 0px 10px 0px;
   border:none;
   &:focus{
     border-bottom: 2px solid#000000;
     outline:none; }
   border-bottom: 1px solid #a9a9a9;
+  margin: 0px 0px 10px 0px;
+}
+
+.intro-area{
+  /* resize: vertical;
+  overflow: hidden; */
+  resize:none;
+  width: calc(100% - 12px);
+  background-color:#F2F2F2;
+  font-size:20px;
+  padding:5px;
+  border:none;
+  &:focus{
+    border: 2px solid #a9a9a9;
+    outline:none; }
+  border-bottom: 1px solid #a9a9a9;
+}
+
+
+#pet_update, #pet_insert{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content:center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+.petinsert-detail div {
+  gap: 10px;
+  margin: 10px 10px 10px 10px;
 }
