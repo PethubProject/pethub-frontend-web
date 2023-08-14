@@ -9,6 +9,7 @@ export default function KakaoMapByAddress(props) {
   const [overlay, setOverlay] = useState({});
 
   useEffect(() => {
+    console.log(props)
     if (!props.address || isEmpty(props?.address)) return;
 
     // map.setDraggable(false);
