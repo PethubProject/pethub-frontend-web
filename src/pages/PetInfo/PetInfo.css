@@ -163,7 +163,7 @@
 
 .petData-input {
   width: calc(100% - 12px);
-  font-size:20px;
+  font-size:15px;
   padding:5px;
   border:none;
   &:focus{
@@ -176,10 +176,11 @@
 .intro-area{
   /* resize: vertical;
   overflow: hidden; */
+  font-family: "Noto Sans KR", sans-serif;
   resize:none;
   width: calc(100% - 12px);
   background-color:#F2F2F2;
-  font-size:20px;
+  font-size:15px;
   padding:5px;
   border:none;
   &:focus{
