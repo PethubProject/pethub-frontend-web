@@ -272,7 +272,7 @@ function PetInsert() {
           <div className="insert_title">소개</div>
           <div>
             <textarea
-              className="petData-input"
+              className="intro-area"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}
