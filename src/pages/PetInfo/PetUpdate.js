@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
@@ -61,6 +61,16 @@ function PetUpdate() {
       ...prev,
       petGender: event.target.value,
     }));
+
+    // const textareaRef = useRef(null);
+    // const [textareaHeight,setTextareaHeight] = useState("auto");
+
+    // useEffect(()=> {
+    //   if(textareaRef.current){
+    //     textareaRef.current.style.height="auto";
+    //     textareaRef.current.style.height=`${textareaRef.current.scrollHeight}px`;        
+    //   }
+    // },[petData.petIntroduction]);
 
   // 1. 이미지 추가시킬 준비
 
@@ -131,7 +141,7 @@ function PetUpdate() {
             </div>
           }
         />
-        <form id="pet_update" className="petupdate-detail">
+        <div id="pet_update" className="petupdate-detail">
           {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
@@ -260,14 +270,15 @@ function PetUpdate() {
 
           <div className="insert_title">소개</div>
           <div>
-            <input
-              className="petData-input"
+            <textarea
+              className="intro-area"
               name="petIntroduction"
               value={petData.petIntroduction}
               onChange={onFormChange}
+              // style={{height:textareaHeight}}
             />
           </div>
-        </form>
+        </div>
       </div>
     </LayoutUserExist>
   );
