@@ -61,16 +61,22 @@ function PetUpdate() {
       ...prev,
       petGender: event.target.value,
     }));
+  const MAX_LENGTH = 100;
+  const onInputHandler = (e) => {
+    if (e.target.value.length > MAX_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_LENGTH);
+    }
+  };
 
-    // const textareaRef = useRef(null);
-    // const [textareaHeight,setTextareaHeight] = useState("auto");
+  // const textareaRef = useRef(null);
+  // const [textareaHeight,setTextareaHeight] = useState("auto");
 
-    // useEffect(()=> {
-    //   if(textareaRef.current){
-    //     textareaRef.current.style.height="auto";
-    //     textareaRef.current.style.height=`${textareaRef.current.scrollHeight}px`;        
-    //   }
-    // },[petData.petIntroduction]);
+  // useEffect(()=> {
+  //   if(textareaRef.current){
+  //     textareaRef.current.style.height="auto";
+  //     textareaRef.current.style.height=`${textareaRef.current.scrollHeight}px`;
+  //   }
+  // },[petData.petIntroduction]);
 
   // 1. 이미지 추가시킬 준비
 
@@ -270,12 +276,18 @@ function PetUpdate() {
 
           <div className="insert_title">소개</div>
           <div>
+            <div className="textarea-counter">
+              {petData.petIntroduction.length} / {MAX_LENGTH}자
+            </div>
             <textarea
+              type="text"
+              placeholder="소개글을 작성하세요."
+              maxLength={MAX_LENGTH}
               className="intro-area"
               name="petIntroduction"
+              onInput={onInputHandler}
               value={petData.petIntroduction}
               onChange={onFormChange}
-              // style={{height:textareaHeight}}
             />
           </div>
         </div>

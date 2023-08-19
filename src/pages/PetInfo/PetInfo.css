@@ -57,11 +57,23 @@
   border-bottom: 2px solid #d8d8d8;
   text-align: center;
 }
+
+.petinfo-detail-list-wrap{
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
+}
+
+.petinfo-btn-wrap{
+  display: flex;
+  justify-content:center;
+  margin-top:auto;
+}
 .pet-item-age {
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 15px;
+  font-size: 13px;
   margin: 10px;
   padding: 10px;
 }
@@ -70,7 +82,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 15px;
+  font-size: 13px;
   margin: 10px;
   padding: 10px;
 }
@@ -79,7 +91,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 15px;
+  font-size: 13px;
   margin: 10px;
   padding: 10px;
 }
@@ -88,7 +100,7 @@
   display: inline-block;
   border-radius: 10px;
   background-color: #d8d8d8;
-  font-size: 15px;
+  font-size: 13px;
   margin: 10px;
   padding: 10px;
 }
@@ -111,7 +123,7 @@
   margin: 10px 10px 10px 10px;
   border: 2px solid #0000ff;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 13px;
   color: #ffffff;
   padding: 10px;
 }
@@ -130,7 +142,7 @@
   margin: 10px 10px 10px 10px;
   border: 2px solid #ff0000;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 13px;
   color: #ffffff;
   padding: 10px;
 }
@@ -141,7 +153,7 @@
   transition-duration: 0.2s;
 } */
 
-.petupdate-detail div {
+.petupdate-detail div:not(.textarea-counter) {
   gap: 10px;
   margin: 10px 10px 10px 10px;
 }
@@ -150,7 +162,7 @@
 
 .insert_title {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
   margin: 0px 0px 0px 5px;
 }
 
@@ -158,7 +170,7 @@
 
 .petData-input {
   width: calc(100% - 12px);
-  font-size: 15px;
+  font-size: 13px;
   padding: 5px;
   border: none;
   &:focus {
@@ -176,7 +188,7 @@
   resize: none;
   width: calc(100% - 12px);
   background-color: #f2f2f2;
-  font-size: 15px;
+  font-size: 13px;
   padding: 5px;
   border: none;
   &:focus {
@@ -195,7 +207,13 @@
   padding: 10px 0;
   margin-bottom: 20px;
 }
-.petinsert-detail div {
+.petinsert-detail div:not(.textarea-counter) {
   gap: 10px;
   margin: 10px 10px 10px 10px;
+}
+
+.textarea-counter{
+  font-size: 15px;
+  font-weight:bold;
+  margin: 0px 0px 5px 0px;
 }

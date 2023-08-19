@@ -8,7 +8,6 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import {
   faGenderless,
   faMars,
-  faTrash,
   faVenus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,7 +61,8 @@ function PetDetail() {
       <div id="main">
         <BoardHeader title="내 반려동물 상세정보 페이지" />
         <div id="petinfo-detail" className="content flex-column">
-          <div className="content scroll-hide board-list">
+          <div className="petinfo-detail-list-wrap">
+            {/*  <div className="content scroll-hide board-list"> */}
             <div className="petinfo-detail-content">
               {/* 이미지 */}
               <div className="pet-item-image">
@@ -101,29 +101,31 @@ function PetDetail() {
               <div className="pet-item-intro">{petContent.petIntroduction}</div>
             </div>
 
-            <div
-              key={petContent.petId}
-              className="petinfo-btn-update"
-              onClick={() => {
-                nav(`/petinfo/update?detailID=${petContent.petId}`);
-              }}
-            >
-              수정
-            </div>
-            <div
-              className="petinfo-btn-delete"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    petContent.petName + "의 정보를 삭제하시겠습니까?"
-                  )
-                ) {
-                  onDel();
-                } else {
-                }
-              }}
-            >
-              삭제
+            <div className="petinfo-btn-wrap">
+              <div
+                key={petContent.petId}
+                className="petinfo-btn-update"
+                onClick={() => {
+                  nav(`/petinfo/update?detailID=${petContent.petId}`);
+                }}
+              >
+                수정
+              </div>
+              <div
+                className="petinfo-btn-delete"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      petContent.petName + "의 정보를 삭제하시겠습니까?"
+                    )
+                  ) {
+                    onDel();
+                  } else {
+                  }
+                }}
+              >
+                삭제
+              </div>
             </div>
           </div>
         </div>
