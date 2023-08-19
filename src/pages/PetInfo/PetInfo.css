@@ -117,6 +117,7 @@
 }
 .pet-item-intro {
   word-break:break-all;
+  line-height: 1.5;
   margin: 10px;
 }
 /* petDetail */

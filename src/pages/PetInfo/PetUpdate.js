@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback,  } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
@@ -68,16 +68,6 @@ function PetUpdate() {
     }
   };
 
-  // const textareaRef = useRef(null);
-  // const [textareaHeight,setTextareaHeight] = useState("auto");
-
-  // useEffect(()=> {
-  //   if(textareaRef.current){
-  //     textareaRef.current.style.height="auto";
-  //     textareaRef.current.style.height=`${textareaRef.current.scrollHeight}px`;
-  //   }
-  // },[petData.petIntroduction]);
-
   // 1. 이미지 추가시킬 준비
 
   // const handleImageChange = (event) =>
@@ -91,7 +81,6 @@ function PetUpdate() {
     setPetData((p) => ({ ...p, [name]: value }));
   }, []);
 
-  // 내용이 다 차있는데 포커스가 잡힘. 이유가 뭐지?
   const onUpdate = useCallback(() => {
     var ok = true;
     Object.keys(petData).map((k) => {
