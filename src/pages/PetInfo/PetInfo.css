@@ -5,6 +5,11 @@
     transform: scale(1.5);
 } */
 
+.petinfo-list-wrap{
+  display:inline-block;
+  text-align:center;
+}
+
 .petinfo-list-petImage {
   display: flex;
   justify-content: center;
@@ -111,6 +116,7 @@
   color: #a4a4a4;
 }
 .pet-item-intro {
+  word-break:break-all;
   margin: 10px;
 }
 /* petDetail */
