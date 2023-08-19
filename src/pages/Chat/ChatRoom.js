@@ -10,16 +10,16 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper";
 import { UserState } from "../../state/User";
 import "./chat.css";
+import { useChat } from "../../common/hooks";
 export default function ChatRoom() {
-
-  // ref 
+  // ref
   const ws = useRef();
   const contentRef = useRef();
   const textRef = useRef(null);
-  
+
   const location = useLocation();
   const [inputTop, setInputTop] = useState(0);
-  const [text,setText] = useState("")
+  const [text, setText] = useState("");
   const [target, setTarget] = useState({
     name: "",
     nickName: "",
@@ -47,35 +47,46 @@ export default function ChatRoom() {
     scrollBottom();
   }, [target, inputTop, contentRef]);
 
-  // 웹소켓 통신
-  useEffect(() => {
-    ws.current = new WebSocket(`${process.env.REACT_APP_SOCKET_URL}/chat`);
-
-    // 1. opopen 
-    ws.current.onopen = () => {
+  useChat({
+    ws: ws,
+    onopen: (ws) => {
+      console.log(ws)
       ws.current.send(JSON.stringify({ type: "ENTER", userId: location.state.senderId }));
-      // ws.current.send(JSON.stringify({type:"MESSAGE","chatId":uuid(),"senderId":user.userId,recipientId:location.state.targetId,content:"as11das",createdAt:new Date()}))
-    };
-
-    ws.current.onclose = (error) => {
-      console.log("disconnect from ");
-      console.log(error);
-    };
-
-    ws.current.onmessage = function (event) {
-      const res = JSON.parse(event.data);
+    },
+    onmessage: (ws,res) => {
       setTarget((p) => ({ ...p, chatMessageList: [...p.chatMessageList, res] }));
-    };
+    },
+  });
 
-    ws.current.onerror = (error) => {
-      console.log("connection error ");
-      console.log(error);
-    };
+  // 웹소켓 통신
+  // useEffect(() => {
+  //   ws.current = new WebSocket(`${process.env.REACT_APP_SOCKET_URL}/chat`);
 
-    return () => {
-      ws.current.close();
-    };
-  }, []);
+  //   // 1. opopen
+  //   ws.current.onopen = () => {
+  //     ws.current.send(JSON.stringify({ type: "ENTER", userId: location.state.senderId }));
+  //     // ws.current.send(JSON.stringify({type:"MESSAGE","chatId":uuid(),"senderId":user.userId,recipientId:location.state.targetId,content:"as11das",createdAt:new Date()}))
+  //   };
+
+  //   ws.current.onclose = (error) => {
+  //     console.log("disconnect from ");
+  //     console.log(error);
+  //   };
+
+  //   ws.current.onmessage = function (event) {
+  //     const res = JSON.parse(event.data);
+  //     setTarget((p) => ({ ...p, chatMessageList: [...p.chatMessageList, res] }));
+  //   };
+
+  //   ws.current.onerror = (error) => {
+  //     console.log("connection error ");
+  //     console.log(error);
+  //   };
+
+  //   return () => {
+  //     ws.current.close();
+  //   };
+  // }, []);
 
   useEffect(() => {
     // 마운트 할때
@@ -110,7 +121,7 @@ export default function ChatRoom() {
     };
   }, [textRef]);
   return (
-    // JSX 
+    // JSX
     <LayoutUserExist>
       <div id="main">
         <HeaderChat

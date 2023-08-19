@@ -24,3 +24,18 @@
 #input-img {
   display: none;
 }
+
+.ss ~ .react-ios-time-picker>.react-ios-time-picker-btn-container,.ss ~ .react-ios-time-picker>.react-ios-time-picker-container{
+  background-color: white;
+
+}
+.ss ~ .react-ios-time-picker>.react-ios-time-picker-btn-container>button{
+  color: black;
+}
+.ss ~ .react-ios-time-picker>.react-ios-time-picker-container>.react-ios-time-picker-hour>div>.react-ios-time-picker-cell-hour>div:hover
+,.ss ~ .react-ios-time-picker>.react-ios-time-picker-container>.react-ios-time-picker-minute>div>.react-ios-time-picker-cell-minute>div:hover{
+  background-color:var(--mainColor);
+}
+.ss ~ .react-ios-time-picker>.react-ios-time-picker-container>.react-ios-time-picker-selected-overlay{
+  background-color:var(--mainColor);
+}

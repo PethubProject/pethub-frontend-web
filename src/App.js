@@ -4,12 +4,18 @@ import "./App.css";
 import Camera from "./pages/Camera/Camera";
 import CameraDetail from "./pages/Camera/CameraDetail";
 import CameraSelect from "./pages/Camera/CameraSelect";
+import Chat from "./pages/Chat/Chat";
+import ChatRoom from "./pages/Chat/ChatRoom";
+import ChatRoomCreate from "./pages/Chat/ChatRoomCreate";
 import CounselAnswerInsert from "./pages/CounselBoard/CounselAnswerInsert";
 import CounselAnswerUpdate from "./pages/CounselBoard/CounselAnswerUpdate";
 import CounselContent from "./pages/CounselBoard/CounselContent";
 import CounselInsert from "./pages/CounselBoard/CounselInsert";
 import CounselList from "./pages/CounselBoard/CounselList";
 import CounselUpdate from "./pages/CounselBoard/CounselUpdate";
+import Example from "./pages/Example/Example";
+import KakaoAddress from "./pages/Example/KakaoAddress";
+import TouchGesture from "./pages/Example/TouchGesture";
 import FreeBoardContent from "./pages/FreeBoard/FreeBoardContent";
 import FreeBoardInsert from "./pages/FreeBoard/FreeBoardInsert";
 import FreeBoardList from "./pages/FreeBoard/FreeBoardList";
@@ -23,17 +29,10 @@ import PetUpdate from "./pages/PetInfo/PetUpdate";
 import SignIn from "./pages/Sign/SignIn";
 import SignUp from "./pages/Sign/SignUp";
 import TeleHealth from "./pages/TeleHealth/TeleHealth";
-import Test from "./pages/Test/Test";
-import UserInfo from "./pages/UserInfo/UserInfo";
-import VetInfo from "./pages/VetInfo/VetInfo";
-import Example from "./pages/Example/Example";
-import KakaoAddress from "./pages/Example/KakaoAddress";
-import TouchGesture from "./pages/Example/TouchGesture";
-import Chat from "./pages/Chat/Chat";
-import ChatRoomCreate from "./pages/Chat/ChatRoomCreate";
-import ChatRoom from "./pages/Chat/ChatRoom";
-import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
 import TeleHealthContent from "./pages/TeleHealth/TeleHealthContent";
+import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
+import UserInfo from "./pages/UserInfo/UserInfo";
+import VetInfoUpdate from "./pages/VetInfo/VetInfoUpdate";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -53,7 +52,7 @@ function App() {
           {/* UserInfo */}
           <Route path="/userinfo" element={<UserInfo />} />
           {/* VetInfo */}
-          <Route path="/vetinfo" element={<VetInfo />} />
+          <Route path="/vet/info/update" element={<VetInfoUpdate />} />
 
           {/* TeleHealth */}
           <Route path="/telehealth" element={<TeleHealth />} />

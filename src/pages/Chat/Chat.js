@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useApiHooks from "../../api/BaseApi";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist";
@@ -11,46 +11,68 @@ import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper";
+import { useChat } from "../../common/hooks";
 export default function Chat() {
   const user = useRecoilValue(UserState);
   const navigate = useNavigate();
   const [chatRoomList, setChatRoomList] = useState([]);
   const { getApi } = useApiHooks();
-  useEffect(() => {
+  const ws = useRef();
+  const getChatList = useCallback(() => {
     getApi({ url: "/api/chat-room/list" }).then((resp) => {
       const { data } = resp.data;
       if (Array.isArray(data)) {
-
         setChatRoomList(data);
       }
     });
-
-
   }, []);
-  const goChatRoom=useCallback((chatRoomId,targetId)=>{
-    navigate("/chat/room",{state:{chatRoomId:chatRoomId,targetId:targetId,senderId:user.userId}})
-  },[])
+  useEffect(() => {
+    getChatList();
+  }, []);
+  useChat({
+    ws: ws,
+    onopen: (ws) => {
+      console.log(user.userId);
+      ws.current.send(JSON.stringify({ type: "ENTER", userId: user.userId }));
+    },
+    onmessage: (ws, res) => {
+      console.log(res);
+      getChatList();
+    },
+  });
+  const goChatRoom = useCallback((chatRoomId, targetId) => {
+    navigate("/chat/room", { state: { chatRoomId: chatRoomId, targetId: targetId, senderId: user.userId } });
+  }, []);
   return (
     <LayoutUserExist>
       <div id="main">
         <BoardHeader title="상담 채팅" />
         <div className="content">
           <div className="list-col">
-            {chatRoomList.map(c=>{
-              return <div className="list-item v-exp" onClick={_=>{
-                goChatRoom(c.chatRoomId,c.partnerId);
-              }}>
-                <div><ImgWrapper src={process.env.REACT_APP_API_URL + c.userImage} width={"40px"} height={"40px"}/></div>
-                <div className="chat-content">
-                  <div>{c.name}</div>
-                  <div className="msg">{c.lastMessage}</div>
+            {chatRoomList.map((c) => {
+              return (
+                <div
+                  className="list-item v-exp"
+                  onClick={(_) => {
+                    goChatRoom(c.chatRoomId, c.partnerId);
+                  }}
+                >
+                  <div>
+                    <ImgWrapper src={process.env.REACT_APP_API_URL + c.userImage} width={"40px"} height={"40px"} />
+                  </div>
+                  <div className="chat-content">
+                    <div>{c.name}</div>
+                    <div className="msg">{c.lastMessage}</div>
+                  </div>
+                  <div className="chat-badge">{c.unReadMsgCnt > 0 ? <span>{c.unReadMsgCnt}</span> : null}</div>
+                  <div className="chat-dt">
+                    {new Date().format("yyyy-MM-dd") === new Date(c.lastMessageTime).format("yyyy-MM-dd")
+                      ? new Date(c.lastMessageTime).format("a/p HH:mm:ss")
+                      : new Date(c.lastMessageTime).format("yyyy-MM-dd HH:mm:ss")}
+                  </div>
                 </div>
-                <div className="chat-dt">
-                  {(new Date()).format('yyyy-MM-dd')===(new Date(c.lastMessageTime)).format('yyyy-MM-dd')?(new Date(c.lastMessageTime)).format('a/p HH:mm:ss'):(new Date(c.lastMessageTime)).format('yyyy-MM-dd HH:mm:ss')}
-                </div>
-              </div>
+              );
             })}
-
           </div>
           {user.role === "OWNER" && (
             <BtnFloat
@@ -60,9 +82,8 @@ export default function Chat() {
               icon={<FontAwesomeIcon icon={faComment} />}
             />
           )}
-
         </div>
-        <BottomTabNavigation/>
+        <BottomTabNavigation />
       </div>
     </LayoutUserExist>
   );

@@ -91,3 +91,40 @@ export const useScaleChange = (init) => {
   console.log(scale);
   return { scale, setActive, setZoomWeight, setScale };
 };
+
+
+export function useChat({ws,onopen=()=>{},onclose=()=>{},onmessage=()=>{},onerror=()=>{}}){
+
+  useEffect(() => {
+
+    ws.current = new WebSocket(`${process.env.REACT_APP_SOCKET_URL}/chat`);
+
+    // 1. opopen 
+    ws.current.onopen = () => {
+      console.log(ws)
+      onopen(ws)
+      
+      // ws.current.send(JSON.stringify({type:"MESSAGE","chatId":uuid(),"senderId":user.userId,recipientId:location.state.targetId,content:"as11das",createdAt:new Date()}))
+    };
+
+    ws.current.onclose = (error) => {
+      console.log("disconnect from ");
+      console.log(error);
+    };
+
+    ws.current.onmessage = function (event) {
+      const res = JSON.parse(event.data);
+      onmessage(ws,res)
+      // setTarget((p) => ({ ...p, chatMessageList: [...p.chatMessageList, res] }));
+    };
+
+    ws.current.onerror = (error) => {
+      console.log("connection error ");
+      console.log(error);
+    };
+
+
+  }, []);
+
+  
+}
