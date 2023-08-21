@@ -21,8 +21,10 @@ export default function TeleHealthInsert() {
     address: "",
     openHour: "",
     closeHour: "",
-    career: "",
   });
+
+  const [career, setCareer] = useState("");
+  const [careers, setCareers] = useState([]);
 
   const [addressData, setAddressData] = useState({});
   const [name, setName] = useState("");
@@ -32,6 +34,14 @@ export default function TeleHealthInsert() {
     setVetData((preventData) => ({ ...preventData, [name]: value }));
   }, []);
 
+  const onCareerChange = (e) => {
+    setCareer(e.target.value);
+  };
+  const onCareerSubmit = (e) => {
+    e.preventDefault();
+    setCareer("");
+    setCareers((preventData) => [career, ...preventData]);
+  };
   const onRegist = useCallback(() => {
     var ok = true;
     Object.keys(vetData).map((k) => {
@@ -70,6 +80,71 @@ export default function TeleHealthInsert() {
 
       <div className="content">
         <form id="vet_insert" className="vet_detail">
+          <div>
+            <div>병원 이름: </div>
+            <input
+              className="vetData_name"
+              type="text"
+              placeholder="이름"
+              name="vetName"
+              value={vetData.name}
+              onChange={onFormChange}
+            />
+          </div>
+
+          <div>
+            <div>수의사 소개:</div>
+            <textarea
+              className="vetData_introduction"
+              name="introduction"
+              placeholder="수의사소개"
+              type="text"
+              onChange={onFormChange}
+            />
+          </div>
+
+          <div>
+            <div>여는 시간: </div>
+            <input
+              className="vetData_openHour"
+              type="text"
+              placeholder="여는시간"
+              name="openHour"
+              value={vetData.openHour}
+              onChange={onFormChange}
+            />
+          </div>
+          <div>
+            <div>닫는 시간: </div>
+            <input
+              className="vetData_closeHour"
+              type="text"
+              placeholder="닫는시간"
+              name="closeHour"
+              value={vetData.closeHour}
+              onChange={onFormChange}
+            />
+          </div>
+          <div>
+            <div>경력: </div>
+            <input
+              className="vetData_career"
+              type="text"
+              placeholder="경력"
+              name="career"
+              value={career}
+              onChange={onCareerChange}
+            />
+            <button onClick={onCareerSubmit}>등록하기</button>
+          </div>
+
+          {/* 경력은 다 묶어서 최종 등록 할 때 vetData에넣어주자 */}
+          <ul>
+            {careers.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+
           <div style={{ width: "100%" }}>
             <InputText state={setName} label={"병원주소"} />
             <InputAddress Address setData={setAddressData} />
@@ -83,63 +158,6 @@ export default function TeleHealthInsert() {
             />
           </div>
           {/* <AlertModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} /> */}
-
-          <div>
-            <label>수의사 이름: </label>
-            <input
-              className="vetData_name"
-              type="text"
-              placeholder="이름"
-              name="vetName"
-              value={vetData.name}
-              onChange={onFormChange}
-            />
-          </div>
-
-          <div>
-            <label>수의사 소개:</label>
-            <input
-              className="vetData_introduction"
-              name="introduction"
-              placeholder="수의사소개"
-              type="text"
-              onChange={onFormChange}
-            />
-          </div>
-
-          <div>
-            <label>여는 시간: </label>
-            <input
-              className="vetData_openHour"
-              type="text"
-              placeholder="여는시간"
-              name="openHour"
-              value={vetData.openHour}
-              onChange={onFormChange}
-            />
-          </div>
-          <div>
-            <label>닫는 시간: </label>
-            <input
-              className="vetData_closeHour"
-              type="text"
-              placeholder="닫는시간"
-              name="closeHour"
-              value={vetData.closeHour}
-              onChange={onFormChange}
-            />
-          </div>
-          <div>
-            <label>경력: </label>
-            <input
-              className="vetData_career"
-              type="text"
-              placeholder="경력"
-              name="career"
-              value={vetData.career}
-              onChange={onFormChange}
-            />
-          </div>
         </form>
       </div>
       <BottomTabNavigation />
