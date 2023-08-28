@@ -25,14 +25,14 @@ export default function TeleHealthInsert() {
     // openHour / closeHour 
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     //  수의사 정보 받아오기
     /**
      * vetId or userId
      * getApi  받아와서 setVetData(상태)
      * 
      */
-  },[])
+  }, [])
 
   const [career, setCareer] = useState("");
   const [careers, setCareers] = useState([]);
@@ -50,15 +50,12 @@ export default function TeleHealthInsert() {
   };
 
   const onCareerSubmit = (e) => {
-    e.preventDefault();
-    setCareer("");
-    setCareers((preventData) => [...preventData, career]);
+    setCareers((preventData) => [...preventData, e.target.value]);
   };
 
   const onDelete = (e, i) => {
     e.preventDefault();
-    console.log(i);
-    console.log(careers);
+
     setCareers(careers.filter((item) => item !== i));
   };
 
@@ -107,14 +104,17 @@ export default function TeleHealthInsert() {
         <form id="vet_insert" className="vet_detail">
           <div>
             <div className="insert-title">병원 이름</div>
-            <input
-              className="vetData-input"
-              type="text"
-              placeholder="이름"
-              name="name"
-              value={vetData.name}
-              onChange={onFormChange}
-            />
+            <div style={{width:"100%",display:"flex",justifyContent:"center",marginTop:"16px"}}>
+              <input
+                className="vetData-input"
+                type="text"
+                placeholder="이름"
+                name="name"
+                value={vetData.name}
+                onChange={onFormChange}
+
+              />
+            </div>
           </div>
 
           <div>
@@ -127,30 +127,30 @@ export default function TeleHealthInsert() {
               onChange={onFormChange}
             />
           </div>
-
-          <div>
-            <div className="insert-title">여는 시간</div>
-            <input
-              className="vetData_openHour"
-              type="time"
-              placeholder="여는시간"
-              name="openHour"
-              value={vetData.openHour}
-              onChange={onFormChange}
-            />
+          <div style={{width:"100%",display:"flex",justifyContent:"center",gap:"32px"}}> 
+            <div  style={{display:"flex",justifyContent:"center",gap:"32px"}}>
+              <div className="insert-title">여는 시간</div>
+              <input
+                className="vetData_openHour"
+                type="time"
+                placeholder="여는시간"
+                name="openHour"
+                value={vetData.openHour}
+                onChange={onFormChange}
+              />
+            </div>
+            <div style={{display:"flex",justifyContent:"center",gap:"32px"}}>
+              <div className="insert-title">닫는 시간</div>
+              <input
+                className="vetData_closeHour"
+                type="time"
+                placeholder="닫는시간"
+                name="closeHour"
+                value={vetData.closeHour}
+                onChange={onFormChange}
+              />
+            </div>
           </div>
-          <div>
-            <div className="insert-title">닫는 시간</div>
-            <input
-              className="vetData_closeHour"
-              type="time"
-              placeholder="닫는시간"
-              name="closeHour"
-              value={vetData.closeHour}
-              onChange={onFormChange}
-            />
-          </div>
-
           <div>
             <div className="insert-title">경력</div>
             {/* 경력은 다 묶어서 최종 등록 할 때 vet넣어주자 */}
@@ -181,6 +181,11 @@ export default function TeleHealthInsert() {
               name="career"
               value={career}
               onChange={onCareerChange}
+              onKeyUp={e=>{
+                if(e.key ==="Enter"){
+                  onCareerSubmit(e)
+                }
+              }}
             />
             <button onClick={onCareerSubmit}>경력추가하기</button>
           </div>
