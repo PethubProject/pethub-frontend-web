@@ -23,6 +23,7 @@ export default function TeleHealthDetail() {
   useEffect(() => {
     getApi({ url: `api/vet/${searchParams.get("userId")}` }).then((resp) => {
       setVetContent(resp.data.data);
+      console.log(resp.data.data);
     });
   }, []);
   return (
