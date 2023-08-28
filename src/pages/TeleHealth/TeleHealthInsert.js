@@ -8,6 +8,7 @@ import { isEmpty } from "../../components/Utils/Utils";
 import KakaoMapByAddress from "../../components/kakao/map/KakaoMapByAddress";
 import InputAddress from "../../components/Input/InputAddress";
 import InputText from "../../components/Input/InputText";
+import "./telehealth.css";
 
 export default function TeleHealthInsert() {
   const nav = useNavigate();
@@ -47,12 +48,23 @@ export default function TeleHealthInsert() {
   const onCareerChange = (e) => {
     setCareer(e.target.value);
   };
+
   const onCareerSubmit = (e) => {
     e.preventDefault();
     setCareer("");
-    setCareers((preventData) => [career, ...preventData]);
+    setCareers((preventData) => [...preventData, career]);
   };
+
+  const onDelete = (e, i) => {
+    e.preventDefault();
+    console.log(i);
+    console.log(careers);
+    setCareers(careers.filter((item) => item !== i));
+  };
+
   const onRegist = useCallback(() => {
+    setVetData((preventData) => ({ ...preventData, ["careers"]: careers }));
+
     var ok = true;
     Object.keys(vetData).map((k) => {
       const v = vetData[k];
@@ -74,6 +86,8 @@ export default function TeleHealthInsert() {
       if (resp.status === 200) {
       }
     });
+
+    console.log(vetData);
   }, [vetData]);
 
   return (
@@ -92,9 +106,9 @@ export default function TeleHealthInsert() {
       <div className="content">
         <form id="vet_insert" className="vet_detail">
           <div>
-            <div>병원 이름: </div>
+            <div className="insert-title">병원 이름</div>
             <input
-              className="vetData_name"
+              className="vetData-input"
               type="text"
               placeholder="이름"
               name="name"
@@ -104,9 +118,9 @@ export default function TeleHealthInsert() {
           </div>
 
           <div>
-            <div>수의사 소개:</div>
+            <div className="insert-title">수의사 소개</div>
             <textarea
-              className="vetData_introduction"
+              className="intro-area"
               name="introduction"
               placeholder="수의사소개"
               type="text"
@@ -115,10 +129,10 @@ export default function TeleHealthInsert() {
           </div>
 
           <div>
-            <div>여는 시간: </div>
+            <div className="insert-title">여는 시간</div>
             <input
               className="vetData_openHour"
-              type="text"
+              type="time"
               placeholder="여는시간"
               name="openHour"
               value={vetData.openHour}
@@ -126,35 +140,50 @@ export default function TeleHealthInsert() {
             />
           </div>
           <div>
-            <div>닫는 시간: </div>
+            <div className="insert-title">닫는 시간</div>
             <input
               className="vetData_closeHour"
-              type="text"
+              type="time"
               placeholder="닫는시간"
               name="closeHour"
               value={vetData.closeHour}
               onChange={onFormChange}
             />
           </div>
+
           <div>
-            <div>경력: </div>
+            <div className="insert-title">경력</div>
+            {/* 경력은 다 묶어서 최종 등록 할 때 vet넣어주자 */}
+            <ul style={{ maxHeight: "200px", overflowY: "auto" }}>
+              {careers.map((item, idx) => (
+                <>
+                  <input
+                    className="career-area"
+                    key={idx}
+                    value={item}
+                    type="text"
+                    placeholder="경력"
+                  />
+                  <button
+                    onClick={(e) => {
+                      onDelete(e, item);
+                    }}
+                  >
+                    X
+                  </button>
+                </>
+              ))}
+            </ul>
             <input
-              className="vetData_career"
+              className="career-area"
               type="text"
               placeholder="경력"
               name="career"
               value={career}
               onChange={onCareerChange}
             />
-            <button onClick={onCareerSubmit}>등록하기</button>
+            <button onClick={onCareerSubmit}>경력추가하기</button>
           </div>
-
-          {/* 경력은 다 묶어서 최종 등록 할 때 vetData에넣어주자 */}
-          <ul>
-            {careers.map((item, idx) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
 
           <div style={{ width: "100%" }}>
             <InputText state={setName} label={"병원주소"} />
