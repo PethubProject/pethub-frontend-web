@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,17 @@ export default function TeleHealthInsert() {
     address: "",
     openHour: "",
     closeHour: "",
+    // openHour / closeHour 
   });
+
+  useEffect(()=>{
+    //  수의사 정보 받아오기
+    /**
+     * vetId or userId
+     * getApi  받아와서 setVetData(상태)
+     * 
+     */
+  },[])
 
   const [career, setCareer] = useState("");
   const [careers, setCareers] = useState([]);
@@ -58,6 +68,7 @@ export default function TeleHealthInsert() {
     if (!ok) {
       return false;
     }
+    // const vetData.clinicHour = vetData.openHour + vetData.closeHour
     postApi({ url: "/api/vet", data: vetData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
@@ -86,7 +97,7 @@ export default function TeleHealthInsert() {
               className="vetData_name"
               type="text"
               placeholder="이름"
-              name="vetName"
+              name="name"
               value={vetData.name}
               onChange={onFormChange}
             />

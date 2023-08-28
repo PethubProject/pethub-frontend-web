@@ -34,7 +34,6 @@ export default function MenuList() {
               onClick={() => {
                 navigate(
                   "/vet/info/update"
-             
                 );
               }}
             >
