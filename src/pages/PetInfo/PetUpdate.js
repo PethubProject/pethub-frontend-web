@@ -17,13 +17,12 @@ function PetUpdate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
+  const { fileUpload } = useApiHooks();
   const [petData, setPetData] = useState({
     petId: "",
-    image: null,
+    petImage: "",
     petName: "",
     petAge: "",
-    // 추가돼야하는 코드
-    // animalGroup: "",
     petBreed: "",
     petGender: "",
     petWeight: "",
@@ -70,11 +69,28 @@ function PetUpdate() {
 
   // 1. 이미지 추가시킬 준비
 
-  // const handleImageChange = (event) =>
+  // const handleImageChange = (event) =>{
+
   //   setPetData((prev) => ({
   //     ...prev,
-  //     image: event.target.files[0],
+  //     petImage: event.target.files[0],
+
   //   }));
+  // }
+
+  const handleImageChange = (e) => {
+    var file = e.target.files[0];
+    var formData = new FormData();
+    formData.append("photo", file);
+    fileUpload({ url: `/api/pet/${petData.petId}/image`, data: formData }).then(
+      (r) => {
+        console.log(r)
+        setPetData((p) => ({ ...p, petImage: r.data.petImage }));
+      }
+    );
+  }
+
+
 
   const onFormChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -137,19 +153,50 @@ function PetUpdate() {
           }
         />
         <div id="pet_update" className="petupdate-detail">
-          {/* <label>
+          <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label> */}
-          {/* 추후 수정 */}
-          {/* {petData.image && (
+        </label>
+          
+          {/* {petData.petImage && (
           <img
             className="pet_select_image"
-            src={URL.createObjectURL(petData.image)}
+            src={URL.createObjectURL(petData.petImage)}
             alt="반려동물 사진"
-            style={{ maxWidth: "300px", marginTop: "10px" }}
           />
         )} */}
+
+
+        {/* <label>
+          반려동물 사진:
+          <input
+        type="file"
+        className="petUpdate-img"
+        accept="image/*"
+        capture={"user"}
+        onChange={(e) => {
+          var file = e.target.files[0];
+          var formData = new FormData();
+          formData.append("photo", file);
+          fileUpload({ url: `/api/pet/${petData.petId}/image`, data: formData }).then(
+            (r) => {
+              console.log(r)
+              setPetData((p) => ({ ...p, petImage: r.data.petImage }));
+            }
+          );
+          
+        }}
+      />
+        </label> */}
+
+        {/* {petData.petImage && (
+          <img
+            className="pet_select_image"
+            src={URL.createObjectURL(petData.petImage)}
+            alt="반려동물 사진"
+          />
+        )} */}
+
 
           <div className="insert_title">이름</div>
           <div>

@@ -14,13 +14,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import defaultImg from "../../resources/image/userDefault.png";
 import "./PetInfo.css";
+import ChangePetImage from "./ChangePetImage.js";
 
 function PetDetail() {
   const nav = useNavigate();
+  const { fileUpload } = useApiHooks();
   const { getApi } = useApiHooks();
   const { deleteApi } = useApiHooks();
   const [petContent, setPetContent] = useState({
-    image: null,
+    petId:"",
+    petImage: "",
     petName: "",
     petAge: "",
     // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
@@ -37,6 +40,7 @@ function PetDetail() {
   useEffect(() => {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
+      console.log(resp)
       if (resp.data.data === undefined) {
         alert("잘못된 접근입니다.");
         nav(`/petinfo/`);
@@ -68,7 +72,8 @@ function PetDetail() {
               <div className="pet-item-image">
                 {
                   <ImgWrapper
-                    src={process.env.REACT_APP_API_URL + petContent.image}
+                  className="petdetail-img"
+                    src={process.env.REACT_APP_API_URL + petContent.petImage}
                     alt={"내 펫 이미지"}
                     width="100px"
                     height="100px"
@@ -77,6 +82,27 @@ function PetDetail() {
                   />
                 }
               </div>
+
+              <label for="petUpdate-img">
+                <div className="petUpdate-img">사진 변경</div>
+            </label>
+            <input
+              type="file"
+              id="petUpdate-img"
+              accept="image/*"
+              capture={"user"}
+              onChange={(e) => {
+                var file = e.target.files[0];
+                var formData = new FormData();
+                formData.append("photo", file);
+                fileUpload({ url: `/api/pet/${petContent.petId}/image`, data: formData }).then(
+                  (r) => {
+                    console.log(r)
+                    setPetContent((p) => ({ ...p, petImage: r.data.petImage }));
+                  }
+                );}}/>
+
+
               {/* 이름 */}
               <div className="pet-item-name">{petContent.petName}</div>
               <div className="pet-detail-wrap">

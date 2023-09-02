@@ -15,7 +15,7 @@ function PetInsert() {
 
   // 추가 수정부분
   const [petData, setPetData] = useState({
-    image: null,
+    petImage: "",
     petName: "",
     petAge: "",
     // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
@@ -154,19 +154,6 @@ function PetInsert() {
           }
         />
         <div id="pet_insert" className="petinsert-detail">
-          {/* <label>
-          반려동물 사진:
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label> */}
-          {/* 추후 수정 */}
-          {/* {petData.image && (
-          <img
-            className="pet_select_image"
-            src={URL.createObjectURL(petData.image)}
-            alt="반려동물 사진"
-            style={{ maxWidth: "300px", marginTop: "10px" }}
-          />
-        )} */}
 
           <div className="insert_title">이름</div>
           <div>

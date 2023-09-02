@@ -38,6 +38,21 @@
 }
 
 /* petDetail.js */
+#petUpdate-img{
+  display: none;
+}
+
+/* .petdetail-img:hover{
+
+} */
+
+.pet_select_image{
+
+  text-align: center;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
 
 .pet-item-image {
   display: flex;

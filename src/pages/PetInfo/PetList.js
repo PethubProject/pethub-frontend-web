@@ -52,7 +52,6 @@ function PetList() {
                             defaultImg={defaultImg}
                           />
                         </div>
-                        {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
                         <div className="petinfo-list-petName">{p.petName}</div>
                       </div>
                     </div>
