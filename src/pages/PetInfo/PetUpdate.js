@@ -77,7 +77,7 @@ function PetUpdate() {
 
   //   }));
   // }
-
+// 
   const handleImageChange = (e) => {
     var file = e.target.files[0];
     var formData = new FormData();

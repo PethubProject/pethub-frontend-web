@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import defaultImg from "../../resources/image/userDefault.png";
 import "./PetInfo.css";
-import ChangePetImage from "./ChangePetImage.js";
+
 
 function PetDetail() {
   const nav = useNavigate();
@@ -34,6 +34,7 @@ function PetDetail() {
     petIntroduction: "",
   });
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isHovered, setIsHovered] = useState(false);
 
   //1. 해당 유저의 펫이 아니더라도 현재 링크로 접속하면 접속이 가능함. 해결해야함. 물론 리스트에는 안나옴.
 
@@ -60,6 +61,33 @@ function PetDetail() {
     });
   }, []);
 
+  const handleHoverClick= ()=>{
+    const input = document.getElementById("petUpdate-img")
+    if(input){
+      input.click();
+    }
+}
+  const handleImageChange = useCallback((e)=>{
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("photo", file);
+    fileUpload({ url: `/api/pet/${petContent.petId}/image`, data: formData }).then(
+      (r) => {
+        console.log(r)
+        setPetContent((p) => ({ ...p, petImage: r.data.petImage }));
+      });
+    // getApi({ url: `/api/pet/${petContent.petId}` }).then((resp) => {
+    //   console.log(resp)
+    //   if (resp.data.data === undefined) {
+    //     alert("잘못된 접근입니다.");
+    //     nav(`/petinfo/`);
+    //     return;
+    //   }
+    //   setPetContent(resp.data.data);
+    // });
+  },[petContent])
+
   return (
     <LayoutUserExist>
       <div id="main">
@@ -70,6 +98,11 @@ function PetDetail() {
             <div className="petinfo-detail-content">
               {/* 이미지 */}
               <div className="pet-item-image">
+                <div
+                className="petInfoImg-container"
+                onMouseEnter={()=>setIsHovered(true)}
+                onMouseLeave={()=>setIsHovered(false)}
+                onClick={handleHoverClick}>
                 {
                   <ImgWrapper
                   className="petdetail-img"
@@ -80,27 +113,20 @@ function PetDetail() {
                     borderRadius="50%"
                     defaultImg={defaultImg}
                   />
+                  
                 }
+                {isHovered && (
+                  <div className="petInfoImg-hover-text">사진변경</div>
+                )}
               </div>
+            </div>
 
-              <label for="petUpdate-img">
-                <div className="petUpdate-img">사진 변경</div>
-            </label>
             <input
               type="file"
               id="petUpdate-img"
               accept="image/*"
               capture={"user"}
-              onChange={(e) => {
-                var file = e.target.files[0];
-                var formData = new FormData();
-                formData.append("photo", file);
-                fileUpload({ url: `/api/pet/${petContent.petId}/image`, data: formData }).then(
-                  (r) => {
-                    console.log(r)
-                    setPetContent((p) => ({ ...p, petImage: r.data.petImage }));
-                  }
-                );}}/>
+              onChange={handleImageChange}/>
 
 
               {/* 이름 */}
