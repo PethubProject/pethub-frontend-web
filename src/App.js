@@ -29,7 +29,7 @@ import PetUpdate from "./pages/PetInfo/PetUpdate";
 import SignIn from "./pages/Sign/SignIn";
 import SignUp from "./pages/Sign/SignUp";
 import TeleHealth from "./pages/TeleHealth/TeleHealth";
-import TeleHealthContent from "./pages/TeleHealth/TeleHealthContent";
+import TeleHealthContent from "./pages/TeleHealth/TeleHealthDetail";
 import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
 import UserInfo from "./pages/UserInfo/UserInfo";
 import VetInfoUpdate from "./pages/VetInfo/VetInfoUpdate";

@@ -108,7 +108,6 @@ function PetInsert() {
       return false;
     }
     postApi({ url: "/api/pet", data: petData }).then((resp) => {
-      console.log(resp);
       if (resp.status === 200) {
         nav(`/petinfo/detail?detailID=${resp.data.data.petId}`);
         // petData.petId(이걸로 하면 undefined(변수없음)이 뜸)가 아니라 resp.data.data.petId임
@@ -118,9 +117,9 @@ function PetInsert() {
         //   const formData = new FormData();
         //   formData.append("photo", petData.image);
         //   postApiWithFile({
-        //     url: `/api/pet/${resp.data.petId}/image`,
+        //     url: `/api/pet/${resp.data.data.petId}/image`,
         //     data: formData,
-        //   });
+        //   }).then(resp=>console.log(resp));
         // }
       }
     });

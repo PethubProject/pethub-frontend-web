@@ -27,20 +27,16 @@ export default function MenuList() {
             >
               <div>내 정보</div>
             </div>
-            {
-             user.role==="VET"&&
-             <div
-              className="list-item v-exp"
-              onClick={() => {
-                navigate(
-                  "/vet/info/update"
-             
-                );
-              }}
-            >
-              <div>수의사 정보</div>
-            </div>
-            }
+            {user.role === "VET" && (
+              <div
+                className="list-item v-exp"
+                onClick={() => {
+                  navigate("/telehealth/insert");
+                }}
+              >
+                <div>수의사 정보</div>
+              </div>
+            )}
           </>
         }
       />
