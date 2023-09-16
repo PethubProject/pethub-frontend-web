@@ -14,20 +14,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import defaultImg from "../../resources/image/userDefault.png";
 import "./PetInfo.css";
+import { UserState } from "../../state/User";
+import { useRecoilValue } from "recoil";
+import UserWrapper from "../../components/Wrapper/UserWrapper.js";
 
 
 function PetDetail() {
   const nav = useNavigate();
-  const { fileUpload } = useApiHooks();
-  const { getApi } = useApiHooks();
-  const { deleteApi } = useApiHooks();
+  const user = useRecoilValue(UserState);
+  console.log(user.role);
+  const { fileUpload,getApi,deleteApi } = useApiHooks();
   const [petContent, setPetContent] = useState({
     petId:"",
     petImage: "",
     petName: "",
     petAge: "",
-    // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
-    // animalGroup: "",
     petBreed: "",
     petGender: "",
     petWeight: "",
@@ -42,9 +43,14 @@ function PetDetail() {
     const petId = searchParams.get("detailID");
     getApi({ url: `/api/pet/${petId}` }).then((resp) => {
       console.log(resp)
+      if(user.role === "VET"){
+        alert("수의사는 사용 불가능한 기능입니다. 관리자에게 문의하십시오");
+        nav(`/`);
+        return;
+      }
       if (resp.data.data === undefined) {
         alert("잘못된 접근입니다.");
-        nav(`/petinfo/`);
+        nav(`/`);
         return;
       }
       setPetContent(resp.data.data);
@@ -75,21 +81,12 @@ function PetDetail() {
     fileUpload({ url: `/api/pet/${petContent.petId}/image`, data: formData }).then(
       (r) => {
         console.log(r)
-        setPetContent((p) => ({ ...p, petImage: r.data.petImage }));
+        setPetContent((p) => ({ ...p, petImage: r.data.img }));
       });
-    // getApi({ url: `/api/pet/${petContent.petId}` }).then((resp) => {
-    //   console.log(resp)
-    //   if (resp.data.data === undefined) {
-    //     alert("잘못된 접근입니다.");
-    //     nav(`/petinfo/`);
-    //     return;
-    //   }
-    //   setPetContent(resp.data.data);
-    // });
   },[petContent])
 
   return (
-    <LayoutUserExist>
+    <UserWrapper>
       <div id="main">
         <BoardHeader title="내 반려동물 상세정보 페이지" />
         <div id="petinfo-detail" className="content flex-column">
@@ -106,7 +103,7 @@ function PetDetail() {
                 {
                   <ImgWrapper
                   className="petdetail-img"
-                    src={process.env.REACT_APP_API_URL + petContent.petImage}
+                  src={process.env.REACT_APP_API_URL + petContent.petImage}
                     alt={"내 펫 이미지"}
                     width="100px"
                     height="100px"
@@ -183,7 +180,8 @@ function PetDetail() {
         </div>
         <BottomTabNavigation />
       </div>
-    </LayoutUserExist>
+    </UserWrapper>
+    
   );
 }
 
