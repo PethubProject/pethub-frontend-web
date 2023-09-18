@@ -31,6 +31,7 @@ import SignUp from "./pages/Sign/SignUp";
 import TeleHealth from "./pages/TeleHealth/TeleHealth";
 import TeleHealthContent from "./pages/TeleHealth/TeleHealthDetail";
 import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
+import TeleHealthReview from "./pages/TeleHealth/TeleHealthReview";
 import UserInfo from "./pages/UserInfo/UserInfo";
 import VetInfoUpdate from "./pages/VetInfo/VetInfoUpdate";
 import LayoutVetExist from "./components/Layout/LayoutVetExist";
@@ -60,7 +61,10 @@ function App() {
           <Route path="/telehealth" element={<TeleHealth />} />
           <Route path="/telehealth/insert" element={<TeleHealthInsert />} />
           <Route path="/telehealth/content" element={<TeleHealthContent />} />
-
+          <Route
+            path="/telehealth/content/review"
+            element={<TeleHealthReview />}
+          />
           {/* more */}
           <Route path="/more" element={<More />} />
 
@@ -75,8 +79,14 @@ function App() {
           <Route path="/counselboard/content" element={<CounselContent />} />
           <Route path="/counselboard/insert" element={<CounselInsert />} />
           <Route path="/counselboard/update" element={<CounselUpdate />} />
-          <Route path="/counselboard/answer/insert" element={<CounselAnswerInsert />} />
-          <Route path="/counselboard/answer/update" element={<CounselAnswerUpdate />} />
+          <Route
+            path="/counselboard/answer/insert"
+            element={<CounselAnswerInsert />}
+          />
+          <Route
+            path="/counselboard/answer/update"
+            element={<CounselAnswerUpdate />}
+          />
 
           {/* PetInfo */}
           <Route path="/petinfo" element={<PetList />} />

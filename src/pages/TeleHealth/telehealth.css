@@ -7,6 +7,9 @@
   padding: 10px;
 }
 
+.ant-card-head-title {
+  font-size: 30px;
+}
 .insert-title {
   font-weight: bold;
   font-size: 15px;

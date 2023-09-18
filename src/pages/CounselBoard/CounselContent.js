@@ -12,7 +12,7 @@ import VetWrapper from "../../components/Wrapper/VetWrapper";
 import { UserState } from "../../state/User";
 import CounselCommentBootom from "./CounselCommentBottom";
 export default function CounselContent() {
-  const { getApi,deleteApi } = useApiHooks();
+  const { getApi, deleteApi } = useApiHooks();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [content, setContent] = useState({});
@@ -28,7 +28,7 @@ export default function CounselContent() {
   const getData = (postId) => {
     getApi({ url: `/api/post/${postId}` }).then((resp) => {
       if (resp.data == null) {
-        navigate(-1)
+        navigate(-1);
         return;
       }
       setContent(resp.data);
@@ -36,13 +36,29 @@ export default function CounselContent() {
   };
   return (
     <div id="main">
-      <BoardHeader title={<div>상담게시판</div>} right={<Right content={content} onDelete={()=>{setDeleteModal(true)}}/>} />
+      <BoardHeader
+        title={<div>상담게시판</div>}
+        right={
+          <Right
+            content={content}
+            onDelete={() => {
+              setDeleteModal(true);
+            }}
+          />
+        }
+      />
       <div className="content scroll-hide">
         <div id="board-info">
           <div className="info-title">{content.title}</div>
           <div className="info-reg">
-            <div className="info-reg-user">{contains(content, "ownerInfo") && contains(content.ownerInfo, "nickname") && content.ownerInfo.nickname}</div>
-            <div className="info-reg-dt">{dateToDiffStr(new Date(), new Date(content.createdAt))}</div>
+            <div className="info-reg-user">
+              {contains(content, "ownerInfo") &&
+                contains(content.ownerInfo, "nickname") &&
+                content.ownerInfo.nickname}
+            </div>
+            <div className="info-reg-dt">
+              {dateToDiffStr(new Date(), new Date(content.createdAt))}
+            </div>
           </div>
         </div>
         <div id="board-desc">
@@ -76,8 +92,12 @@ export default function CounselContent() {
 
                       {!isEmpty(vetInfo) && (
                         <div className="comment-reg">
-                          <span className="comment-reg-user">{vetInfo.name}</span>
-                          <span className="comment-reg-dt">{dateToDiffStr(new Date(), new Date(d.createdAt))}</span>
+                          <span className="comment-reg-user">
+                            {vetInfo.name}
+                          </span>
+                          <span className="comment-reg-dt">
+                            {dateToDiffStr(new Date(), new Date(d.createdAt))}
+                          </span>
                           {vetInfo.vetId === user.info.vetId && (
                             <div className="comment-btn">
                               {updateTarget !== i && (
@@ -102,26 +122,38 @@ export default function CounselContent() {
           </>
         )}
       </div>
-      <VetWrapper isVet={<CounselCommentBootom postId={content.postId} setContent={setContent} />} noVet={<BottomTabNavigation />} />
+      <VetWrapper
+        isVet={
+          <CounselCommentBootom
+            postId={content.postId}
+            setContent={setContent}
+          />
+        }
+        noVet={<BottomTabNavigation />}
+      />
+      
       <YesOrNoModal
         modalIsOpen={deleteModal}
         close={() => {
           setDeleteModal(false);
         }}
         confirm={() => {
-          deleteApi({url:`/api/post/${postId}`}).then((resp) => {
-            if(resp.status===200){
-              navigate(-1)
+          deleteApi({ url: `/api/post/${postId}` }).then((resp) => {
+            if (resp.status === 200) {
+              navigate(-1);
             }
           });
         }}
-      >게시물을 삭제 하시겠습니까?</YesOrNoModal>
+      >
+        게시물을 삭제 하시겠습니까?
+      </YesOrNoModal>
     </div>
   );
 }
 function UpdateComment({ value, postId, commentId, ok }) {
   const [update, setUpdate] = useState(value);
   const { putApi } = useApiHooks();
+
   return (
     <div className="board-comment-update">
       <input
@@ -145,16 +177,26 @@ function UpdateComment({ value, postId, commentId, ok }) {
     </div>
   );
 }
-function Right({ content,onDelete }) {
+function Right({ content, onDelete }) {
   const navigate = useNavigate();
   const user = useRecoilValue(UserState);
- 
-  
+
   return (
     <>
-      {contains(content, "ownerInfo") && contains(content.ownerInfo, "userId") && user.userId === content.ownerInfo.userId ? (
+      {contains(content, "ownerInfo") &&
+      contains(content.ownerInfo, "userId") &&
+      user.userId === content.ownerInfo.userId ? (
         <EllipsisVertical>
-          <button className="btn btn-update" onClick={() => navigate(`/counselboard/update?contentId=${content.postId && content.postId}`)}>
+          <button
+            className="btn btn-update"
+            onClick={() =>
+              navigate(
+                `/counselboard/update?contentId=${
+                  content.postId && content.postId
+                }`
+              )
+            }
+          >
             수정
           </button>
           <button className="btn btn-delete" onClick={onDelete}>
@@ -164,7 +206,6 @@ function Right({ content,onDelete }) {
       ) : (
         <div className="btn-ellipsis"></div>
       )}
-
     </>
   );
 }
