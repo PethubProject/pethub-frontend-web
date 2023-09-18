@@ -16,7 +16,6 @@ import defaultImg from "../../resources/image/userDefault.png";
 import "./PetInfo.css";
 import { UserState } from "../../state/User";
 import { useRecoilValue } from "recoil";
-import UserWrapper from "../../components/Wrapper/UserWrapper.js";
 
 
 function PetDetail() {
@@ -86,7 +85,8 @@ function PetDetail() {
   },[petContent])
 
   return (
-    <UserWrapper>
+    <LayoutUserExist>
+      {user.role === "OWNER" &&
       <div id="main">
         <BoardHeader title="내 반려동물 상세정보 페이지" />
         <div id="petinfo-detail" className="content flex-column">
@@ -180,7 +180,8 @@ function PetDetail() {
         </div>
         <BottomTabNavigation />
       </div>
-    </UserWrapper>
+}
+    </LayoutUserExist>
     
   );
 }
