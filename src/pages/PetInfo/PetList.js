@@ -8,7 +8,7 @@ import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
 import useApiHooks from "../../api/BaseApi.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import { isEmpty } from "../../components/Utils/Utils.js";
-import "./PetInfo.css"
+import "./PetInfo.css";
 
 function PetList() {
   const nav = useNavigate();
@@ -35,35 +35,26 @@ function PetList() {
                 petList.map((p) => {
                   console.log(p);
                   return (
-                    <div
-                    key={p.petId}
-                    className="petinfo-list-item">
-                      <div   
+                    <div key={p.petId} className="petinfo-list-item">
+                      <div
                         className="petinfo-list-toDetail"
                         onClick={() => {
                           nav(`/petinfo/detail?detailID=${p.petId}`);
                         }}
                       >
-                        
                         <div className="petinfo-list-petImage">
                           <ImgWrapper
                             src={process.env.REACT_APP_API_URL + p.petImage}
                             alt={"내 펫 이미지"}
-                            width="30px"
-                            height="30px"
+                            width="50%"
+                            height="50%"
                             borderRadius="50%"
                             defaultImg={defaultImg}
                           />
-
                         </div>
-                        {/*1. 펫 이름이 이미지 우측에 위치하도록 스타일링 */}
-                        <div
-                          className="petinfo-list-petName"
-                        >
-                          {p.petName}
-                        </div>
+                        <div className="petinfo-list-petName">{p.petName}</div>
                       </div>
-                      </div>
+                    </div>
                   );
                 })}
             </div>

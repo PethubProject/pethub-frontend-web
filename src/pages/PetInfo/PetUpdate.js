@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback,  } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import BtnFloat from "../../components/Button/BtnFloat.js";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom.js";
@@ -17,13 +17,12 @@ function PetUpdate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { getApi, putApi } = useApiHooks();
+  const { fileUpload } = useApiHooks();
   const [petData, setPetData] = useState({
     petId: "",
-    image: null,
+    petImage: "",
     petName: "",
     petAge: "",
-    // 추가돼야하는 코드
-    // animalGroup: "",
     petBreed: "",
     petGender: "",
     petWeight: "",
@@ -61,21 +60,43 @@ function PetUpdate() {
       ...prev,
       petGender: event.target.value,
     }));
+  const MAX_LENGTH = 100;
+  const onInputHandler = (e) => {
+    if (e.target.value.length > MAX_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_LENGTH);
+    }
+  };
 
   // 1. 이미지 추가시킬 준비
 
-  // const handleImageChange = (event) =>
+  // const handleImageChange = (event) =>{
+
   //   setPetData((prev) => ({
   //     ...prev,
-  //     image: event.target.files[0],
+  //     petImage: event.target.files[0],
+
   //   }));
+  // }
+// 
+  const handleImageChange = (e) => {
+    var file = e.target.files[0];
+    var formData = new FormData();
+    formData.append("photo", file);
+    fileUpload({ url: `/api/pet/${petData.petId}/image`, data: formData }).then(
+      (r) => {
+        console.log(r)
+        setPetData((p) => ({ ...p, petImage: r.data.petImage }));
+      }
+    );
+  }
+
+
 
   const onFormChange = useCallback((e) => {
     const { name, value } = e.target;
     setPetData((p) => ({ ...p, [name]: value }));
   }, []);
 
-  // 내용이 다 차있는데 포커스가 잡힘. 이유가 뭐지?
   const onUpdate = useCallback(() => {
     var ok = true;
     Object.keys(petData).map((k) => {
@@ -131,20 +152,51 @@ function PetUpdate() {
             </div>
           }
         />
-        <form id="pet_update" className="petupdate-detail">
-          {/* <label>
+        <div id="pet_update" className="petupdate-detail">
+          <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label> */}
-          {/* 추후 수정 */}
-          {/* {petData.image && (
+        </label>
+          
+          {/* {petData.petImage && (
           <img
             className="pet_select_image"
-            src={URL.createObjectURL(petData.image)}
+            src={URL.createObjectURL(petData.petImage)}
             alt="반려동물 사진"
-            style={{ maxWidth: "300px", marginTop: "10px" }}
           />
         )} */}
+
+
+        {/* <label>
+          반려동물 사진:
+          <input
+        type="file"
+        className="petUpdate-img"
+        accept="image/*"
+        capture={"user"}
+        onChange={(e) => {
+          var file = e.target.files[0];
+          var formData = new FormData();
+          formData.append("photo", file);
+          fileUpload({ url: `/api/pet/${petData.petId}/image`, data: formData }).then(
+            (r) => {
+              console.log(r)
+              setPetData((p) => ({ ...p, petImage: r.data.petImage }));
+            }
+          );
+          
+        }}
+      />
+        </label> */}
+
+        {/* {petData.petImage && (
+          <img
+            className="pet_select_image"
+            src={URL.createObjectURL(petData.petImage)}
+            alt="반려동물 사진"
+          />
+        )} */}
+
 
           <div className="insert_title">이름</div>
           <div>
@@ -260,14 +312,21 @@ function PetUpdate() {
 
           <div className="insert_title">소개</div>
           <div>
-            <input
-              className="petData-input"
+            <div className="textarea-counter">
+              {petData.petIntroduction.length} / {MAX_LENGTH}자
+            </div>
+            <textarea
+              type="text"
+              placeholder="소개글을 작성하세요."
+              maxLength={MAX_LENGTH}
+              className="intro-area"
               name="petIntroduction"
+              onInput={onInputHandler}
               value={petData.petIntroduction}
               onChange={onFormChange}
             />
           </div>
-        </form>
+        </div>
       </div>
     </LayoutUserExist>
   );

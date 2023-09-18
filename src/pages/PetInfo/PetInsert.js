@@ -15,7 +15,7 @@ function PetInsert() {
 
   // 추가 수정부분
   const [petData, setPetData] = useState({
-    image: null,
+    petImage: "",
     petName: "",
     petAge: "",
     // 강아지 이외(ex) 고양이 등)을 추가하면 추가돼야하는 코드
@@ -37,6 +37,13 @@ function PetInsert() {
       ...prev,
       petGender: event.target.value,
     }));
+
+  const MAX_LENGTH = 100;
+  const onInputHandler = (e) => {
+    if (e.target.value.length > MAX_LENGTH) {
+      e.target.value = e.target.value.slice(0, MAX_LENGTH);
+    }
+  };
 
   // 1. 이미지 추가
 
@@ -101,7 +108,6 @@ function PetInsert() {
       return false;
     }
     postApi({ url: "/api/pet", data: petData }).then((resp) => {
-      console.log(resp);
       if (resp.status === 200) {
         nav(`/petinfo/detail?detailID=${resp.data.data.petId}`);
         // petData.petId(이걸로 하면 undefined(변수없음)이 뜸)가 아니라 resp.data.data.petId임
@@ -111,9 +117,9 @@ function PetInsert() {
         //   const formData = new FormData();
         //   formData.append("photo", petData.image);
         //   postApiWithFile({
-        //     url: `/api/pet/${resp.data.petId}/image`,
+        //     url: `/api/pet/${resp.data.data.petId}/image`,
         //     data: formData,
-        //   });
+        //   }).then(resp=>console.log(resp));
         // }
       }
     });
@@ -142,26 +148,11 @@ function PetInsert() {
           title="내 반려동물 정보 등록 페이지"
           right={
             <div className="btn-wrapper">
-
-
               <BtnRegister onClick={onRegist} />
             </div>
           }
         />
-        <form id="pet_insert" className="pet_detail">
-          {/* <label>
-          반려동물 사진:
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label> */}
-          {/* 추후 수정 */}
-          {/* {petData.image && (
-          <img
-            className="pet_select_image"
-            src={URL.createObjectURL(petData.image)}
-            alt="반려동물 사진"
-            style={{ maxWidth: "300px", marginTop: "10px" }}
-          />
-        )} */}
+        <div id="pet_insert" className="petinsert-detail">
 
           <div className="insert_title">이름</div>
           <div>
@@ -216,7 +207,11 @@ function PetInsert() {
         </label> */}
           <div className="insert_title">품종</div>
           <div>
-            <select className="petData-input" name="petBreed" onChange={handleBreedChange}>
+            <select
+              className="petData-input"
+              name="petBreed"
+              onChange={handleBreedChange}
+            >
               <option value="" selected hidden>
                 선택하시오
               </option>
@@ -271,14 +266,21 @@ function PetInsert() {
 
           <div className="insert_title">소개</div>
           <div>
-            <input
-              className="petData-input"
+            <div className="textarea-counter">
+              {petData.petIntroduction.length} / {MAX_LENGTH}자
+            </div>
+            <textarea
+              type="text"
+              placeholder="소개글을 작성하세요."
+              maxLength={MAX_LENGTH}
+              className="intro-area"
               name="petIntroduction"
+              onInput={onInputHandler}
               value={petData.petIntroduction}
               onChange={onFormChange}
             />
           </div>
-        </form>
+        </div>
       </div>
     </LayoutUserExist>
   );
