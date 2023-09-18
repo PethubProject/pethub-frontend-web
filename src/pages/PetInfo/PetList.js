@@ -74,13 +74,12 @@ function PetList() {
                   );
                 })}
             </div>
-          
+          </div>
           <BtnFloat
             onClick={() => {
               nav("/petinfo/insert");
             }}
           />
-          </div>
         </div>
         <BottomTabNavigation />
       </div>
