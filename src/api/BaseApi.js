@@ -39,6 +39,7 @@ api.interceptors.response.use(
   },
   async function (error) {
     loading.off();
+    console.log(error)
     if (error.response.status === 401) {
     }
     return Promise.reject(error);
@@ -60,6 +61,8 @@ const useApiHooks = () => {
       if (err.code === "ERR_NETWORK") {
         throw err;
       } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }else if (err.code === "ERR_INCOMPLETE_CHUNKED_ENCODING") {
         throw err;
       }
       if (err.response.status === 401) {
@@ -87,6 +90,8 @@ const useApiHooks = () => {
         throw err;
       } else if (err.code === "ERR_CONNECTION_REFUSED") {
         throw err;
+      }else if (err.code === "ERR_INCOMPLETE_CHUNKED_ENCODING") {
+        throw err;
       }
       if (err.response.status === 401) {
         userReset();
@@ -109,6 +114,8 @@ const useApiHooks = () => {
         throw err;
       } else if (err.code === "ERR_CONNECTION_REFUSED") {
         throw err;
+      }else if (err.code === "ERR_INCOMPLETE_CHUNKED_ENCODING") {
+        throw err;
       }
       if (err.response.status === 401) {
         userReset();
@@ -124,6 +131,7 @@ const useApiHooks = () => {
       result = await api.get(url, {
         params: data,
       });
+    
       if (result.status === 401) {
         userReset();
         navigate("/");
@@ -133,7 +141,10 @@ const useApiHooks = () => {
         throw err;
       } else if (err.code === "ERR_CONNECTION_REFUSED") {
         throw err;
+      }else if (err.code === "ERR_INCOMPLETE_CHUNKED_ENCODING") {
+        throw err;
       }
+
       if (err.response.status === 401) {
         userReset();
         navigate("/");
@@ -156,6 +167,8 @@ const useApiHooks = () => {
       if (err.code === "ERR_NETWORK") {
         throw err;
       } else if (err.code === "ERR_CONNECTION_REFUSED") {
+        throw err;
+      }else if (err.code === "ERR_INCOMPLETE_CHUNKED_ENCODING") {
         throw err;
       }
       if (err.response.status === 401) {

@@ -24,6 +24,7 @@ export default function CounselList() {
     if (user.loading && !isEmpty(user.email)) {
       const url = user.role === "OWNER" ? `/api/post/posts/${user.userId}/${currentPage}` : `/api/post/posts/${currentPage}`;
       getApi({ url: url }).then((resp) => {
+        console.log(resp);
         if (resp.status !== 200) return false;
         let data = {};
         if (contains(resp.data, "content")) {
