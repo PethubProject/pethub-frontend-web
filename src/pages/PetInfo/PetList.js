@@ -41,6 +41,7 @@ function PetList() {
 
   return (
     <LayoutUserExist>
+      {user.role === "OWNER" &&
       <div id="main">
         <BoardHeader title="펫 리스트" />
         <div id="petinfo-board" className="content">
@@ -83,6 +84,7 @@ function PetList() {
         </div>
         <BottomTabNavigation />
       </div>
+}
     </LayoutUserExist>
   );
 }

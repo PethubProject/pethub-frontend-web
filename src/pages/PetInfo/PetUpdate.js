@@ -16,6 +16,7 @@ function PetUpdate() {
   // const user = useRecoilValue(UserState);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const user = useRecoilValue(UserState);
   const { getApi, putApi } = useApiHooks();
   const { fileUpload } = useApiHooks();
   const [petData, setPetData] = useState({
@@ -35,6 +36,11 @@ function PetUpdate() {
       if (resp.status !== 200) {
         alert("서버 통신 실패");
         navigate("/petinfo");
+      }
+      if(user.role === "VET"){
+        alert("수의사는 사용 불가능한 기능입니다. 관리자에게 문의하십시오");
+        navigate(`/`);
+        return;
       }
       const { data } = resp;
       if (data == null) {
@@ -131,6 +137,7 @@ function PetUpdate() {
 
   return (
     <LayoutUserExist>
+      {user.role === "OWNER" &&
       <div id="main">
         <BoardHeader
           title="내 반려동물 정보 수정 페이지"
@@ -328,6 +335,7 @@ function PetUpdate() {
           </div>
         </div>
       </div>
+}
     </LayoutUserExist>
   );
 }
