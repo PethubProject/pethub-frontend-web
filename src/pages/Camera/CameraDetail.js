@@ -9,7 +9,15 @@ export default function CameraDetail() {
   const [predictResult, setPredictResult] = useState({});
   const [imgSrc, setImgSrc] = useState("");
   useEffect(() => {
-    setPredictResult(location.state.data["클래스별_예측도"]);
+    var pd = location.state.data["클래스별_예측도"];
+
+    // 수정 예정
+    if(Array.isArray(pd)){
+      setPredictResult({"미식별":1});
+    }else{
+      setPredictResult(location.state.data["클래스별_예측도"]);
+    }
+
     setImgSrc(location.state.imageSrc);
   }, []);
   return (

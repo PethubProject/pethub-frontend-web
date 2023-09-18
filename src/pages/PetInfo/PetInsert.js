@@ -8,9 +8,12 @@ import { isEmpty } from "../../components/Utils/Utils";
 import useApiHooks from "../../api/BaseApi";
 import BtnRegister from "../../components/Button/BtnRegister";
 import LayoutUserExist from "../../components/Layout/LayoutUserExist.js";
+import { useRecoilValue } from "recoil";
+import { UserState } from "../../state/User";
 
 function PetInsert() {
   const nav = useNavigate();
+  const user = useRecoilValue(UserState);
   const { postApi, postApiWithFile } = useApiHooks();
 
   // 추가 수정부분
@@ -37,6 +40,11 @@ function PetInsert() {
       ...prev,
       petGender: event.target.value,
     }));
+
+    const handleAlertClicked = ()=>
+    {
+      nav(`/`);
+    }
 
   const MAX_LENGTH = 100;
   const onInputHandler = (e) => {
@@ -108,6 +116,12 @@ function PetInsert() {
       return false;
     }
     postApi({ url: "/api/pet", data: petData }).then((resp) => {
+      if(user.role === "VET"){
+        alert("수의사는 사용 불가능한 기능입니다. 관리자에게 문의하십시오")
+        nav(`/`);
+        return;
+      }
+  
       if (resp.status === 200) {
         nav(`/petinfo/detail?detailID=${resp.data.data.petId}`);
         // petData.petId(이걸로 하면 undefined(변수없음)이 뜸)가 아니라 resp.data.data.petId임
@@ -143,6 +157,7 @@ function PetInsert() {
 
   return (
     <LayoutUserExist>
+      {user.role === "OWNER" &&
       <div id="main">
         <BoardHeader
           title="내 반려동물 정보 등록 페이지"
@@ -282,6 +297,17 @@ function PetInsert() {
           </div>
         </div>
       </div>
+}
+{user.role === "VET" &&
+<div>
+ <div>
+  '수의사는 사용할 수 없는 기능입니다. 관리자에게 문의하십시오.'
+</div>
+<div onClick={handleAlertClicked}>
+  홈으로
+</div>
+</div>
+}
     </LayoutUserExist>
   );
 }

@@ -34,6 +34,8 @@ import TeleHealthInsert from "./pages/TeleHealth/TeleHealthInsert";
 import TeleHealthReview from "./pages/TeleHealth/TeleHealthReview";
 import UserInfo from "./pages/UserInfo/UserInfo";
 import VetInfoUpdate from "./pages/VetInfo/VetInfoUpdate";
+import LayoutVetExist from "./components/Layout/LayoutVetExist";
+import LayoutUserExist from "./components/Layout/LayoutUserExist";
 
 function App() {
   let RouterWrap = BrowserRouter;
@@ -105,7 +107,6 @@ function App() {
           </Route>
 
           {/* Test */}
-
           <Route>
             <Route path="example" index element={<Example />} />
             <Route path="example/kakaoaddress" element={<KakaoAddress />} />
