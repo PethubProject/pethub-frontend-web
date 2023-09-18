@@ -59,9 +59,10 @@ export default function TeleHealthReview({ setContent }) {
   return (
     <div
       id="main"
-      style={{ display: "flex", justifyContent: "center", gap: "32px" }}
+      // style={{ display: "flex", justifyContent: "center", gap: "32px" }}
     >
       <BoardHeader title="리뷰 목록" />
+      <div className="content">
       {reviewList.map((d, i) => {
         const { content, rating } = d;
 
@@ -82,8 +83,9 @@ export default function TeleHealthReview({ setContent }) {
           </div>
         );
       })}
+      </div>
       <TeleHealthReviewInput setContent={setContent} />
-      <BottomTabNavigation />
+      {/* <BottomTabNavigation /> */}
     </div>
   );
 }

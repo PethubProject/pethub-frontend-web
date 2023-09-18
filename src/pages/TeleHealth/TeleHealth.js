@@ -21,7 +21,6 @@ export default function TeleHealth() {
   useEffect(() => {
     const data_load = async () => {
       var resp = await getApi({ url: "/api/vet/vets/0" });
-      console.log(resp);
       if (resp.data.content.length > 0) {
         setVets(resp.data.content);
       }
