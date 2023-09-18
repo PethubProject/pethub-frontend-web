@@ -153,10 +153,10 @@ function PetUpdate() {
           }
         />
         <div id="pet_update" className="petupdate-detail">
-          <label>
+          {/* <label>
           반려동물 사진:
           <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label>
+        </label> */}
           
           {/* {petData.petImage && (
           <img

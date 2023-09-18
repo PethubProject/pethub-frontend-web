@@ -9,18 +9,33 @@ import useApiHooks from "../../api/BaseApi.js";
 import ImgWrapper from "../../components/Wrapper/ImgWrapper.js";
 import { isEmpty } from "../../components/Utils/Utils.js";
 import "./PetInfo.css";
+import { UserState } from "../../state/User";
+import { useRecoilValue } from "recoil";
 
 function PetList() {
   const nav = useNavigate();
+  const user = useRecoilValue(UserState);
+  console.log(user.role);
   const { getApi } = useApiHooks();
   const [petList, setPetList] = useState([]);
 
   useEffect(() => {
     getApi({ url: `/api/pet` }).then((resp) => {
+      if(user.role === "VET"){
+        alert("수의사는 사용 불가능한 기능입니다. 관리자에게 문의하십시오");
+        nav(`/`);
+        return;
+      }
       if (resp.status === 200) {
         console.log(resp.data.data);
         setPetList(resp.data.data);
       }
+      if (resp.data.data === undefined) {
+        alert("잘못된 접근입니다.");
+        nav(`/`);
+        return;
+      }
+
     });
   }, []);
 
@@ -29,7 +44,7 @@ function PetList() {
       <div id="main">
         <BoardHeader title="펫 리스트" />
         <div id="petinfo-board" className="content">
-          <div>
+          <div className="content flex-column">
             <div className="petinfo-list-wrap">
               {!isEmpty(petList) > 0 &&
                 petList.map((p) => {
@@ -58,12 +73,13 @@ function PetList() {
                   );
                 })}
             </div>
-          </div>
+          
           <BtnFloat
             onClick={() => {
               nav("/petinfo/insert");
             }}
           />
+          </div>
         </div>
         <BottomTabNavigation />
       </div>
