@@ -9,48 +9,90 @@ import KakaoMapByAddress from "../../components/kakao/map/KakaoMapByAddress";
 import InputAddress from "../../components/Input/InputAddress";
 import InputText from "../../components/Input/InputText";
 import "./telehealth.css";
-
+import { UserState } from "../../state/User";
+import { useRecoilValue } from "recoil";
 export default function TeleHealthInsert() {
   const nav = useNavigate();
-  const { postApi, postApiWithFile } = useApiHooks();
-
+  const { putApi, putApiWithFile } = useApiHooks();
+  const { getApi } = useApiHooks();
   // 추가 수정부분
   const [vetData, setVetData] = useState({
     vetImage: null,
     name: "",
+    hosName: "",
     introduction: "",
     address: "",
     openHour: "",
     closeHour: "",
-    // openHour / closeHour 
+
+    // openHour / closeHour
   });
+  const user = useRecoilValue(UserState);
 
-  useEffect(() => {
-    //  수의사 정보 받아오기
-    /**
-     * vetId or userId
-     * getApi  받아와서 setVetData(상태)
-     * 
-     */
-  }, [])
-
-  const [career, setCareer] = useState("");
+  const [careerInput, setCareerInput] = useState("");
   const [careers, setCareers] = useState([]);
 
   const [addressData, setAddressData] = useState({});
   const [name, setName] = useState("");
 
-  const onFormChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setVetData((preventData) => ({ ...preventData, [name]: value }));
+  const onFormChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setVetData((preventData) => ({ ...preventData, [name]: value }));
+    },
+    [careers, careerInput]
+  );
+
+  useEffect(() => {
+    getApi({ url: `api/vet/${user.userId}` }).then((resp) => {
+      if (resp.data.data) {
+        setVetData((preventData) => ({
+          ...preventData,
+          ["vetImage"]: resp.data.data.vetImage,
+          ["hosName"]: resp.data.data.hosName,
+          ["introduction"]: resp.data.data.introduction,
+          ["address"]: resp.data.data.address,
+          ["openHour"]: resp.data.data.openHour,
+          ["closeHour"]: resp.data.data.closeHour,
+        }));
+        const temp = resp.data.data.career.split("\n");
+        temp.shift();
+        setCareers(temp);
+      }
+    });
   }, []);
+  //기존 정보 불러오기
+  //현재 주소는 안불러와짐
+
+  useEffect(() => {
+    setVetData((preventData) => ({
+      ...preventData,
+      ["career"]: "\n" + careers.join("\n"),
+    }));
+  }, [careers]);
+
+  useEffect(() => {
+    setVetData((preventData) => ({
+      ...preventData,
+      ["address"]: addressData.roadAddress,
+    }));
+  }, [addressData]);
+
+  useEffect(() => {
+    console.log(name);
+    setName(vetData.address);
+    console.log(name);
+  }, [name]);
 
   const onCareerChange = (e) => {
-    setCareer(e.target.value);
+    setCareerInput(e.target.value);
   };
 
   const onCareerSubmit = (e) => {
-    setCareers((preventData) => [...preventData, e.target.value]);
+    e.preventDefault();
+    setCareers((preventData) => [...preventData, careerInput]);
+
+    setCareerInput("");
   };
 
   const onDelete = (e, i) => {
@@ -60,13 +102,13 @@ export default function TeleHealthInsert() {
   };
 
   const onRegist = useCallback(() => {
-    setVetData((preventData) => ({ ...preventData, ["careers"]: careers }));
-
+    console.log(vetData);
     var ok = true;
     Object.keys(vetData).map((k) => {
       const v = vetData[k];
       if (isEmpty(v)) {
         const target = document.querySelector(`[name="${k}"]`);
+
         if (!isEmpty(target)) {
           target.focus();
           ok = false;
@@ -77,15 +119,16 @@ export default function TeleHealthInsert() {
     if (!ok) {
       return false;
     }
+
     // const vetData.clinicHour = vetData.openHour + vetData.closeHour
-    postApi({ url: "/api/vet", data: vetData }).then((resp) => {
+    putApi({ url: "/api/vet", data: vetData }).then((resp) => {
       console.log(resp);
       if (resp.status === 200) {
       }
     });
 
     console.log(vetData);
-  }, [vetData]);
+  }, [vetData, careerInput, careers]);
 
   return (
     <div id="main">
@@ -104,15 +147,21 @@ export default function TeleHealthInsert() {
         <form id="vet_insert" className="vet_detail">
           <div>
             <div className="insert-title">병원 이름</div>
-            <div style={{width:"100%",display:"flex",justifyContent:"center",marginTop:"16px"}}>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "16px",
+              }}
+            >
               <input
                 className="vetData-input"
                 type="text"
                 placeholder="이름"
-                name="name"
-                value={vetData.name}
+                name="hosName"
+                value={vetData.hosName}
                 onChange={onFormChange}
-
               />
             </div>
           </div>
@@ -124,11 +173,21 @@ export default function TeleHealthInsert() {
               name="introduction"
               placeholder="수의사소개"
               type="text"
+              value={vetData.introduction}
               onChange={onFormChange}
             />
           </div>
-          <div style={{width:"100%",display:"flex",justifyContent:"center",gap:"32px"}}> 
-            <div  style={{display:"flex",justifyContent:"center",gap:"32px"}}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              gap: "32px",
+            }}
+          >
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "32px" }}
+            >
               <div className="insert-title">여는 시간</div>
               <input
                 className="vetData_openHour"
@@ -139,7 +198,9 @@ export default function TeleHealthInsert() {
                 onChange={onFormChange}
               />
             </div>
-            <div style={{display:"flex",justifyContent:"center",gap:"32px"}}>
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "32px" }}
+            >
               <div className="insert-title">닫는 시간</div>
               <input
                 className="vetData_closeHour"
@@ -172,6 +233,8 @@ export default function TeleHealthInsert() {
                     X
                   </button>
                 </>
+
+                // 엔터누르면 삭제되는 것은 포커싱 문제 같은데 추후 해결해보자.
               ))}
             </ul>
             <input
@@ -179,11 +242,11 @@ export default function TeleHealthInsert() {
               type="text"
               placeholder="경력"
               name="career"
-              value={career}
+              value={careerInput}
               onChange={onCareerChange}
-              onKeyUp={e=>{
-                if(e.key ==="Enter"){
-                  onCareerSubmit(e)
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  onCareerSubmit(e);
                 }
               }}
             />

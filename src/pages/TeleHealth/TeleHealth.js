@@ -79,14 +79,16 @@ export default function TeleHealth() {
                     <div className="p0">
                       <ImgWrapper
                         src={process.env.REACT_APP_API_URL + v.vetImage}
-                        width={"40px"}
-                        height={"40px"}
+                        width={"100px"}
+                        height={"100px"}
                       />
                     </div>
 
                     <div className="chat-content">
-                      <div>{v.name}</div>
-                      <div>{v.rating}</div>
+                      <div>{v.name + " 의사"}</div>
+                      <div>{"병원이름"}</div>
+                      <div>{"진료시간"}</div>
+                      <div>{"리뷰점수 " + v.rating}</div>
                     </div>
                   </div>
                 );

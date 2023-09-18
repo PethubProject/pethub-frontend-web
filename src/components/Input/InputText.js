@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import "./input.css";
-export default function InputText({ state = () => {}, onEnter = () => {}, placeholder, label }) {
+export default function InputText({
+  state = () => {},
+  onEnter = () => {},
+  placeholder,
+  label,
+}) {
   const [focusClass, setFocusClass] = useState("");
   const [text, setText] = useState("");
 
