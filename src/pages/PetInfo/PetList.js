@@ -44,8 +44,8 @@ function PetList() {
       {user.role === "OWNER" &&
       <div id="main">
         <BoardHeader title="펫 리스트" />
-        <div id="petinfo-board" className="content">
-          <div className="content flex-column">
+        <div id="petinfo-board" className="content flex-column">
+          <div className="content scoll-hide">
             <div className="petinfo-list-wrap">
               {!isEmpty(petList) > 0 &&
                 petList.map((p) => {

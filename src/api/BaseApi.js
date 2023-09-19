@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { UserState } from "../state/User";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { UserInit, UserState } from "../state/User";
 import { useNavigate } from "react-router-dom";
 import { loading } from "../components/Utils/Loading";
 export const postApi = async ({ url, data }) => {
@@ -47,7 +47,10 @@ api.interceptors.response.use(
 );
 
 const useApiHooks = () => {
-  const userReset = useResetRecoilState(UserState);
+  const setUser = useSetRecoilState(UserState)
+  const userReset = ()=>{
+    setUser(UserInit);
+  }
   const navigate = useNavigate();
   const postApi = async ({ url, data }) => {
     let result;
@@ -55,7 +58,7 @@ const useApiHooks = () => {
       result = await api.post(url, data, {});
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
@@ -67,7 +70,7 @@ const useApiHooks = () => {
       }
       if (err.response.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
       throw err;
     }
@@ -83,7 +86,7 @@ const useApiHooks = () => {
       });
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
@@ -95,7 +98,7 @@ const useApiHooks = () => {
       }
       if (err.response.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
       throw err;
     }
@@ -107,7 +110,7 @@ const useApiHooks = () => {
       result = await api.put(url, data, {});
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
@@ -119,7 +122,7 @@ const useApiHooks = () => {
       }
       if (err.response.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
       throw err;
     }
@@ -134,7 +137,7 @@ const useApiHooks = () => {
     
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
@@ -147,7 +150,7 @@ const useApiHooks = () => {
 
       if (err.response.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
       throw err;
     }
@@ -161,7 +164,7 @@ const useApiHooks = () => {
       });
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
@@ -173,7 +176,7 @@ const useApiHooks = () => {
       }
       if (err.response.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
       throw err;
     }
@@ -191,7 +194,7 @@ const useApiHooks = () => {
       });
       if (result.status === 401) {
         userReset();
-        navigate("/");
+        navigate("/signin");
       }
     } catch (err) {
       console.log("err", err);

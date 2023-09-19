@@ -24,7 +24,7 @@ export default function Chat() {
       if (Array.isArray(data)) {
         setChatRoomList(data);
       }
-    });
+    }).catch(err=>(console.log(err)));
   }, []);
   useEffect(() => {
     getChatList();
@@ -32,11 +32,9 @@ export default function Chat() {
   useChat({
     ws: ws,
     onopen: (ws) => {
-      console.log(user.userId);
       ws.current.send(JSON.stringify({ type: "ENTER", userId: user.userId }));
     },
     onmessage: (ws, res) => {
-      console.log(res);
       getChatList();
     },
   });
