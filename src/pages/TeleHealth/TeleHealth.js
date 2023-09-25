@@ -85,9 +85,9 @@ export default function TeleHealth() {
 
                     <div className="chat-content">
                       <div>{v.name + " 의사"}</div>
-                      <div>{"병원이름"}</div>
-                      <div>{"진료시간"}</div>
-                      <div>{"리뷰점수 " + v.rating}</div>
+                      <div>{"병원이름 " + v.hosName}</div>
+                      <div>{"오픈시간 " + v.openHour3}</div>
+                      <div>{"리뷰점수 " + "5"}</div>
                     </div>
                   </div>
                 );

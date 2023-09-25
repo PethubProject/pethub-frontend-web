@@ -9,7 +9,7 @@ import { CommentOutlined } from "@ant-design/icons";
 import BottomTabNavigation from "../../components/Navigation/NavigationBottom";
 import BoardHeader from "../../components/Header/HeaderBoard";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserState } from "../../state/User";
 export default function TeleHealthDetail() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,9 +22,11 @@ export default function TeleHealthDetail() {
     address: "",
     openHour: "",
     closeHour: "",
+    reviewList: [],
     career: "",
   });
   const user = useRecoilValue(UserState);
+  const setUserState = useSetRecoilState(UserState);
   const navigate = useNavigate();
   const createRoom = useCallback((targetId) => {
     getApi({ url: `/api/exist/chat/${targetId}` }).then((resp) => {
@@ -52,14 +54,20 @@ export default function TeleHealthDetail() {
     });
   }, []);
 
- 
-
   const { getApi } = useApiHooks();
   //"api/vet/{vetId}"
   useEffect(() => {
     getApi({ url: `api/vet/${searchParams.get("userId")}` }).then((resp) => {
       setVetContent(resp.data.data);
+
+      setUserState((p) => ({
+        ...p,
+        ["reviewList"]: vetContent.reviewList,
+      }));
+      console.log(user.reviewList.length);
       console.log(resp.data.data);
+      console.log(user);
+      console.log(242422);
     });
   }, []);
   return (
@@ -103,10 +111,8 @@ export default function TeleHealthDetail() {
               >
                 <CommentOutlined /> 리뷰
               </span>
-              <span>{" 999 >"}</span>
+              <span>{user.reviewList.length + ">"}</span>
             </div>
-
-         
           </div>
           <br />
           <div>

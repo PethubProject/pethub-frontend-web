@@ -9,6 +9,7 @@ export const UserInit = {
   email: "",
   // authTokenResponseDto: {},
   info: {},
+  reviewList: [],
   loading: true,
 };
 
@@ -30,7 +31,6 @@ const checkSignIn = (setSelf) => {
         ...p,
         ...resp.data,
       }));
-     
     })
     .catch((err) => console.log("유저 정보 불러오기 : " + err.message))
     .finally(() => {
